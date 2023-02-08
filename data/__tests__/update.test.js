@@ -1,7 +1,10 @@
 const dree = require("dree");
 const fs = require("fs");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
-(function preparation() {
+// Make sure .DS_Store's don't ruin the file structure integrity
+(function setupGlobal() {
     if (fs.existsSync('.DS_Store')) {
         fs.unlinkSync(".DS_Store")
     }
@@ -21,7 +24,6 @@ const fs = require("fs");
 
 describe("The dtree would be for-loop", ()=>{
 
-
     test("Basic scan", function() {
         let tree = dree.scan("data/test")
         console.log(tree)
@@ -36,7 +38,7 @@ describe("The dtree would be for-loop", ()=>{
         expect(tree.children[1].isEmpty).toEqual(false)
     })
 
-});
+}); // For-loop
 
 describe("The dtree would be recursive", ()=>{
 
@@ -56,6 +58,7 @@ describe("The dtree would be recursive", ()=>{
             expect(1).not.toEqual("1")
         });
     })
+
     describe("Recursion for flattening", function() {
         test("Flatten nested array", function() {
             let flattened = [];
@@ -75,21 +78,33 @@ describe("The dtree would be recursive", ()=>{
 
             }
             let i = -1;
-            const results = recurse(subject,i,[])
+            const results = recurse(subject,i,[]);
 
             console.log({results})
             
             // Test Jest is strict with types
             expect(1).toEqual(1)
         });
-    });
-    
-    // describe("Recursion keeps nested structure but transforms the values", function() {
-    //     test("Transform each value into object {value:_value}", function() {
-            
-            
-    //     });
-    // })
+    }); // Recursion flattening
 
+describe("The dtree would be transformed into HTML elements", ()=>{
+
+    const dom = new JSDOM(`<ul id='main-tree' class='tree'></ul>`);
+
+    test("Test JS DOM get attribute", function() {
+        // As much details as needed to build the file explorer in the workouts editor
+        let tree = dree.scan("data/test", {emptyDirectory:true})
+        expect( dom.window.document.querySelector(".tree").id).toEqual("main-tree");
+    })
+    test("Test JS DOM createElement and append", function() {
+        // As much details as needed to build the file explorer in the workouts editor
+        let tree = dree.scan("data/test", {emptyDirectory:true})
+        expect(dom.window.document.querySelector(".tree").id).toEqual("main-tree");
+        let li = dom.window.document.createElement("li")
+        tree.append(li)
+        // TODO: Will set attribute, text, and conditional classes
+    })
+
+});
 
 });
