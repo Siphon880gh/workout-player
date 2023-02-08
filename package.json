@@ -18,11 +18,11 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test-old": "react-scripts test",
-        "test": "jest test",
+        "test": "clear; jest test",
         "eject": "react-scripts eject"
     },
     "jest": {
-        "modulePathIgnorePatterns": [
+        "testPathIgnorePatterns": [
             "node_modules"
         ]
     },

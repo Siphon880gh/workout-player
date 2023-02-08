@@ -3,6 +3,8 @@ const fs = require("fs");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
+const sampleFolderTree = "data/tests/test";
+
 // Make sure .DS_Store's don't ruin the file structure integrity
 (function setupGlobal() {
     if (fs.existsSync('.DS_Store')) {
@@ -11,28 +13,31 @@ const { JSDOM } = jsdom;
     if (fs.existsSync('data/.DS_Store')) {
         fs.unlinkSync("data/.DS_Store")
     }
-    if (fs.existsSync('data/test/.DS_Store')) {
-        fs.unlinkSync("data/test/.DS_Store")
+    if (fs.existsSync('data/tests/.DS_Store')) {
+        fs.unlinkSync('data/tests/.DS_Store')
     }
-    if (fs.existsSync('data/test/backend/.DS_Store')) {
-        fs.unlinkSync("data/test/backend/.DS_Store")
+    if (fs.existsSync(sampleFolderTree+'.DS_Store')) {
+        fs.unlinkSync(sampleFolderTree+'.DS_Store')
     }
-    if (fs.existsSync('data/test/backend/server/.DS_Store')) {
-        fs.unlinkSync("data/test/backend/server/.DS_Store")
+    if (fs.existsSync(sampleFolderTree+'backend/.DS_Store')) {
+        fs.unlinkSync(sampleFolderTree+'backend/.DS_Store')
+    }
+    if (fs.existsSync(sampleFolderTree+'backend/server/.DS_Store')) {
+        fs.unlinkSync(sampleFolderTree+'backend/server/.DS_Store')
     }
 })();
 
 describe("The dtree would be for-loop", ()=>{
 
     test("Basic scan", function() {
-        let tree = dree.scan("data/test")
+        let tree = dree.scan(sampleFolderTree)
         console.log(tree)
         // Expect 2, when hidden files can be seen (.gitignore)
         expect(tree.children.length).toEqual(2)
     })
 
     test("Scan with empty directory state", function() {
-        let tree = dree.scan("data/test", {emptyDirectory:true})
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
         console.log(tree)
         // If 2, then hidden files show too
         expect(tree.children[1].isEmpty).toEqual(false)
@@ -68,22 +73,24 @@ describe("The dtree would be recursive", ()=>{
 
                 i++;
                 if(i>=arr.length) {
-                    return flattened;
+                    return flattened; // Return final flattened[]
                 } else if(Array.isArray(arr[i])) {
-                    return recurse(arr[i], -1, flattened)
+                    return recurse(arr[i], -1, flattened) // Step into subarray
                 } else {
-                    flattened.push(arr[i])
-                    return recurse(arr, i, flattened)
+                    flattened.push(arr[i]); // Add to flattened[]
+                    return recurse(arr, i, flattened) // Step next
                 }
 
             }
             let i = -1;
-            const results = recurse(subject,i,[]);
+            flattened = recurse(subject,i,[]);
 
-            console.log({results})
             
             // Test Jest is strict with types
             expect(1).toEqual(1)
+
+            // Test length is as expected after flatenning
+            expect(flattened.length).toEqual(7)
         });
     }); // Recursion flattening
 
@@ -93,15 +100,18 @@ describe("The dtree would be transformed into HTML elements", ()=>{
 
     test("Test JS DOM get attribute", function() {
         // As much details as needed to build the file explorer in the workouts editor
-        let tree = dree.scan("data/test", {emptyDirectory:true})
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
         expect( dom.window.document.querySelector(".tree").id).toEqual("main-tree");
     })
     test("Test JS DOM createElement and append", function() {
         // As much details as needed to build the file explorer in the workouts editor
-        let tree = dree.scan("data/test", {emptyDirectory:true})
-        expect(dom.window.document.querySelector(".tree").id).toEqual("main-tree");
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+        let body = dom.window.document.querySelector(".tree");
+        expect(body.id).toEqual("main-tree");
+
         let li = dom.window.document.createElement("li")
-        tree.append(li)
+        body.append(li)
+        expect(body.querySelector("li").length)
         // TODO: Will set attribute, text, and conditional classes
     })
 
