@@ -12,6 +12,14 @@
         body {
             margin: 0;
             padding: 0;
+            background-color: black;
+            color: white;
+        }
+        
+        header h1 {
+            border-bottom: 1px solid rgba(191, 191, 191, .75);
+            margin: 0;
+            padding: 10px;
         }
         
         #tree-main {
@@ -25,77 +33,87 @@
             resize: horizontal;
         }
         
-        li {
+        #tree-main li {
             display: block;
             line-height: 11pt;
-            font-size: 12pt;
+            font-size: 11pt;
             cursor: pointer;
         }
         
-        li:hover {
+        #tree-main li:hover {
             background-color: rgba(191, 191, 191, .35);
         }
         
-        li::before {
+        #tree-main li::before {
             content: "|";
             color: rgba(191, 191, 191, .5);
-            font-size: 20pt;
+            font-size: 20.75pt;
             padding-left: 2.5px;
             padding-right: 2.5px;
         }
         
-        li[level="0"]::before {
+        #tree-main li[level="0"]::before {
             content: "|";
             color: transparent;
-            font-size: 20pt;
         }
         
-        [level] {
+        #tree-main li[level] {
             padding-left: 7ch;
         }
         
-        [level="0"] {
+        #tree-main li[level="0"] {
             padding-left: 0;
         }
         
-        [level="1"] {
+        #tree-main li[level="1"] {
             padding-left: 1ch;
         }
         
-        [level="2"] {
+        #tree-main li[level="2"] {
             padding-left: 2ch;
         }
         
-        [level="3"] {
+        #tree-main li[level="3"] {
             padding-left: 3ch;
         }
         
-        [level="4"] {
+        #tree-main li[level="4"] {
             padding-left: 4ch;
         }
         
-        [level="5"] {
+        #tree-main li[level="5"] {
             padding-left: 5ch;
         }
         
-        [level="6"] {
+        #tree-main li[level="6"] {
             padding-left: 6ch;
+        }
+        
+        #tree-main li.file .title::before {
+            content: "📄\20";
+        }
+        
+        #tree-main li.dir .title::before {
+            content: "📁\20";
         }
     </style>
 </head>
 
 <body>
+    <header>
+        <h1>Workout Notebook</h1>
+    </header>
     <ul id="tree-main">
-        <li id="hash1" class="file" parent="tree-main" level="0">F1</li>
-        <li id="hash2" class="file" parent="tree-main" level="0">F2</li>
-        <li id="hash3" class="file" parent="tree-main" level="0">F3</li>
-        <li id="hash4" class="dir" parent="tree-main" level="0">Dir</li>
-        <li id="hash4a" class="file" parent="hash4" level="1">D1 F1</li>
-        <li id="hash4b" class="file" parent="hash4" level="1">D1 F2</li>
-        <li id="hash4c" class="dir" parent="hash4" level="1">Dir</li>
-        <li id="hash4c1" class="file" parent="hash4c" level="2">D1 D2 F1</li>
-        <li id="hash4c1" class="file" parent="hash4c" level="2">D1 D2 F2</li>
-        <li id="hash5" class="file" parent="tree-main" level="0">F4</li>
+        <li id="hash1" class="file" parent="tree-main" level="0"><i class="icon"></i><span class="title">F1.md</span></li>
+        <li id="hash2" class="file" parent="tree-main" level="0"><i class="icon"></i><span class="title">F2.md</span></li>
+        <li id="hash3" class="file" parent="tree-main" level="0"><i class="icon"></i><span class="title">F3.md</span></li>
+        <li id="hash4" class="dir" parent="tree-main" level="0"><i class="icon"></i><span class="title">Dir</span></li>
+        <li id="hash4a" class="file" parent="hash4" level="1"><i class="icon"></i><span class="title">D1 F1.md</span></li>
+        <li id="hash4b" class="file" parent="hash4" level="1"><i class="icon"></i><span class="title">D1 F2.md</span></li>
+        <li id="hash4c" class="dir" parent="hash4" level="1"><i class="icon"></i><span class="title">Dir</span></li>
+        <li id="hash4c1" class="file" parent="hash4c" level="2"><i class="icon"></i><span class="title">D1 D2 F1.md</span></li>
+        <li id="hash4c1" class="file" parent="hash4c" level="2"><i class="icon"></i><span class="title">D1 D2 F2.md</span></li>
+        <li id="hash5" class="file" parent="tree-main" level="0"><i class="icon"></i><span class="title">F4.md</span></li>
     </ul>
 
 </body>
