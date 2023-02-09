@@ -1,0 +1,49 @@
+[{
+        "id": "hash-a084b794bc0759e7a6b77810e01874f2",
+        "className": "file",
+        "parent": "test",
+        "level": 0,
+        "path": ".gitignore",
+        "textContent": ".gitignore"
+    },
+    {
+        "id": "hash-f35b0a849476e3d099aeae22a448512e",
+        "className": "dir",
+        "parent": "test",
+        "level": 0,
+        "path": "backend",
+        "textContent": "backend"
+    },
+    {
+        "id": "hash-dfd70b60f8469fdc3ee3b3935d64d130",
+        "className": "file",
+        "parent": "backend",
+        "level": 1,
+        "path": "backend/firebase.json",
+        "textContent": "firebase.json"
+    },
+    {
+        "id": "hash-a5d5286f1e67b6cd6876223e53f999c4",
+        "className": "file",
+        "parent": "backend",
+        "level": 1,
+        "path": "backend/notes.txt",
+        "textContent": "notes.txt"
+    },
+    {
+        "id": "hash-bf3efa035ad1e230b2ea39b501226c7e",
+        "className": "dir",
+        "parent": "backend",
+        "level": 1,
+        "path": "backend/server",
+        "textContent": "server"
+    },
+    {
+        "id": "hash-78c12f5adc1848d13b1c6f07055d996e",
+        "className": "file",
+        "parent": "server",
+        "level": 2,
+        "path": "backend/server/server.js",
+        "textContent": "server.js"
+    }
+]
