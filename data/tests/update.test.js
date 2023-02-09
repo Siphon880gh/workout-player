@@ -1,7 +1,6 @@
 const dree = require("dree");
 const fs = require("fs");
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const { JSDOM } = require("jsdom");
 
 const sampleFolderTree = "data/tests/test";
 
@@ -94,27 +93,25 @@ describe("The dtree would be recursive", ()=>{
         });
     }); // Recursion flattening
 
-describe("The dtree would be transformed into HTML elements", ()=>{
+    describe("The dtree would be transformed into HTML elements", ()=>{
 
-    const dom = new JSDOM(`<ul id='main-tree' class='tree'></ul>`);
-
-    test("Test JS DOM get attribute", function() {
-        // As much details as needed to build the file explorer in the workouts editor
+        const jsdomNodes = new JSDOM('<ul id="main-tree"></ul>');
+        const ulTreeEl = jsdomNodes.window.document.querySelector("#main-tree");
         let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
-        expect( dom.window.document.querySelector(".tree").id).toEqual("main-tree");
-    })
-    test("Test JS DOM createElement and append", function() {
-        // As much details as needed to build the file explorer in the workouts editor
-        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
-        let body = dom.window.document.querySelector(".tree");
-        expect(body.id).toEqual("main-tree");
 
-        let li = dom.window.document.createElement("li")
-        body.append(li)
-        expect(body.querySelector("li").length)
-        // TODO: Will set attribute, text, and conditional classes
-    })
+        test("Test JS DOM get id", function() {
+            expect(ulTreeEl.id).toEqual("main-tree");
+        })
+        test("Test JS DOM createElement and append", function() {
 
-});
+            let li = jsdomNodes.window.document.createElement(`li`);
+            ulTreeEl.append(li)
+            expect(ulTreeEl.querySelector("li").length)
+            // TODO: Will set attribute, text, and conditional classes
+
+            console.log(ulTreeEl.outerHTML);
+        })
+
+    });
 
 });
