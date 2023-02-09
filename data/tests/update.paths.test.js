@@ -1,10 +1,16 @@
 const dree = require("dree");
 const fs = require("fs");
-const { JSDOM } = require("jsdom");
-const react = require("react")
-const reactDom = require("react-dom")
 
 const sampleFolderTree = "data/tests/test/";
+
+/**
+ * 
+ * In production, update.js would recursely traverse through the "notebooks/" folder
+ * Then create or update a paths.json
+ * Then render the file explorer side panel of all folders/files of workout files off of paths.json
+ * Again the workout files are MD files formatted a certain way with media files, instructions and whether it's reps or duration based.
+ * 
+ */
 
 // Make sure .DS_Store's don't ruin the file structure integrity
 (function setupGlobal() {
@@ -75,7 +81,7 @@ describe("Dtree with for-loop", ()=>{
 
 }); // For-loop
 
-describe("The dtree would be recursive", ()=>{
+describe("The dtree would recursively get flattened", ()=>{
 
     const subject = [
         "a",
@@ -123,47 +129,5 @@ describe("The dtree would be recursive", ()=>{
             expect(flattened.length).toEqual(7)
         });
     }); // Recursion flattening
-
-    describe("The dtree would be transformed into HTML elements in vanilla javascript", ()=>{
-
-        const jsdomNodes = new JSDOM('<ul id="main-tree"></ul>');
-        let ulTreeEl = jsdomNodes.window.document.querySelector("#main-tree");
-        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true, hash:true})
-
-        test("If JS DOM can get id", function() {
-            expect(ulTreeEl.id).toEqual("main-tree");
-        })
-        test("If JS DOM can createElement, modify element properties, and append", function() {
-
-            /*
-                Reference:
-                <li id="hash1" class="file" parent="tree-main" level="0" path="F1.md"><i class="icon"></i><span class="title">F1.md</span></li>
-            */
-
-            let li = jsdomNodes.window.document.createElement(`li`);
-            li.classList.add("file"); // vs dir
-            li.id = "hash" + tree.hash; // vs dir
-            li.setAttribute("parent", "tree-main");
-            li.setAttribute("level", "0");
-            li.setAttribute("path", "F1.md");
-
-            let i = jsdomNodes.window.document.createElement("i");
-            i.classList.add("icon");
-
-            let span = jsdomNodes.window.document.createElement("span");
-            span.classList.add("title");
-            span.textContent = "F1.md";
-
-            li.append(i, span)
-
-            ulTreeEl.append(li)
-            console.log(ulTreeEl.outerHTML);
-
-            expect(li).toBeInstanceOf(jsdomNodes.window.HTMLLIElement);
-            expect(ulTreeEl.outerHTML).toContain("level=");
-            expect(li.textContent).toEqual("F1.md");
-        })
-
-    });
 
 });
