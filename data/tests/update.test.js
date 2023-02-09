@@ -4,7 +4,7 @@ const { JSDOM } = require("jsdom");
 const react = require("react")
 const reactDom = require("react-dom")
 
-const sampleFolderTree = "data/tests/test";
+const sampleFolderTree = "data/tests/test/";
 
 // Make sure .DS_Store's don't ruin the file structure integrity
 (function setupGlobal() {
@@ -28,21 +28,50 @@ const sampleFolderTree = "data/tests/test";
     }
 })();
 
-describe("The dtree would be for-loop", ()=>{
+describe("Dtree with for-loop", ()=>{
 
-    test("Basic scan", function() {
-        let tree = dree.scan(sampleFolderTree)
-        console.log(tree)
-        // Expect 2, when hidden files can be seen (.gitignore)
-        expect(tree.children.length).toEqual(2)
-    })
-
-    test("Scan with empty directory state", function() {
+    it("Should scan", function() {
         let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
         console.log(tree)
-        // If 2, then hidden files show too
+
+        // Should expect 2 because it counts hidden files like .gitignore
+        expect(tree.children.length).toEqual(2)
+
+        // Should expect false because /backend folder is not empty
         expect(tree.children[1].isEmpty).toEqual(false)
     })
+
+
+    describe("Folder hash changes", function() {
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+        // console.log(tree)
+        let hashA1 = "", hashA2 = "", hashB = "", hashC = "";
+        
+        it("Should scan without changing hash value", ()=>{
+            hashA1 = tree.hash;
+            tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+            hashA2 = tree.hash;
+            expect(hashA1).toEqual(hashA2)
+        })
+        
+        it("Should add a file and change the hash of parent folder", ()=>{
+            // Does adding a file to the folder change the folder's hash?
+            fs.writeFileSync(sampleFolderTree+"temp.tmp", "foo", "utf8", (err)=>{});
+            expect(fs.existsSync(sampleFolderTree+'temp.tmp')).toEqual(true); // created where we expected
+            tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+            hashB = tree.hash;
+            expect(hashA2).not.toEqual(hashB)
+            
+        })
+        
+        it("Should remove a file and change the hash of parent folder", ()=>{
+            if(fs.existsSync(sampleFolderTree+'temp.tmp'))
+                fs.unlinkSync(sampleFolderTree+'temp.tmp')
+            tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+            hashC = tree.hash;
+            expect(hashB).not.toEqual(hashC)
+        })
+    }) // Folder hash changes
 
 }); // For-loop
 
@@ -53,8 +82,8 @@ describe("The dtree would be recursive", ()=>{
         "b",
         [1,2,"3",4,"5"]
     ]
-    describe("Test values", function() {
-        test("Element order is maintained in array that is nested with mixed values", function() {
+    describe("Test data structure", function() {
+        it("Should maintain element order after declaring nested mixed values", function() {
             expect(subject[0]).toEqual("a")
             expect(subject[2].length).toBeGreaterThan(0);
             expect(subject[2][0]).toEqual(1);
@@ -65,8 +94,8 @@ describe("The dtree would be recursive", ()=>{
         });
     })
 
-    describe("Recursion for flattening", function() {
-        test("Flatten nested array", function() {
+    describe("Test flattening with recursion", function() {
+        it("Should flatten the array", function() {
             let flattened = [];
             function recurse(arr, i, flattened) {
                 // Current value is arr[i]
@@ -101,10 +130,10 @@ describe("The dtree would be recursive", ()=>{
         let ulTreeEl = jsdomNodes.window.document.querySelector("#main-tree");
         let tree = dree.scan(sampleFolderTree, {emptyDirectory:true, hash:true})
 
-        test("Test JS DOM get id", function() {
+        test("If JS DOM can get id", function() {
             expect(ulTreeEl.id).toEqual("main-tree");
         })
-        test("Test JS DOM createElement, modifying element properties, and appending", function() {
+        test("If JS DOM can createElement, modify element properties, and append", function() {
 
             /*
                 Reference:
