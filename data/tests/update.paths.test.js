@@ -38,7 +38,7 @@ describe("Dtree with for-loop", ()=>{
 
     it("Should scan", function() {
         let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
-        console.log(tree)
+        console.log(JSON.stringify(tree))
 
         // Should expect 2 because it counts hidden files like .gitignore
         expect(tree.children.length).toEqual(2)
