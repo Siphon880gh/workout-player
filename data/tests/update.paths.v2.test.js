@@ -80,16 +80,6 @@ describe("The dtree would recursively get transformed and flattened for renderin
     test("Simple transformation and flattening fits dree file structure", ()=>{
         let flattened = [];
 
-        function transform(object, relativePath, level) {
-            return {
-                id: "hash"+"1", 
-                className: object?.type==="directory"?"dir":"file",
-                parent: object?.path.match(/.*\/(.*)\/.*\w+/)[1],
-                level,
-                path: relativePath,
-                textContent:object?.relativePath // actually filename from dree
-            }
-        }
         function recurse(arr, i, flattened) {
             // Current value is arr[i]
             // Beginning of array starts with -1 so can increment to 0
@@ -97,10 +87,9 @@ describe("The dtree would recursively get transformed and flattened for renderin
             if(i>=arr.length) {
                 return flattened; // Return final flattened[]
             } else if(arr[i]?.children?.length) {
-                flattened.push("dir");
+                flattened.push("dir"); // Add to flattened[]
                 return recurse(arr[i].children, -1, flattened) // This is FS directory node. Step into its children array.
             } else {
-                // let transformed = transform(arr[i], ".", -1);
                 flattened.push("file"); // Add to flattened[]
                 return recurse(arr, i, flattened) // Step next
             }
@@ -116,5 +105,6 @@ describe("The dtree would recursively get transformed and flattened for renderin
         expect(flattened.length).toEqual(6);
         expect(flattened).toEqual(["file","dir","file","file","dir","file"]);
     })
+
 
 });
