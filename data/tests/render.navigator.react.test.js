@@ -126,10 +126,7 @@ describe("React renders ul>li* as many li's as there are files and folders in th
         const f1Text = queryAllByText(/F1\.md/i);
         expect(f1Text.length).toBeGreaterThan(0);
 
-        // const f1Text = queryByText(/F1\.md/i); // doesnt work if string in multiple elements
+        // const f1Text = queryByText(/F1\.md/i); // Doesn't work if string in multiple elements
         // expect(f1Text).toBeInDocument();
-    })
-    it("Should pass as a dummy test", function () {
-        expect(1).toEqual(1);
     })
 });

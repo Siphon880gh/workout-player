@@ -49,18 +49,18 @@ describe("Dtree with for-loop", ()=>{
 
 
     describe("Folder hash changes", function() {
-        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true, hash:true})
         // console.log(tree)
         let hashA1 = "", hashA2 = "", hashB = "", hashC = "";
         
-        it("Should scan without changing hash value", ()=>{
+        it("Should NOT change the hash of the parent folder when scanned again", ()=>{
             hashA1 = tree.hash;
             tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
             hashA2 = tree.hash;
             expect(hashA1).toEqual(hashA2)
         })
         
-        it("Should add a file and change the hash of parent folder", ()=>{
+        it("Should change the hash of parent folder when added a file", ()=>{
             // Does adding a file to the folder change the folder's hash?
             fs.writeFileSync(sampleFolderTree+"temp.tmp", "foo", "utf8", (err)=>{});
             expect(fs.existsSync(sampleFolderTree+'temp.tmp')).toEqual(true); // created where we expected
@@ -70,7 +70,7 @@ describe("Dtree with for-loop", ()=>{
             
         })
         
-        it("Should remove a file and change the hash of parent folder", ()=>{
+        it("Should change the hash of parent folder when removed a file", ()=>{
             if(fs.existsSync(sampleFolderTree+'temp.tmp'))
                 fs.unlinkSync(sampleFolderTree+'temp.tmp')
             tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
