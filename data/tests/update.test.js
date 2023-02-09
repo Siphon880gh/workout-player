@@ -1,6 +1,8 @@
 const dree = require("dree");
 const fs = require("fs");
 const { JSDOM } = require("jsdom");
+const react = require("react")
+const reactDom = require("react-dom")
 
 const sampleFolderTree = "data/tests/test";
 
@@ -93,23 +95,44 @@ describe("The dtree would be recursive", ()=>{
         });
     }); // Recursion flattening
 
-    describe("The dtree would be transformed into HTML elements", ()=>{
+    describe("The dtree would be transformed into HTML elements in vanilla javascript", ()=>{
 
         const jsdomNodes = new JSDOM('<ul id="main-tree"></ul>');
-        const ulTreeEl = jsdomNodes.window.document.querySelector("#main-tree");
-        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true})
+        let ulTreeEl = jsdomNodes.window.document.querySelector("#main-tree");
+        let tree = dree.scan(sampleFolderTree, {emptyDirectory:true, hash:true})
 
         test("Test JS DOM get id", function() {
             expect(ulTreeEl.id).toEqual("main-tree");
         })
-        test("Test JS DOM createElement and append", function() {
+        test("Test JS DOM createElement, modifying element properties, and appending", function() {
+
+            /*
+                Reference:
+                <li id="hash1" class="file" parent="tree-main" level="0" path="F1.md"><i class="icon"></i><span class="title">F1.md</span></li>
+            */
 
             let li = jsdomNodes.window.document.createElement(`li`);
-            ulTreeEl.append(li)
-            expect(ulTreeEl.querySelector("li").length)
-            // TODO: Will set attribute, text, and conditional classes
+            li.classList.add("file"); // vs dir
+            li.id = "hash" + tree.hash; // vs dir
+            li.setAttribute("parent", "tree-main");
+            li.setAttribute("level", "0");
+            li.setAttribute("path", "F1.md");
 
+            let i = jsdomNodes.window.document.createElement("i");
+            i.classList.add("icon");
+
+            let span = jsdomNodes.window.document.createElement("span");
+            span.classList.add("title");
+            span.textContent = "F1.md";
+
+            li.append(i, span)
+
+            ulTreeEl.append(li)
             console.log(ulTreeEl.outerHTML);
+
+            expect(li).toBeInstanceOf(jsdomNodes.window.HTMLLIElement);
+            expect(ulTreeEl.outerHTML).toContain("level=");
+            expect(li.textContent).toEqual("F1.md");
         })
 
     });
