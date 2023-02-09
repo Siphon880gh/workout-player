@@ -60,7 +60,7 @@ describe("The dtree would be transformed into HTML elements in vanilla javascrip
         li.append(i, span)
 
         ulTreeEl.append(li)
-        console.log(ulTreeEl.outerHTML);
+        console.log({ulTreeEl: ulTreeEl.outerHTML});
 
         expect(li).toBeInstanceOf(jsdomNodes.window.HTMLLIElement);
         expect(ulTreeEl.outerHTML).toContain("level=");
