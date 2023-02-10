@@ -19,8 +19,7 @@ function App() {
         <FileNavigator/>
       
         <Routes>
-          <Route path="/view/a.md" element={<FileViewer passed="1"/>}></Route>
-          <Route path="/view/b.md" element={<FileViewer passed="2"/>}></Route>
+          <Route path="/view/*" element={<FileViewer key={window.location.pathname}/>}></Route>
         </Routes>
       </main>
       </Router>
