@@ -2,6 +2,8 @@ import "./FileNavigator.css"
 import importedLis from "./data/paths.json";
 import {useState, useEffect} from "react";
 
+import { Link } from "react-router-dom";
+
 function FileNavigator() {
   let [lis, setLis] = useState([]);
 
@@ -26,7 +28,7 @@ function FileNavigator() {
                 textContent} = li;
 
               return (
-                <li key={key} id={id} className={className} parent={parent} level={level} path={path}><i className="icon"></i><span className="title">{textContent}</span></li>
+                <li key={key} id={id} className={className} parent={parent} level={level} path={path}><Link to={"/view/"+textContent}><i className="icon"></i><span className="title">{textContent}</span></Link></li>
 
               );
             })):""

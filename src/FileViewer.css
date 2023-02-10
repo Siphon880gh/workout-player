@@ -1,4 +1,7 @@
 .file-viewer {
-    background-color: gray;
+    padding: 5px;
+    width: 100%;
+    background-color: #282c34;
     min-height: 100vh;
+    color: white;
 }

@@ -4,7 +4,7 @@ import FileViewer from "./FileViewer"
 
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
-import { Switch } from "react-router-dom";
+import { Routes } from "react-router-dom";
 
 const Router = BrowserRouter;
 
@@ -17,7 +17,11 @@ function App() {
       <Router>
       <main className="flex-row">
         <FileNavigator/>
-        <FileViewer/>
+      
+        <Routes>
+          <Route path="/view/a.md" element={<FileViewer passed="1"/>}></Route>
+          <Route path="/view/b.md" element={<FileViewer passed="2"/>}></Route>
+        </Routes>
       </main>
       </Router>
     </div>
