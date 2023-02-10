@@ -18,40 +18,56 @@ function transform(object, level) {
         textContent: object?.name // actually filename from dree
     }
 }
-function recurse(arr, i, flattened) {
-    // Current value is arr[i]
-    // Beginning of array starts with -1 so can increment to 0
-    i++;
-    if(i>=arr.length) {
-        return flattened; // Return final flattened[]
-    } else if(arr[i]?.type==="directory") { // If don't want to show empty folders, change back to: arr[i]?.children?.length
-        flattened.push(transform(arr[i])); // Add dir node to flattened[]
-        if(arr[i]?.children)
-            return recurse(arr[i].children, -1, flattened) // This is FS directory node. Step into its children array.
-        else 
-            return recurse(arr, i, flattened);
-    } else {
-        if((function acceptabledFiletype(filename) {
-            let acceptable = false;
-            acceptable = acceptable || filename.substr(filename.length-3)===".md";
-            acceptable = acceptable || filename.substr(filename.length-4)===".txt";
-            acceptable = acceptable || filename.substr(filename.length-4)===".rtf";
-            return acceptable;
-        })(arr[i].name)) { // If acceptable text format, then:
-            flattened.push(transform(arr[i])); // Add file node to flattened[]
+let recurseHelpers = {
+
+    transform: function(object) {
+        return {
+            id: "hash-"+object?.hash, 
+            className: object?.type==="directory"?"dir":"file",
+            parent: object?.path?.match(/.*\/(.*)\/.*\w+/)[1],
+            level: object?.relativePath?.split("/").length - 1,
+            path: object?.relativePath,
+            textContent: object?.name // actually filename from dree
         }
-        return recurse(arr, i, flattened) // Step next
+    },
+    validate: function(filename) {
+        let correctType = false;
+
+        if(filename.substr(-3).toLowerCase()===".md") {
+            correctType = true;
+        } else if(filename.substr(-4).toLowerCase()===".txt") { 
+            correctType = true;
+        }
+        return correctType;
     }
+} // recurseHelpers
 
+function recurse(tree) {
+
+    tree.forEach((node)=>{
+        if(node.name===".DS_Store") {
+            fs.unlinkSync(node.path);
+            return true; // next loop
+        } else if(node.type==="directory") {
+            const transformedNode = recurseHelpers.transform(node);
+            flattened = flattened.concat(transformedNode);
+            if(Array.isArray(node?.children)) // Empty folders don't have .children
+                recurse(node.children)
+        } else if(node.type==="file" && !recurseHelpers.validate(node.name)) { // filter out files that are not .md, .txt, etc
+            return true; // next loop 
+        } else if(node.type==="file") {
+            const transformedNode = recurseHelpers.transform(node);
+            flattened = flattened.concat(transformedNode);
+        }
+
+        // console.log({fType: node.type, fName: node.name})
+    });
+
+    return flattened;
 }
-let i = -1;
 
-flattened = recurse([tree],i,[]); // At object representing FS directory node "/test". Step into its children array
+flattened = recurse([tree]); // At object representing FS directory node "/test". Step into its children array
 flattened.shift(0,1);
-
-console.log({tree});
-console.log({treeString: JSON.stringify(flattened)});
+// console.log({treeString: JSON.stringify(flattened)});
 
 fs.writeFile("./src/data/paths.json", JSON.stringify(flattened), "utf8", (err)=>{})
-
-console.log({flattened})
