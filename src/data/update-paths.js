@@ -24,20 +24,34 @@ function recurse(arr, i, flattened) {
     i++;
     if(i>=arr.length) {
         return flattened; // Return final flattened[]
-    } else if(arr[i]?.children?.length) {
-        flattened.push(transform(arr[i])); // Add to flattened[]
-        return recurse(arr[i].children, -1, flattened) // This is FS directory node. Step into its children array.
+    } else if(arr[i]?.type==="directory") { // If don't want to show empty folders, change back to: arr[i]?.children?.length
+        flattened.push(transform(arr[i])); // Add dir node to flattened[]
+        if(arr[i]?.children)
+            return recurse(arr[i].children, -1, flattened) // This is FS directory node. Step into its children array.
+        else 
+            return recurse(arr, i, flattened);
     } else {
         // let transformed = transform(arr[i], ".", -1);
-        flattened.push(transform(arr[i])); // Add to flattened[]
+        if((function acceptabledFiletype(filename) {
+            let acceptable = false;
+            acceptable = acceptable || filename.substr(filename.length-3)===".md";
+            acceptable = acceptable || filename.substr(filename.length-4)===".txt";
+            acceptable = acceptable || filename.substr(filename.length-4)===".rtf";
+            return acceptable;
+        })(arr[i].name)) { // If acceptable text format, then:
+            flattened.push(transform(arr[i])); // Add file node to flattened[]
+        }
         return recurse(arr, i, flattened) // Step next
     }
 
 }
 let i = -1;
-console.log({tree});
+
 flattened = recurse([tree],i,[]); // At object representing FS directory node "/test". Step into its children array
 flattened.shift(0,1);
+
+console.log({tree});
+console.log({treeString: JSON.stringify(flattened)});
 
 fs.writeFile("./src/data/paths.json", JSON.stringify(flattened), "utf8", (err)=>{})
 
