@@ -5,10 +5,32 @@ import {Link} from "react-router-dom";
 
 function FileNavigator() {
   let [lis, setLis] = useState([]);
+  let [rerenderCode, setReeenderCode] = useState(Date.now());
 
   useEffect(()=>{
+    importedLis = importedLis.map(li=>{ li.active=false; return li; });
     setLis(importedLis);
   }, [])
+
+  function changeFolderStatus(i) {
+    if(lis[i].className==="file") {
+      return;
+    }
+
+    // Is directory
+    let newLis = lis;
+    let newStatus = !newLis[i].active;
+    lis[i].active = newStatus;
+    for(let j=i+1; j<lis.length; j++) {
+      if(lis[j].className!=="file")
+        break;
+      newLis[j].active = newStatus;
+    }
+
+    setLis(newLis);
+    setReeenderCode(Date.now()); // lis[i].active doesn't rerender component, so this is the other pattern that will make it happen
+    // console.log(lis);
+  }
 
 
     return (
@@ -27,7 +49,7 @@ function FileNavigator() {
                 textContent} = li;
 
               return (
-                <Link key={i} to={"/view/"+path}><li id={id} className={className} parent={parent} level={level} path={path}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
+                <Link key={i} to={"/view/"+path}><li id={id} rerendercode={rerenderCode} className={[className, lis[i].active?"active":""].join(" ")} parent={parent} level={level} path={path} onClick={()=>{ changeFolderStatus(i) }}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
 
               );
             })):""

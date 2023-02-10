@@ -73,7 +73,19 @@
     content: "📁\20";
 }
 
-a {
+#tree-main a {
     color: white;
     text-decoration: none;
+}
+
+
+/* Collapsing and hiding logic */
+
+#tree-main .dir.active {
+    font-weight: bold;
+}
+
+#tree-main .file:not(.active):not([level="0"]) {
+    display: none;
+    ;
 }
