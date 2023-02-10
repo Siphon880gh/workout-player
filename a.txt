@@ -1,0 +1,5 @@
+
+> workout-notebook@0.1.0 test
+> clear; jest test
+
+[H[2J[3J
