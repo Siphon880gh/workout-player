@@ -19,7 +19,7 @@ function App() {
         <FileNavigator/>
       
         <Routes>
-          <Route path="/view/*" element={<FileViewer key={window.location.pathname}/>}></Route>
+          <Route path="/view/*" element={<FileViewer/>}></Route>
         </Routes>
       </main>
       </Router>
