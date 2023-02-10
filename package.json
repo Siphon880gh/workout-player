@@ -20,8 +20,8 @@
         "jsdom": "^16.7.0"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
+        "start": "node src/data/update-paths; react-scripts start",
+        "build": "node src/data/update-paths; react-scripts build",
         "test-old": "react-scripts test",
         "test": "clear; jest test",
         "eject": "react-scripts eject"

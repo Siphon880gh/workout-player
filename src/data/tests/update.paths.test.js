@@ -1,7 +1,7 @@
 const dree = require("dree");
 const fs = require("fs");
 
-const sampleFolderTree = "data/tests/test/";
+const sampleFolderTree = "src/data/tests/test/";
 
 /**
  * 

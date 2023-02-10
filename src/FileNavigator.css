@@ -1,0 +1,74 @@
+#tree-main {
+    margin: 0;
+    padding: 10px 0;
+    border-right: 1px solid rgba(191, 191, 191, .75);
+    width: 25vw;
+    min-height: 100vh;
+    display: block;
+    overflow-x: auto;
+    resize: horizontal;
+}
+
+#tree-main li {
+    display: block;
+    line-height: 11pt;
+    font-size: 11pt;
+    cursor: pointer;
+}
+
+#tree-main li:hover {
+    background-color: rgba(191, 191, 191, .35);
+}
+
+#tree-main li::before {
+    content: "|";
+    color: rgba(191, 191, 191, .5);
+    font-size: 20.75pt;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+}
+
+#tree-main li[level="0"]::before {
+    content: "|";
+    color: transparent;
+}
+
+#tree-main li[level] {
+    padding-left: 7ch;
+}
+
+#tree-main li[level="0"] {
+    padding-left: 0;
+}
+
+#tree-main li[level="1"] {
+    padding-left: 1ch;
+}
+
+#tree-main li[level="2"] {
+    padding-left: 2ch;
+}
+
+#tree-main li[level="3"] {
+    padding-left: 3ch;
+}
+
+#tree-main li[level="4"] {
+    padding-left: 4ch;
+}
+
+#tree-main li[level="5"] {
+    padding-left: 5ch;
+}
+
+#tree-main li[level="6"] {
+    padding-left: 6ch;
+}
+
+#tree-main li.file .title::before {
+    content: "📄\20";
+}
+
+#tree-main li.dir .title::before {
+    content: "📁\20";
+}

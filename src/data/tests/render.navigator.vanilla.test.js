@@ -2,7 +2,7 @@ const dree = require("dree");
 const fs = require("fs");
 const { JSDOM } = require("jsdom");
 
-const sampleFolderTree = "data/tests/test/";
+const sampleFolderTree = "src/data/tests/test/";
 
 // Make sure .DS_Store's don't ruin the file structure integrity
 (function setupGlobal() {
