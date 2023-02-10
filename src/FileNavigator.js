@@ -16,7 +16,7 @@ function FileNavigator() {
         <ul id="tree-main">
           {
             lis.length>0?(
-            lis.map((li,key)=>{
+            lis.map((li,i)=>{
               
               const {
                 id,
@@ -27,7 +27,7 @@ function FileNavigator() {
                 textContent} = li;
 
               return (
-                <Link href={"/view/"+path}><li key={key} id={id} className={className} parent={parent} level={level} path={path}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
+                <Link key={i} to={"/view/"+path}><li id={id} className={className} parent={parent} level={level} path={path}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
 
               );
             })):""
