@@ -31,7 +31,6 @@ function recurse(arr, i, flattened) {
         else 
             return recurse(arr, i, flattened);
     } else {
-        // let transformed = transform(arr[i], ".", -1);
         if((function acceptabledFiletype(filename) {
             let acceptable = false;
             acceptable = acceptable || filename.substr(filename.length-3)===".md";

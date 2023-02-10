@@ -129,7 +129,6 @@ describe("The dtree would recursively get transformed and flattened for renderin
                 flattened.push(transform(arr[i])); // Add to flattened[]
                 return recurse(arr[i].children, -1, flattened) // This is FS directory node. Step into its children array.
             } else {
-                // let transformed = transform(arr[i], ".", -1);
                 flattened.push(transform(arr[i])); // Add to flattened[]
                 return recurse(arr, i, flattened) // Step next
             }
