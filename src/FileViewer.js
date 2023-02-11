@@ -3,8 +3,9 @@ import {useState, useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
   Video,
+  Picture,
   Detail,
-  Duration,
+  Interval,
   Sets} from "./FileViewer.Types.js";
 
 import {tickUp, reset} from "./FileViewer.Timer.js";
@@ -85,19 +86,23 @@ function FileViewer(props) {
         let lines = group.split("\n")
         let types = lines.map((line,j)=>{
           let key = ["el",i,j].join("-");
+          let data = line.split(" ");
+          data.shift(0,1); // Mutable
+
           if(j===0) {
             return (<summary key={key}>{line}</summary>)
           } else if(line.length<2) {
             return "";
-          } else if(line.indexOf("AA ")===0) {
-            return (<Video key={key}/>)
-          } else if(line.indexOf("BB ")===0) {
-            return (<Detail key={key}/>)
-          } else if(line.indexOf("CC ")===0) {
-            return (<Duration key={key}/>)
-          } else if(line.indexOf("DD ")===0) {
-            return (<Sets key={key}/>)
-          } else if(line.indexOf("CC ")===0) {
+          } else if(line.indexOf("VIDEO ")===0 || line.indexOf("VID ")===0) {
+            return (<Video key={key} data={data}/>)
+          } else if(line.indexOf("PICTURE ")===0 || line.indexOf("PIC ")===0) {
+            return (<Picture key={key} data={data}/>)
+          } else if(line.indexOf("DETAIL ")===0 || line.indexOf("DET ")===0) {
+            return (<Detail key={key} data={data}/>)
+          } else if(line.indexOf("INTERVAL ")===0 || line.indexOf("INT ")===0) {
+            return (<Interval key={key} data={data}/>)
+          } else if(line.indexOf("SET ")===0) {
+            return (<Sets key={key} data={data}/>)
           }
           return (<div key={key}></div>)
         })

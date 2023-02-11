@@ -31,3 +31,8 @@ summary {
 #play-mode .icon:not(.active) {
     display: none;
 }
+
+.picture img {
+    max-width: 50vw;
+    max-height: 50vh;
+}

@@ -33,7 +33,7 @@ PICTURE gif/etc
 VIDEO yt/etc 3:01 na(NA)(N/A)
 DETAIL <Your_text>
 DETAIL <Your_text>
-ROUND 5s 30s na
+INTERVAL 5s 30s na
 SET 5r 30s
 SET 5r na
 ```
