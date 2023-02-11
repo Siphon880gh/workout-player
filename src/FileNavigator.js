@@ -51,9 +51,24 @@ function FileNavigator() {
                 descendants,
                 textContent} = li;
 
-              return (
-                <Link key={i} to={"/view/"+path}><li id={id} rerendercode={rerenderCode} className={[className, lis[i].active?"active":""].join(" ")} parent={parent} level={level} path={path} descendants={descendants} onClick={(event)=>{ changeFolderStatus(i, parseInt(event.target.getAttribute("level"))) }}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
+              function onlyFilesChangeRoutes(wrappedInside) {
+                if(className==="file") {
+                  return (
+                  <Link key={i} to={"/view/"+path}>
+                    {wrappedInside}
+                  </Link>
+                  );
+                  }
 
+                  return (
+                    <span class="no-link">
+                      {wrappedInside}
+                    </span>
+                  )
+              }
+
+              return (
+                onlyFilesChangeRoutes(<li id={id} rerendercode={rerenderCode} className={[className, lis[i].active?"active":""].join(" ")} parent={parent} level={level} path={path} descendants={descendants} onClick={(event)=>{ changeFolderStatus(i, parseInt(event.target.getAttribute("level"))) }}><i className="icon"></i><span className="title">{textContent}</span></li>)
               );
             })):""
           }
