@@ -5,13 +5,19 @@ import {
   Video,
   Detail,
   Duration,
-  Sets} from "./FileView.Types.js"
+  Sets} from "./FileViewer.Types.js"
 
 
 function FileViewer(props) {
 
+  // Changed route
   let [relativePath, setRelativePath] = useState("");
+
+  // LOad text file into HTML
   let [html, setHTML] = useState("");
+
+  // Counter when playing
+  let [playing, setPlayMode] = useState(true);
 
 
   useEffect(()=>{
@@ -44,23 +50,24 @@ function FileViewer(props) {
        */
 
       let groups = data.split(/---/gm);
-      groups = groups.map(group=>{
+      groups = groups.map((group,i)=>{
         group = group.trim(); // removes newlines before and after
         console.log(group);
         let lines = group.split("\n")
-        let types = lines.map((line,i)=>{
-          if(i===0) {
-            return (<summary>{line}</summary>)
+        let types = lines.map((line,j)=>{
+          let key = ["el",i,j].join("-");
+          if(j===0) {
+            return (<summary key={key}>{line}</summary>)
           } else if(line.length<2) {
             return "";
           } else if(line.indexOf("AA ")===0) {
-            return (<Video/>)
+            return (<Video key={key}/>)
           } else if(line.indexOf("BB ")===0) {
-            return (<Detail/>)
+            return (<Detail key={key}/>)
           } else if(line.indexOf("CC ")===0) {
-            return (<Duration/>)
+            return (<Duration key={key}/>)
           } else if(line.indexOf("DD ")===0) {
-            return (<Sets/>)
+            return (<Sets key={key}/>)
           } else if(line.indexOf("CC ")===0) {
             
           }
@@ -70,7 +77,7 @@ function FileViewer(props) {
 
       let expandables = groups.map((group,i)=>{ // group is an array of elements
         return (
-          <details key={"exercise-"+i}>
+          <details key={"ex-"+i}>
             {group}
           </details>
         )
@@ -84,7 +91,13 @@ function FileViewer(props) {
 
     return (
       <div className="file-viewer">
-        {html}
+        <div className="file-viewer-contents">
+          {html}
+        </div>
+        <span id="play-mode" onClick={()=>setPlayMode(!playing)}>
+          <div className={["icon", "icon-play", !playing?"active":""].join(" ")}>⏯</div>
+          <div className={["icon", "icon-pause", playing?"active":""].join(" ")}>⏸</div>
+        </span>
       </div>
     );
   }
