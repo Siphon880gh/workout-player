@@ -73,4 +73,7 @@ flattened = recurse([tree]); // At object representing FS directory node "/test"
 flattened.shift(0,1);
 // console.log({treeString: JSON.stringify(flattened)});
 
-fs.writeFile("./src/data/paths.json", JSON.stringify(flattened), "utf8", (err)=>{})
+fs.writeFile("public/data/paths.json", JSON.stringify(flattened), "utf8", (err)=>{
+    if(err)
+        console.error(err)
+})

@@ -5,10 +5,6 @@ function FileViewer(props) {
 
   let [relativePath, setRelativePath] = useState("");
 
-  const usePathname = () => {
-    const location = useLocation();
-    return location.pathname;
-  }
 
   useEffect(()=>{
 
