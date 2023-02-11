@@ -15,12 +15,16 @@ function FileViewer(props) {
   // Changed route
   let [relativePath, setRelativePath] = useState("");
 
-  // LOad text file into HTML
+  // Load text file into HTML
   let [html, setHTML] = useState("");
 
   // Counter when playing
   let [playing, setPlayMode] = useState(true);
   let [elapsed, setElapsed] = useState(-1);
+
+  // Counter for youtube, etc
+  let [playingMedia, setPlayModeMedia] = useState(false);
+  let [elapsedMedia, setElapsedMedia] = useState(-1);
 
   let [atExercise, setAtExercise] = useState(0);
   let [workoutLength, setWorkoutLength] = useState(0);
@@ -118,6 +122,10 @@ function FileViewer(props) {
     tickUp({playing, setElapsed, elapsed})
   }, [playing, elapsed])
 
+  useEffect(()=>{
+    tickUp({playing:playingMedia, setElapsed:setElapsedMedia, elapsed:elapsedMedia})
+  }, [playingMedia, elapsedMedia])
+
     return (
       <div className="file-viewer">
         <div className="file-viewer-contents">
@@ -130,6 +138,13 @@ function FileViewer(props) {
           </div>
           <div>{elapsed}</div>
           <div>playing {playing?"T":"F"}</div>
+          <hr/>
+          <div  onClick={()=>setPlayModeMedia(!playingMedia)}>
+            <div className={["icon", "icon-play", !playingMedia?"active":""].join(" ")}>⏯</div>
+            <div className={["icon", "icon-pause", playingMedia?"active":""].join(" ")}>⏸</div>
+          </div>
+          <div>{elapsedMedia}</div>
+          <div>playing {playingMedia?"T":"F"}</div>
           <hr/>
           <div style={{cursor:"pointer"}} onClick={()=>{ incrementWorkout() }}>⏭</div>
           <div>atExercise {atExercise}</div>
