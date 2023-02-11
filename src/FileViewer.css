@@ -4,4 +4,14 @@
     background-color: #282c34;
     min-height: 100vh;
     color: white;
+    border-left: 1px solid rgba(191, 191, 191, .75);
+    text-align: center;
+}
+
+details {
+    margin: 10px auto;
+}
+
+details[open] summary {
+    background-color: red;
 }

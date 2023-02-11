@@ -1,28 +1,31 @@
-AA
-BB
-CC
+Exercise 1
+AA 
+BB 
+CC 
 
-DD
-dd
+DD 
+dd 
 
-EE
-
----
-AA
-BB
-CC
-
-DD
-dd
-
-EE
+EE 
 
 ---
-AA
-BB
-CC
+Exercise 2
+AA 
+BB 
+CC 
 
-DD
-dd
+DD 
+dd 
 
-EE
+EE 
+
+---
+Exercise 3
+AA 
+BB 
+CC 
+
+DD 
+dd 
+
+EE 

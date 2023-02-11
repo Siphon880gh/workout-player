@@ -27,10 +27,10 @@ You'll have to run a command to update the Notebook when you change your workout
 ## Follow the MD format:
 
 ```
-PICTURE gif etc
-PICTURE gif etc
-VIDEO yt
-3:01 na(NA)(N/A)
+title
+PICTURE gif/etc
+PICTURE gif/etc
+VIDEO yt/etc 3:01 na(NA)(N/A)
 DETAIL <Your_text>
 DETAIL <Your_text>
 ROUND 5s 30s na
