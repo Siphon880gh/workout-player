@@ -6,7 +6,6 @@ DETAIL With feet on the floor, lift...
 
 SET 5r 30s
 SET 6r 45s
-INTERVAL 5s 30s na
 
 ---
 Exercise 2

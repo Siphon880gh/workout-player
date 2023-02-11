@@ -32,6 +32,11 @@ summary {
     display: none;
 }
 
+.picture {
+    display: inline-block;
+    margin: 5px 5px 0 0;
+}
+
 .picture img {
     max-width: 50vw;
     max-height: 50vh;
