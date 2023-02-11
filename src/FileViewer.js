@@ -24,12 +24,6 @@ function FileViewer(props) {
 
   let [atExercise, setAtExercise] = useState(0);
   let [workoutLength, setWorkoutLength] = useState(0);
-  let [finishedWorkout, setFinishedWorkout] = useState(false);
-
-  let [atRound, setAtRound] = useState(-1);
-  function resetRound() {
-    setAtRound(0)
-  }
   function incrementWorkout() {
     if(atExercise===workoutLength) {
       setAtExercise(-1)
@@ -37,7 +31,18 @@ function FileViewer(props) {
     } else {
       setAtExercise(atExercise + 1)
     }
-  }
+  } // incrementWorkout
+  let [finishedWorkout, setFinishedWorkout] = useState(false);
+
+  let [atRound, setAtRound] = useState(-1);
+  let [roundsLength, setRoundsLength] = useState(10);
+  function incrementRound() {
+    if(atRound===roundsLength) {
+      setAtRound(0)
+    } else {
+      setAtRound(atRound + 1)
+    }
+  } // incrementRound
 
   useEffect(()=>{
 
@@ -131,6 +136,7 @@ function FileViewer(props) {
           <div>workoutLength {workoutLength}</div>
           <div>finWO {finishedWorkout?"T":"F"}</div>
           <hr/>
+          <div style={{cursor:"pointer"}} onClick={()=>{ incrementRound() }}>⏭</div>
           <div>atRound {atRound}</div>
         </span>
       </div>
