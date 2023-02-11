@@ -26,22 +26,36 @@ You'll have to run a command to update the Notebook when you change your workout
 
 ## Follow the MD format:
 
+Format
 ```
-title
-PICTURE gif/etc
-PICTURE gif/etc
-VIDEO yt/etc 3:01 na(NA)(N/A)
-DETAIL <Your_text>
-DETAIL <Your_text>
+<exercise_title>
+PICTURE <gif/etc link>
+PICTURE <gif/etc link>
+VIDEO yt/etc <timemark_or_na> <timemark_or_na>
+DETAIL <your_text>
+DETAIL <your_text>
+INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
+SET <reps> <rest_duration>
+SET <reps> <rest_duration>
+```
+
+Example
+```
+<exercise_title>
+PICTURE <gif/etc link>
+PICTURE <gif/etc link>
+VIDEO yt/etc 3:01 na
+DETAIL <your_text>
+DETAIL <your_text>
 INTERVAL 5s 30s na
 SET 5r 30s
 SET 5r na
 ```
 
-- Picture is in MD format like `![Alt Text](https://link-to-pic)`
-- Video source line is link to Youtube in MD format like `[However you want to call it](https://wwww.youtube.com/...)`
-- After Video you have a Video Time to set the playing start time and end time. If you don't want an end time and have the video playthrough from - the start time: Have either na NA or N/A. You can have it start at 0:00
-- Detail are your paragraphs. You can haev as many as possible.
-- Then you have either ROUND or SET. You can have many as possible. To explain further:
+- Picture is a link like`https://link-to-pic`
+- Video is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is.
+- After Video separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
+- Detail is your paragraph of explanation. You can have as many as possible on different lines.
+- Then you have either ROUND or SET. You can have many as possible on different lines. To explain further:
 - Round is Getting ready duration, Active duration, and Rest period after
-- Set is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m 30s)
+- Set is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
