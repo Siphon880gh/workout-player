@@ -37,3 +37,11 @@ header h1 {
     align-items: flex-start;
     flex-flow: row nowrap;
 }
+
+#toggle-sidebar {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    cursor: pointer;
+    font-size: 16pt;
+}
