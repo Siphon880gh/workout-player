@@ -27,6 +27,7 @@ let recurseHelpers = {
             parent: object?.path?.match(/.*\/(.*)\/.*\w+/)[1],
             level: object?.relativePath?.split("/").length - 1,
             path: object?.relativePath,
+            descendants: object?.descendants ? object?.descendants: 0,
             textContent: object?.name // actually filename from dree
         }
     },
@@ -51,6 +52,7 @@ function recurse(tree) {
         } else if(node.type==="directory") {
             const transformedNode = recurseHelpers.transform(node);
             flattened = flattened.concat(transformedNode);
+            // console.log(node)
             if(Array.isArray(node?.children)) // Empty folders don't have .children
                 recurse(node.children)
         } else if(node.type==="file" && !recurseHelpers.validate(node.name)) { // filter out files that are not .md, .txt, etc
@@ -58,6 +60,7 @@ function recurse(tree) {
         } else if(node.type==="file") {
             const transformedNode = recurseHelpers.transform(node);
             flattened = flattened.concat(transformedNode);
+            // console.log(node)
         }
 
         // console.log({fType: node.type, fName: node.name})

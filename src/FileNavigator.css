@@ -85,6 +85,18 @@
     font-weight: bold;
 }
 
+#tree-main .dir:not(.active) {
+    font-style: italic;
+}
+
+#tree-main .dir:not(.active)::after {
+    content: "\00a0\00a0(" attr(descendants) ")";
+}
+
 #tree-main .file:not(.active):not([level="0"]) {
+    display: none;
+}
+
+#tree-main .dir:not(.active):not([level="0"]) {
     display: none;
 }

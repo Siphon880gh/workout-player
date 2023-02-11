@@ -12,17 +12,19 @@ function FileNavigator() {
     setLis(importedLis);
   }, [])
 
-  function changeFolderStatus(i) {
-    if(lis[i].className==="file") {
+  function changeFolderStatus(i, level) {
+    if(lis[i].className==="file") { // we do not expand a file
+      return;
+    } else if(i+1>=importedLis.length || (lis[i+1].level !== level+1)) { // nothing to expand
       return;
     }
 
     // Is directory
     let newLis = lis;
-    let newStatus = !newLis[i].active;
-    lis[i].active = newStatus;
+    let newStatus = !newLis[i+1].active;
+    newLis[i].active = newStatus;
     for(let j=i+1; j<lis.length; j++) {
-      if(lis[j].className!=="file")
+      if(lis[j].level!==level+1) // If the flattened node is no longer at the next level, we are done showing files/folders from expanding
         break;
       newLis[j].active = newStatus;
     }
@@ -46,10 +48,11 @@ function FileNavigator() {
                 parent,
                 level,
                 path,
+                descendants,
                 textContent} = li;
 
               return (
-                <Link key={i} to={"/view/"+path}><li id={id} rerendercode={rerenderCode} className={[className, lis[i].active?"active":""].join(" ")} parent={parent} level={level} path={path} onClick={()=>{ changeFolderStatus(i) }}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
+                <Link key={i} to={"/view/"+path}><li id={id} rerendercode={rerenderCode} className={[className, lis[i].active?"active":""].join(" ")} parent={parent} level={level} path={path} descendants={descendants} onClick={(event)=>{ changeFolderStatus(i, parseInt(event.target.getAttribute("level"))) }}><i className="icon"></i><span className="title">{textContent}</span></li></Link>
 
               );
             })):""
