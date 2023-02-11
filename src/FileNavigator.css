@@ -65,12 +65,16 @@
     padding-left: 6ch;
 }
 
-#tree-main li.file .title::before {
+#tree-main li.file .icon::before {
     content: "📄\20";
 }
 
-#tree-main li.dir .title::before {
+#tree-main li.dir:not(.active) .icon::before {
     content: "📁\20";
+}
+
+#tree-main li.dir.active .icon::before {
+    content: "📂\20";
 }
 
 #tree-main a {
@@ -85,7 +89,7 @@
     font-weight: bold;
 }
 
-#tree-main .dir:not(.active) {
+#tree-main .dir:not(.active) .title {
     font-style: italic;
 }
 
@@ -94,9 +98,5 @@
 }
 
 #tree-main .file:not(.active):not([level="0"]) {
-    display: none;
-}
-
-#tree-main .dir:not(.active):not([level="0"]) {
     display: none;
 }
