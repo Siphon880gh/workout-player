@@ -5,7 +5,9 @@ import {
   Video,
   Detail,
   Duration,
-  Sets} from "./FileViewer.Types.js"
+  Sets} from "./FileViewer.Types.js";
+
+import {tickUp, reset} from "./FileViewer.Timer.js";
 
 
 function FileViewer(props) {
@@ -18,6 +20,7 @@ function FileViewer(props) {
 
   // Counter when playing
   let [playing, setPlayMode] = useState(true);
+  let [elapsed, setElapsed] = useState(-1);
 
 
   useEffect(()=>{
@@ -77,7 +80,7 @@ function FileViewer(props) {
 
       let expandables = groups.map((group,i)=>{ // group is an array of elements
         return (
-          <details key={"ex-"+i}>
+          <details key={"ex-"+i} className="exercise" id={["exercise", i].join("-")}>
             {group}
           </details>
         )
@@ -89,6 +92,10 @@ function FileViewer(props) {
 
   },[relativePath])
 
+  useEffect(()=>{
+    tickUp({playing, setElapsed, elapsed})
+  }, [playing, elapsed])
+
     return (
       <div className="file-viewer">
         <div className="file-viewer-contents">
@@ -97,6 +104,7 @@ function FileViewer(props) {
         <span id="play-mode" onClick={()=>setPlayMode(!playing)}>
           <div className={["icon", "icon-play", !playing?"active":""].join(" ")}>⏯</div>
           <div className={["icon", "icon-pause", playing?"active":""].join(" ")}>⏸</div>
+          <div>{elapsed}</div>
         </span>
       </div>
     );
