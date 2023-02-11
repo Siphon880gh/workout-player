@@ -6,7 +6,7 @@ import {
   Picture,
   Detail,
   Interval,
-  Sets} from "./FileViewer.Types.js";
+  Set} from "./FileViewer.Types.js";
 
 import {tickUp, reset} from "./FileViewer.Timer.js";
 
@@ -85,7 +85,9 @@ function FileViewer(props) {
        */
 
       let groups = data.split(/---/gm);
-      setWorkoutLength(groups.length);
+      // setWorkoutLength(groups.length); // TODO:
+      setWorkoutLengths([]);
+
       groups = groups.map((group,i)=>{
         group = group.trim(); // removes newlines before and after
         // console.log(group);
@@ -94,6 +96,7 @@ function FileViewer(props) {
         let specializeVideo = false;
 
         let lines = group.split("\n")
+
         let types = lines.map((line,j)=>{
           let key = ["el",i,j].join("-");
           let data = line.split(" ");
@@ -116,24 +119,45 @@ function FileViewer(props) {
           } else if(line.indexOf("DETAIL ")===0 || line.indexOf("DET ")===0) {
             return (<Detail key={key} data={data}/>)
           } else if(line.indexOf("INTERVAL ")===0 || line.indexOf("INT ")===0) {
-            if(specializeVideo===false) {
-              specializeVideo = "INTERVAL"
-            } else if(specializeVideo!=="INTERVAL") {
+            if(specializeExercise===false) {
+              specializeExercise = "INTERVAL"
+            } else if(specializeExercise!=="INTERVAL") {
               displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
               return "";
+            }
+            if(i>=workoutLengths.length) {
+              console.log("Creating new workout lengths slot")
+              workoutLengths.push(1)
+              setWorkoutLengths(workoutLengths);
+            } else {
+              console.log("Updating top workout lengths slot")
+              workoutLengths[i] = workoutLengths[i] + 1;
+              setWorkoutLengths(workoutLengths);
             }
             return (<Interval key={key} data={data}/>)
           } else if(line.indexOf("SET ")===0) {
-            if(specializeVideo===false) {
-              specializeVideo = "SET"
-            } else if(specializeVideo!=="SET") {
+            if(specializeExercise===false) {
+              specializeExercise = "SET"
+            } else if(specializeExercise!=="SET") {
               displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
               return "";
             }
-            return (<Sets key={key} data={data}/>)
+            if(i>=workoutLengths.length) {
+              console.log("Creating new workout lengths slot")
+              workoutLengths.push(1)
+              setWorkoutLengths(workoutLengths);
+            } else {
+              console.log("Updating top workout lengths slot")
+              workoutLengths[i] = workoutLengths[i] + 1;
+              setWorkoutLengths(workoutLengths);
+            }
+            return (<Set key={key} data={data}/>)
           }
-          return (<div key={key}></div>)
         })
+
+        if(i>=workoutLengths.length) {
+          workoutLengths.push(0)
+        }
         return types;
       }) // map
 
@@ -165,27 +189,31 @@ function FileViewer(props) {
           {html}
         </div>
         <span id="play-mode">
-          <div  onClick={()=>setPlayMode(!playing)}>
+          <div onClick={()=>setPlayMode(!playing)}>
             <div className={["icon", "icon-play", !playing?"active":""].join(" ")}>⏯</div>
             <div className={["icon", "icon-pause", playing?"active":""].join(" ")}>⏸</div>
           </div>
-          <div>{elapsed}</div>
-          <div>playing {playing?"T":"F"}</div>
-          <hr/>
-          <div  onClick={()=>setPlayModeMedia(!playingMedia)}>
-            <div className={["icon", "icon-play", !playingMedia?"active":""].join(" ")}>⏯</div>
-            <div className={["icon", "icon-pause", playingMedia?"active":""].join(" ")}>⏸</div>
+          <div id="test-diagnostics" style={{backgroundColor:"gray", borderRadius:"5px", padding:"10px", marginTop:"10px", opacity:.95}}>
+            <div>{elapsed}</div>
+            <div>playing {playing?"T":"F"}</div>
+            <hr/>
+            <div  onClick={()=>setPlayModeMedia(!playingMedia)}>
+              <div className={["icon", "icon-play", !playingMedia?"active":""].join(" ")}>⏯</div>
+              <div className={["icon", "icon-pause", playingMedia?"active":""].join(" ")}>⏸</div>
+            </div>
+            <div>{elapsedMedia}</div>
+            <div>playing {playingMedia?"T":"F"}</div>
+            <hr/>
+            <div style={{cursor:"pointer"}} onClick={()=>{ incrementWorkout() }}>⏭</div>
+            <div>atExercise {atExercise}</div>
+            <div>workoutLength {workoutLength}</div>
+            <div>finWO {finishedWorkout?"T":"F"}</div>
+            <hr/>
+            <div style={{cursor:"pointer"}} onClick={()=>{ incrementRound() }}>⏭</div>
+            <div>atRound {atRound}</div>
+            <hr/>
+            <div>woLens {workoutLengths.join(",")}</div>
           </div>
-          <div>{elapsedMedia}</div>
-          <div>playing {playingMedia?"T":"F"}</div>
-          <hr/>
-          <div style={{cursor:"pointer"}} onClick={()=>{ incrementWorkout() }}>⏭</div>
-          <div>atExercise {atExercise}</div>
-          <div>workoutLength {workoutLength}</div>
-          <div>finWO {finishedWorkout?"T":"F"}</div>
-          <hr/>
-          <div style={{cursor:"pointer"}} onClick={()=>{ incrementRound() }}>⏭</div>
-          <div>atRound {atRound}</div>
         </span>
       </div>
     );

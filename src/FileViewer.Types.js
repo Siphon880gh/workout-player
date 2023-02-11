@@ -29,9 +29,9 @@ function Interval() {
     )
 }
 
-function Sets() {
+function Set() {
     return (
-        <div className="sets">Sets type</div>
+        <div className="sets">Set type</div>
     )
 }
 
@@ -41,5 +41,5 @@ export {
     Picture,
     Detail,
     Interval,
-    Sets
+    Set
 }
