@@ -10,7 +10,6 @@ import {
 
 import {tickUp, reset} from "./FileViewer.Timer.js";
 
-
 function FileViewer(props) {
 
   // Changed route
@@ -29,6 +28,13 @@ function FileViewer(props) {
 
   let [atExercise, setAtExercise] = useState(0);
   let [workoutLength, setWorkoutLength] = useState(0);
+  let [workoutLengths, setWorkoutLengths] = useState([]);
+
+  function displayError(msg) {
+    // TODO: Should appear on the website as a slide-in then slide-out, so immediately know format errors of the workout text file
+    console.error(msg);
+  }
+
   function incrementWorkout() {
     if(atExercise===workoutLength) {
       setAtExercise(-1)
@@ -52,7 +58,7 @@ function FileViewer(props) {
   useEffect(()=>{
 
     // Decided against useParams hook so I don't have to code for every single level of /../../
-    console.log("Changed file viewer")
+    // console.log("Changed file viewer")
     const newRelativePath= window.location.href.substr(window.location.href.indexOf("/view/")+"/view/".length);
     setRelativePath(newRelativePath)
 
@@ -65,11 +71,11 @@ function FileViewer(props) {
 
     const uriBeforeViewPath = window.location.href.substr(0,window.location.href.indexOf("/view")+1);
     const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + relativePath;
-    console.log({relativePath, uriBeforeViewPath, constructedRequestURI})
+    // console.log({relativePath, uriBeforeViewPath, constructedRequestURI})
 
     fetch(constructedRequestURI).then(response=>response.text()).then(data=>{
-      console.log({constructedRequestURI})
-      console.log({data:data.split(/---/gm)})
+      // console.log({constructedRequestURI})
+      // console.log({data:data.split(/---/gm)})
 
       /**
        * Video
@@ -82,7 +88,11 @@ function FileViewer(props) {
       setWorkoutLength(groups.length);
       groups = groups.map((group,i)=>{
         group = group.trim(); // removes newlines before and after
-        console.log(group);
+        // console.log(group);
+        // Only allow rep or set, but not both; Only allow one video.
+        let specializeExercise = false;
+        let specializeVideo = false;
+
         let lines = group.split("\n")
         let types = lines.map((line,j)=>{
           let key = ["el",i,j].join("-");
@@ -94,14 +104,32 @@ function FileViewer(props) {
           } else if(line.length<2) {
             return "";
           } else if(line.indexOf("VIDEO ")===0 || line.indexOf("VID ")===0) {
+            if(specializeVideo===false) {
+              specializeVideo = "YT"
+            } else {
+              displayError("Error: You are only allowed one video @ "+groups[0])
+              return "";
+            }
             return (<Video key={key} data={data}/>)
           } else if(line.indexOf("PICTURE ")===0 || line.indexOf("PIC ")===0) {
             return (<Picture key={key} data={data}/>)
           } else if(line.indexOf("DETAIL ")===0 || line.indexOf("DET ")===0) {
             return (<Detail key={key} data={data}/>)
           } else if(line.indexOf("INTERVAL ")===0 || line.indexOf("INT ")===0) {
+            if(specializeVideo===false) {
+              specializeVideo = "INTERVAL"
+            } else if(specializeVideo!=="INTERVAL") {
+              displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
+              return "";
+            }
             return (<Interval key={key} data={data}/>)
           } else if(line.indexOf("SET ")===0) {
+            if(specializeVideo===false) {
+              specializeVideo = "SET"
+            } else if(specializeVideo!=="SET") {
+              displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
+              return "";
+            }
             return (<Sets key={key} data={data}/>)
           }
           return (<div key={key}></div>)

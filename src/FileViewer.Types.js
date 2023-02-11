@@ -6,7 +6,7 @@ function Video() {
 }
 
 function Picture({data}) {
-    console.log({data})
+    // console.log({data})
     return (
         <div className="picture"><img src={data[0]}></img></div>
     )
