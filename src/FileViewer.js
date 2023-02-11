@@ -22,6 +22,22 @@ function FileViewer(props) {
   let [playing, setPlayMode] = useState(true);
   let [elapsed, setElapsed] = useState(-1);
 
+  let [atExercise, setAtExercise] = useState(0);
+  let [workoutLength, setWorkoutLength] = useState(0);
+  let [finishedWorkout, setFinishedWorkout] = useState(false);
+
+  let [atRound, setAtRound] = useState(-1);
+  function resetRound() {
+    setAtRound(0)
+  }
+  function incrementWorkout() {
+    if(atExercise===workoutLength) {
+      setAtExercise(-1)
+      setFinishedWorkout(true);
+    } else {
+      setAtExercise(atExercise + 1)
+    }
+  }
 
   useEffect(()=>{
 
@@ -53,6 +69,7 @@ function FileViewer(props) {
        */
 
       let groups = data.split(/---/gm);
+      setWorkoutLength(groups.length);
       groups = groups.map((group,i)=>{
         group = group.trim(); // removes newlines before and after
         console.log(group);
@@ -72,15 +89,15 @@ function FileViewer(props) {
           } else if(line.indexOf("DD ")===0) {
             return (<Sets key={key}/>)
           } else if(line.indexOf("CC ")===0) {
-            
           }
+          return (<div key={key}></div>)
         })
         return types;
-      })
+      }) // map
 
       let expandables = groups.map((group,i)=>{ // group is an array of elements
         return (
-          <details key={"ex-"+i} className="exercise" id={["exercise", i].join("-")}>
+          <details key={"ex-"+i} className="exercise" id={["exercise", i].join("-")} open={atExercise===i}>
             {group}
           </details>
         )
@@ -101,10 +118,20 @@ function FileViewer(props) {
         <div className="file-viewer-contents">
           {html}
         </div>
-        <span id="play-mode" onClick={()=>setPlayMode(!playing)}>
-          <div className={["icon", "icon-play", !playing?"active":""].join(" ")}>⏯</div>
-          <div className={["icon", "icon-pause", playing?"active":""].join(" ")}>⏸</div>
+        <span id="play-mode">
+          <div  onClick={()=>setPlayMode(!playing)}>
+            <div className={["icon", "icon-play", !playing?"active":""].join(" ")}>⏯</div>
+            <div className={["icon", "icon-pause", playing?"active":""].join(" ")}>⏸</div>
+          </div>
           <div>{elapsed}</div>
+          <div>playing {playing?"T":"F"}</div>
+          <hr/>
+          <div style={{cursor:"pointer"}} onClick={()=>{ incrementWorkout() }}>⏭</div>
+          <div>atExercise {atExercise}</div>
+          <div>workoutLength {workoutLength}</div>
+          <div>finWO {finishedWorkout?"T":"F"}</div>
+          <hr/>
+          <div>atRound {atRound}</div>
         </span>
       </div>
     );
