@@ -61,7 +61,7 @@ function FileNavigator() {
                   }
 
                   return (
-                    <span className="no-link">
+                    <span key={i} className="no-link">
                       {wrappedInside}
                     </span>
                   )
