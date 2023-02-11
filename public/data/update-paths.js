@@ -1,7 +1,7 @@
 const dree = require("dree");
 const fs = require("fs");
 
-const notebooksFolder = "src/data/notebooks/";
+const notebooksFolder = "public/data/notebooks/";
 
 let tree = {}
 tree = dree.scan(notebooksFolder, {emptyDirectory:true, hash:true, descendants:true});

@@ -2,18 +2,21 @@ const dree = require("dree");
 const fs = require("fs");
 const { JSDOM } = require("jsdom");
 
-const sampleFolderTree = "src/data/tests/test/";
+const sampleFolderTree = "public/data/tests/test/";
 
 // Make sure .DS_Store's don't ruin the file structure integrity
 (function setupGlobal() {
     if (fs.existsSync('.DS_Store')) {
         fs.unlinkSync(".DS_Store")
     }
-    if (fs.existsSync('data/.DS_Store')) {
-        fs.unlinkSync("data/.DS_Store")
+    if (fs.existsSync('public/.DS_Store')) {
+        fs.unlinkSync("public/.DS_Store")
     }
-    if (fs.existsSync('data/tests/.DS_Store')) {
-        fs.unlinkSync('data/tests/.DS_Store')
+    if (fs.existsSync('public/data/.DS_Store')) {
+        fs.unlinkSync('public/data/.DS_Store')
+    }
+    if (fs.existsSync('public/data/tests/.DS_Store')) {
+        fs.unlinkSync('public/data/tests/.DS_Store')
     }
     if (fs.existsSync(sampleFolderTree+'.DS_Store')) {
         fs.unlinkSync(sampleFolderTree+'.DS_Store')

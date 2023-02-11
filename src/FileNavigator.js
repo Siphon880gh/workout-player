@@ -1,5 +1,5 @@
 import "./FileNavigator.css"
-import importedLis from "./data/paths.json";
+import importedLis from "./paths.json";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 
