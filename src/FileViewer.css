@@ -9,7 +9,8 @@
 }
 
 details {
-    margin: 10px auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 details[open] summary {
@@ -40,6 +41,6 @@ summary {
 .picture img {
     max-width: 50vw;
     min-width: 50vw;
-    max-height: 50vh;
-    min-height: 50vh;
+    max-width: auto;
+    min-width: auto;
 }

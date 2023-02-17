@@ -52,6 +52,15 @@ SET 5r 30s
 SET 5r na
 ```
 
+Blank lines in the text format will carry over to the app so if you want to add some spacing, just add blank spaces:
+```
+PICTURE <gif/etc link>
+
+PICTURE <gif/etc link>
+```
+
+For the custom width and heights of the pictures, they are optional. If you do height only, however, you will need something at the width because height is by position the third item in the PICTURE line. You can use na or auto for that width. Auto will keep the aspect ratio of the original picure relative to a custom height or width.
+
 - Picture is a link like`https://link-to-pic`
 - Video is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is.
 - After Video separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
