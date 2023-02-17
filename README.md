@@ -29,7 +29,7 @@ You'll have to run a command to update the Notebook when you change your workout
 Format
 ```
 <exercise_title>
-PICTURE <gif/etc link>
+PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na>
 PICTURE <gif/etc link>
 VIDEO yt/etc <timemark_or_na> <timemark_or_na>
 DETAIL <your_text>

@@ -7,8 +7,24 @@ function Video() {
 
 function Picture({data}) {
     // console.log({data})
+    let whObject = {}
+    if(data.length>=2) {
+        if(!data[1].toLowerCase().includes("n")) { // na, n/a, N/A, NA
+            whObject.maxWidth = data[1];
+            whObject.minWidth = data[1];
+        }
+    }
+
+    if(data.length>=3) {
+            if(!data[2].toLowerCase().includes("n")) { // na, n/a, N/A, NA
+            whObject.maxHeight = data[2];
+            whObject.minHeight = data[2];
+        }
+    }
+
+
     return (
-        <div className="picture"><img src={data[0]}></img></div>
+        <div className="picture"><img src={data[0]} style={whObject} alt={data[0]}></img></div>
     )
 }
 

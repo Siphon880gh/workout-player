@@ -6,7 +6,9 @@ import {
   Picture,
   Detail,
   Interval,
-  Set} from "./FileViewer.Types.js";
+  Set,
+  Spacing
+} from "./FileViewer.Types.js";
 
 import {tickUp, reset} from "./FileViewer.Timer.js";
 
@@ -83,19 +85,20 @@ function FileViewer(props) {
        * Duration
        * Sets
        */
-
+      
       let groups = data.split(/---/gm);
       // setWorkoutLength(groups.length); // TODO:
       setWorkoutLengths([]);
-
+      
       groups = groups.map((group,i)=>{
         group = group.trim(); // removes newlines before and after
         // console.log(group);
         // Only allow rep or set, but not both; Only allow one video.
         let specializeExercise = false;
         let specializeVideo = false;
-
+        
         let lines = group.split("\n")
+        console.log({testC: lines});
 
         let types = lines.map((line,j)=>{
           let key = ["el",i,j].join("-");

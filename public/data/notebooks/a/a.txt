@@ -1,6 +1,8 @@
 Exercise 1
-PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
-PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
+PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px
+
+PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px
+
 DETAIL Lie down on a bench... 
 DETAIL With feet on the floor, lift... 
 
@@ -12,6 +14,7 @@ Exercise 2
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
 DETAIL Lie down on a bench... 
+
 DETAIL With feet on the floor, lift... 
 
 
@@ -20,5 +23,6 @@ Exercise 3
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg
 DETAIL Lie down on a bench... 
+
 DETAIL With feet on the floor, lift... 
 
