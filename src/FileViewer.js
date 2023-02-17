@@ -107,6 +107,8 @@ function FileViewer(props) {
 
           if(j===0) {
             return (<summary key={key}>{line}</summary>)
+          } else if(line.length===0) {
+            return (<Spacing></Spacing>)
           } else if(line.length<2) {
             return "";
           } else if(line.indexOf("VIDEO ")===0 || line.indexOf("VID ")===0) {

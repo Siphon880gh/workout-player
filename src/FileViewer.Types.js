@@ -51,11 +51,19 @@ function Set() {
     )
 }
 
+function Spacing() {
+    return (
+        <br></br>
+    )
+}
+
+
 
 export {
     Video,
     Picture,
     Detail,
     Interval,
-    Set
+    Set,
+    Spacing
 }
