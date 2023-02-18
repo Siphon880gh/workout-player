@@ -1,5 +1,5 @@
 import "./FileViewer.css"
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
 import {useLocation} from "react-router-dom";
 import {
   Video,
@@ -13,6 +13,8 @@ import {
 import {tickUp, reset} from "./FileViewer.Timer.js";
 
 function FileViewer(props) {
+  let timer = useRef({si:null, count:-1});
+
 
   function displayError(msg) {
     // TODO: Should appear on the website as a slide-in then slide-out, so immediately know format errors of the workout text file
@@ -106,7 +108,7 @@ function FileViewer(props) {
 
       const uriBeforeViewPath = window.location.href.substr(0,window.location.href.indexOf("/view")+1);
       const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);;
-      console.log({uriBeforeViewPath, constructedRequestURI})
+      // console.log({uriBeforeViewPath, constructedRequestURI})
 
       // let nameUrl = window.location.href
       // nameUrl = nameUrl.substring(0, nameUrl.indexOf("view")-1) + "/data/notesbooks/" + nameUrl.substring(nameUrl.indexOf("view") + "view".length+1)
@@ -179,14 +181,14 @@ function FileViewer(props) {
       const {data} = props
       // debugger;
       let groups = data.split(/---/gm);
-      console.log({groups})
+      // console.log({groups})
       // setWorkoutCount(groups.length); // TODO:
       // debugger;
 
       function ProcessGroup(props) {
         let {group, i} = props;
         // console.log({group})
-        // console.log(group);
+
         // Only allow rep or set, but not both; Only allow one video.
         let specializeExercise = false;
         let specializeVideo = false;
@@ -195,7 +197,7 @@ function FileViewer(props) {
         while(lines.length && lines[0].length===0) {
           lines.shift();
         }
-        console.log(lines)
+        // console.log(lines)
         // console.log({title:lines[0]})
         // console.log({testC: lines});
 
@@ -261,7 +263,7 @@ function FileViewer(props) {
 
       });
 
-      console.log({expandables})
+      // console.log({expandables})
 
       return expandables;
 
@@ -276,12 +278,23 @@ function FileViewer(props) {
   }, [playingMedia, elapsedMedia])
 
 
-  // Test passed: Setting play mode to false pauses the countup
-  // useEffect(()=>{
-  //   setTimeout(()=>{
-  //     setPlayMode(false);
-  //   }, 5000)
-  // }, [])
+  useEffect(()=>{
+
+    if(!window.ran) {
+      window.ran = true;
+      window.playInRound = true;
+    timer.current.si = setInterval(()=>{
+      if(window.playInRound) {
+        timer.current.count++;
+        document.getElementById("dangerous-html").innerHTML = timer.current.count;
+      }
+      console.log(timer.current.count);
+    }, 1000);
+    return () => {
+      clearInterval(timer.current.s );
+    };
+  }
+  }, [])
     
     return (
       <div className="file-viewer">
@@ -354,6 +367,8 @@ function Diagnostics(props) {
       <div>atRound {atRound}</div>
       <hr/>
       <div>woCounts {workoutCounts.join(",")}</div>
+      <hr/>
+      <div id="dangerous-html" dangerouslySetInnerHTML={{__html: ''}}></div>
     </div>
   </span>
   )
