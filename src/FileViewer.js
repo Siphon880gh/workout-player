@@ -29,6 +29,21 @@ function FileViewer(props) {
   let [elapsedMedia, setElapsedMedia] = useState(-1);
 
   let [atExercise, setAtExercise] = useState(0);
+  function preSetAtExercise(i, isOpened) {
+    // Data wrangling
+    if(isOpened===null) {
+      isOpened = false;
+    } else {
+      isOpened = true;
+    }
+
+    if(isOpened) { // was opened, now close
+    } else { // new opened
+      setAtExercise(i);
+      // Jump to
+      document.querySelector("html,body").scrollTo(0,document.querySelector(`#exercise-${i}`).offsetTop, 1000, "easeInOutQuint")
+    }
+  } // preSetAtExercise
   let [workoutLength, setWorkoutLength] = useState(0);
   let [workoutLengths, setWorkoutLengths] = useState([]);
 
@@ -106,9 +121,9 @@ function FileViewer(props) {
           data.shift(0,1); // Mutable
 
           if(j===0) {
-            return (<summary key={key}>{line}</summary>)
+            return (<summary key={key} onClick={(event)=>{preSetAtExercise(i, event.target.closest("details").getAttribute("open"))}}>{line}</summary>)
           } else if(line.length===0) {
-            return (<Spacing></Spacing>)
+            return (<Spacing key={key}></Spacing>)
           } else if(line.length<2) {
             return "";
           } else if(line.indexOf("VIDEO ")===0 || line.indexOf("VID ")===0) {
