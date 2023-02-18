@@ -45,9 +45,11 @@ function Interval() {
     )
 }
 
-function Set() {
+function Set(props) {
+    // let {workCount, atRound} = props.inspect;
     return (
-        <div className="sets">Set type</div>
+        // <div workCount={workCount} atRound={atRound} className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
+        <div className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
     )
 }
 

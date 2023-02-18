@@ -44,3 +44,19 @@ summary {
     max-width: auto;
     min-width: auto;
 }
+
+.sets,
+.duration {
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.duration.active {
+    border: 2.5px solid red;
+}
+
+.sets.active {
+    border: 2.5px solid red;
+}

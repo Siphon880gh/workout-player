@@ -7,6 +7,8 @@ DETAIL Lie down on a bench...
 DETAIL With feet on the floor, lift... 
 
 SET 5r 30s
+SET 5r 30s
+SET 5r 30s
 
 ---
 Exercise 2
@@ -17,7 +19,8 @@ PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/fil
 DETAIL Lie down on a bench... 
 DETAIL With feet on the floor, lift... 
 
-INTERVAL 5s 30s 10r
+# INTERVAL 5s 30s 10r
+SET 5r 30s
 
 ---
 Exercise 3
@@ -27,4 +30,5 @@ PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/fil
 DETAIL Lie down on a bench... 
 DETAIL With feet on the floor, lift... 
 
-INTERVAL 5s 30s 10r
+# INTERVAL 5s 30s 10r
+SET 5r 30s
