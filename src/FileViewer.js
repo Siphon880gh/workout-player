@@ -1,5 +1,5 @@
 import "./FileViewer.css"
-import {useState, useEffect, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
+import {useState, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
 import {useLocation} from "react-router-dom";
 import {
   Video,
@@ -11,6 +11,7 @@ import {
 } from "./FileViewer.Types.js";
 
 import {tickUp, reset} from "./FileViewer.Timer.js";
+import ReactTestUtils from 'react-dom/test-utils'; // ES6
 
 function FileViewer(props) {
   let timer = useRef({si:null, count:-1});
@@ -107,18 +108,23 @@ function FileViewer(props) {
 
 
       const uriBeforeViewPath = window.location.href.substr(0,window.location.href.indexOf("/view")+1);
-      const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);;
+      const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);
       // console.log({uriBeforeViewPath, constructedRequestURI})
 
       // let nameUrl = window.location.href
       // nameUrl = nameUrl.substring(0, nameUrl.indexOf("view")-1) + "/data/notesbooks/" + nameUrl.substring(nameUrl.indexOf("view") + "view".length+1)
       // console.table({nameUrl})
-      
+      // Workaround: it's still running twice occasionally
+      if(window.lastRequest===constructedRequestURI)
+        return;
+
       fetch(constructedRequestURI).then(response=>response.text()).then(data=>{
       // fetch(nameUrl).then(response=>response.text()).then(data=>{
         // console.log({constructedRequestURI})
         // console.log({data:data.split(/---/gm)})
-        if(!data.includes("<!DOCTYPE html>" && data.length)) {
+        if(window.lastRequest !== constructedRequestURI && !data.includes("<!DOCTYPE html>" && data.length)) {
+          window.lastRequest = constructedRequestURI;
+          setWorkoutCounts([])
 
           let groups = data.split(/---/gm);
           groups.forEach((group,i)=>{
@@ -172,8 +178,19 @@ function FileViewer(props) {
 
         }); // group forEach
         setTxt(data);
+
+        console.log("FETCHED")
       } // if resource valid, then we parse
+
     }); // fetch
+
+
+    return ()=>{
+
+      window.lastRequest = null;
+      setWorkoutCounts([]);
+    }
+
 
     },[]); // useEffect
 
@@ -288,10 +305,10 @@ function FileViewer(props) {
         timer.current.count++;
         document.getElementById("dangerous-html").innerHTML = timer.current.count;
       }
-      console.log(timer.current.count);
+      // console.log(timer.current.count);
     }, 1000);
     return () => {
-      clearInterval(timer.current.s );
+      clearInterval(timer.current.s);
     };
   }
   }, [])
