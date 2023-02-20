@@ -9,25 +9,36 @@ function Video() {
 }
 
 function Picture({data}) {
+    data = data.split(" ");
     // console.log({data})
-    let whObject = {}
+    
+    let styleObject = {}
     if(data.length>=2) {
         if(!data[1].toLowerCase().includes("n")) { // na, n/a, N/A, NA
-            whObject.maxWidth = data[1];
-            whObject.minWidth = data[1];
+            styleObject.maxWidth = data[1];
+            styleObject.minWidth = data[1];
         }
     }
-
+    
     if(data.length>=3) {
             if(!data[2].toLowerCase().includes("n")) { // na, n/a, N/A, NA
-            whObject.maxHeight = data[2];
-            whObject.minHeight = data[2];
+            styleObject.maxHeight = data[2];
+            styleObject.minHeight = data[2];
         }
     }
 
-
+    let wantInLine = data[data.length-1] === "--";
+    console.log({wantInLine})
+    console.log({data})
+    if(wantInLine) {
+        styleObject.display = "inline-block";
+    } else {
+        styleObject.display = "block";
+    }
+    
+    
     return (
-        <div className="picture"><img src={data[0]} style={whObject} alt={data[0]}></img></div>
+        <img className="picture" src={data[0]} style={styleObject} alt={data[0]}></img>
     )
 }
 

@@ -52,11 +52,14 @@ function Workout() {
     {!error && workout?.workoutName && (
 
       <>
-        <h1>Workout: {workout.workoutName.toTitleCase()}</h1>
+        <h1 id="workout-title">Workout: {workout.workoutName.toTitleCase()}</h1>
         {workout.exercises.map((exercise,i)=>{
           return (
             <details key={i}>
               <summary>{exercise.name}</summary>
+              {exercise.pictures.map(picture=>{
+                return <Picture key={i} data={picture}/>
+              })}
             </details>
           )
         })}
