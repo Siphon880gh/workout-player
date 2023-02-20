@@ -28,11 +28,11 @@ function parseWorkoutData(data) {
         
         let instructions = lines.filter(line=>line.indexOf("INSTRUCTION ")===0)
         // console.log({instructions})
-
-        let intervals = lines.filter(line=>line.indexOf("INTERVALS ")===0)
+        
+        let sets = lines.filter(line=>line.indexOf("SET ")===0)
         // console.log({intervals})
 
-        let sets = lines.filter(line=>line.indexOf("SET ")===0)
+        let intervals = lines.filter(line=>line.indexOf("INTERVAL ")===0)
         // console.log({intervals})
         
         // Cleaning: Another cleaning to remove keywords in text source
@@ -48,16 +48,16 @@ function parseWorkoutData(data) {
         // console.log({intervals})
         
         // Enrich: Adding round types
-        let exerciseType = "";
+        let roundType = "";
         if(sets.length && intervals.length) {
             intervals.length = 0;
             displayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
         }
         // For conditional rendering. Forgone Enum so code is less bloated.
         if(sets.length) {
-            exerciseType = "SETS";
+            roundType = "SETS";
         } else if(intervals.length) {
-            exerciseType = "INTERVALS";
+            roundType = "INTERVALS";
         }
         
         // Enrich: Adding round types
@@ -72,7 +72,7 @@ function parseWorkoutData(data) {
         // return exercise object
         return {
             name,
-            exerciseType,
+            roundType,
             exerciseRounds,
             youtubes,
             pictures,
@@ -87,12 +87,10 @@ function parseWorkoutData(data) {
         return window.location.href.substring(window.location.href.lastIndexOf("/")+1).replaceAll(".txt", "")
     });
 
-
     let workout = {
         workoutName: getWorkoutName(),
         exercises
     }
-
 
     console.log({workout})
     return workout;

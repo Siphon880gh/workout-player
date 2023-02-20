@@ -63,6 +63,31 @@ function Workout() {
               {exercise.instructions.map((instruction,j)=>{
                 return <Instruction key={["info-instruction", j].join("-")} data={instruction}/>
               })}
+              {
+                (()=>{
+                  let isActive = true;
+                  let done = false;
+                  if(exercise.roundType==="SETS") {
+                    return exercise.sets.map((set,roundNum)=>{
+                      let test = {
+                        isActive,
+                        done,
+                        roundNum
+                      }
+                      return (<Set key={["round-set", roundNum].join("-")} {...test}/>)
+                    })
+                  } else if(exercise.roundType==="INTERVALS") {
+                    return exercise.intervals.map((interval,roundNum)=>{
+                      let test = {
+                        isActive,
+                        done,
+                        roundNum
+                      }
+                      return (<Interval key={["round-interval", roundNum].join("-")} {...test}/>)
+                    })
+                  }
+                })()
+              }
             </details>
           )
         })}

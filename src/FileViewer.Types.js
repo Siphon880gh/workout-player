@@ -55,18 +55,19 @@ function Instruction({data}) {
 
 function Interval() {
     return (
-        <div className="duration">Duration type</div>
+        <div className="interval">Interval type</div>
     )
 }
 
-function Set(props) {
+function Set({roundNum, isActive, done}) {
 
     // let {workCount, atRound} = props.inspect;
     return (
         // <div workCount={workCount} atRound={atRound} className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
-        <div className={["set", props.isActive?"active":""].join(" ")} style={{marginBottom:"10px"}}>
-            <b className="set-name">Set {props.inspect.workCount+1}:</b>
-            <button className="set-done" style={{marginRight:"10px", display:props.done?"none":"block"}} onClick={(event)=>{ props.setDone(true);}}>Done</button>
+        <div className={["set", isActive?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+            <div className="set-name">Set {roundNum+1}:</div>
+            {/* <button className="set-done" style={{marginRight:"10px", display:done?"none":"block"}} onClick={(event)=>{ props.setDone(true);}}>Done</button> */}
+            <button className="set-done" style={{marginRight:"10px", display:done?"none":"inline-block"}}>Done</button>
             <span className="set-countdown"></span>
         </div>
     )

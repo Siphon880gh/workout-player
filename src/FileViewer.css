@@ -52,12 +52,13 @@ summary {
     min-width: auto;
 }
 
-.sets,
+.set,
 .duration {
     width: 50%;
     margin: 0 auto;
     padding: 5px;
     border-radius: 10px;
+    text-align: center;
 }
 
 .duration.active {
