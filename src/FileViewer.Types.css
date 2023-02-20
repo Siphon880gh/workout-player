@@ -1,0 +1,50 @@
+.set-name {
+    margin-right: 10px;
+}
+
+.set.active {
+    border: 1px dashed red;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(0deg, rgba(255, 0, 0, .2) 0%, rgba(255, 0, 0, .45) 35%, rgba(255, 0, 0, .85) 100%);
+    border-radius: 10px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.set button {
+    background-color: pink;
+    border: 0;
+    font-weight: bold;
+}
+
+.set button {
+    transition: background-color 1000ms ease;
+}
+
+.set:not(.active) button,
+.set:not(.active) .set-countdown {
+    display: none;
+}
+
+.set:not(.active)::after {
+    content: "...";
+}
+
+.set button:hover {
+    background-color: red;
+}
+
+.set-countdown {
+    border: 1px solid gray;
+    padding: 0 5px;
+    text-align: left;
+    width: 4ch;
+    display: inline-block;
+}
+
+.set-countdown::before {
+    content: "⏳";
+}

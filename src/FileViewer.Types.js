@@ -1,3 +1,6 @@
+import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
+
+import "./FileViewer.Types.css";
 
 function Video() {
     return (
@@ -46,10 +49,15 @@ function Interval() {
 }
 
 function Set(props) {
+
     // let {workCount, atRound} = props.inspect;
     return (
         // <div workCount={workCount} atRound={atRound} className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
-        <div className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
+        <div className={["set", props.isActive?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+            <b className="set-name">Set {props.inspect.workCount+1}:</b>
+            <button className="set-done" style={{marginRight:"10px", display:props.done?"none":"block"}} onClick={(event)=>{ props.setDone(true);}}>Done</button>
+            <span className="set-countdown"></span>
+        </div>
     )
 }
 

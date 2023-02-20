@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+window.elapsedTime=0;
+window.play = true;
+setInterval(()=>{
+  if(window.play) {
+    window.elapsedTime++;
+    // console.log(window.elapsedTime);
+  }
+},1000)
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>

@@ -1,5 +1,6 @@
 import "./FileViewer.css"
-import {useState, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
+import {useState, useEffect} from "react";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {useLocation} from "react-router-dom";
 import {
   Video,
@@ -9,316 +10,199 @@ import {
   Set,
   Spacing
 } from "./FileViewer.Types.js";
+import {parseWorkoutData} from "./FileViewer.Utils.js";
 
-import {tickUp, reset} from "./FileViewer.Timer.js";
-import ReactTestUtils from 'react-dom/test-utils'; // ES6
-
-function FileViewer(props) {
-  let timer = useRef({si:null, count:-1});
+// import {tickUp, reset} from "./FileViewer.Timer.js";
+// import ReactTestUtils from 'react-dom/test-utils'; // ES6
 
 
-  function displayError(msg) {
-    // TODO: Should appear on the website as a slide-in then slide-out, so immediately know format errors of the workout text file
-    console.error(msg);
+const queryClient = new QueryClient()
+
+const fetchWorkout = async () => {
+  const uriBeforeViewPath = window.location.href.substring(0,window.location.href.indexOf("/view")+1);
+  const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);
+
+  const res = await fetch(constructedRequestURI);
+  const text = await res.text();
+  const dataWrangled = parseWorkoutData(text)
+  // console.log({dataWrangled})
+  console.log("FETCHED")
+  return dataWrangled;
+};
+
+
+function Workout() {
+
+  const { data:workout, status, error } = useQuery("workoutQuery", fetchWorkout);
+
+  String.prototype.toTitleCase = function() {
+    let newPhrase = this.split(" ").map(word=>word[0].toUpperCase()+word.substring(1)).join(" ");
+    console.log({newPhrase})
+    return newPhrase
   }
 
-  // Changed route
-  // let [relativePath, setRelativePath] = useState("");
+  function eachExercise(exercises) {
+    exercises.map((exercise,i)=>{
+      return [<div>exercise.name</div>];
+    })
+  }
+
+  return (<div>
+    {error && (error)}
+    {!error && workout?.workoutName && (
+
+      <>
+        <h1>Workout: {workout.workoutName.toTitleCase()}</h1>
+        {workout.exercises.map((exercise,i)=>{
+          return (
+            <details key={i}>
+              <summary>{exercise.name}</summary>
+            </details>
+          )
+        })}
+      </>
+
+
+    )}
+
+
+  </div>)
+} // Workout
+
+function FileViewer(props) {
 
   // Load text file into HTML
-  let [html, setHTML] = useState("");
+  // let [html, setHTML] = useState("");
 
-  // Counter when playing
-  let [playing, setPlayMode] = useState(true); // Slide show play
-  let [elapsed, setElapsed] = useState(-1);
+  // // Counter when playing
+  // let [playing, setPlayMode] = useState(true); // Slide show play
+  // let [elapsed, setElapsed] = useState(-1);
 
-  // Counter for youtube, etc
-  let [playingMedia, setPlayModeMedia] = useState(false);
-  let [elapsedMedia, setElapsedMedia] = useState(-1);
+  // // Counter for youtube, etc
+  // // let [playingMedia, setPlayModeMedia] = useState(false);
+  // // let [elapsedMedia, setElapsedMedia] = useState(-1);
 
-  let [atExercise, setAtExercise] = useState(0);
-  function preSetAtExercise(i) {
+  // let [atExercise, setAtExercise] = useState(0);
+  // function preSetAtExercise(i) {
 
 
-      // Set exercise, reset rounds, reset video time position, etc
-      setAtExercise(i);
-      setWorkoutCount(workoutCounts[i]);
-      setElapsedMedia(-1);
-      setAtRound(0);
-      setRoundsLength(-1);
-      setFinishedWorkout(false);
-  } // preSetAtExercise
+  //     // Set exercise, reset rounds, reset video time position, etc
+  //     setAtExercise(i);
+  //     setWorkoutCount(workoutData.exercises[i]);
+  //     // setElapsedMedia(-1);
+  //     setAtRound(0);
+  //     setRoundsLength(-1);
+  //     setFinishedWorkout(false);
+  // } // preSetAtExercise
 
-  function incrementExercise() {
-    if(atExercise===workoutCount) {
-      setAtExercise(-1)
-      setFinishedWorkout(true);
+  // function incrementExercise() {
+  //   if(atExercise===workoutCount) {
+  //     setAtExercise(-1)
+  //     setFinishedWorkout(true);
 
-    } else {
-      setAtExercise(atExercise + 1);
+  //   } else {
+  //     setAtExercise(atExercise + 1);
 
-      if(playing) {
-        // It automatically opens next exercise and jump there
-        document.querySelector("html,body").scrollTo(0,document.querySelector(`#exercise-${atExercise + 1}`).offsetTop, 1000, "easeInOutQuint")
-      }
-    }
-  } // incrementExercise
+  //     // if(playing) {
+  //     //   // It automatically opens next exercise and jump there
+  //     //   document.querySelector("html,body").scrollTo(0,document.querySelector(`#exercise-${atExercise + 1}`).offsetTop, 1000, "easeInOutQuint")
+  //     // }
+  //   }
+  // } // incrementExercise
 
-  let [workoutCount, setWorkoutCount] = useState(0);
-  let [workoutCounts, setWorkoutCounts] = useState([]);
+  // let [workoutCount, setWorkoutCount] = useState(0);
+  // let [workoutData, setWorkoutData] = useState({exercises:[]});
 
-  let [finishedWorkout, setFinishedWorkout] = useState(false);
+  // let [finishedWorkout, setFinishedWorkout] = useState(false);
 
-  let [atRound, setAtRound] = useState(-1);
-  let [roundsLength, setRoundsLength] = useState(10);
-  function incrementRound() {
-    if(atRound===roundsLength) {
-      setAtRound(0)
-    } else {
-      setAtRound(atRound + 1)
-    }
-  } // incrementRound
+  // let [atRound, setAtRound] = useState(-1);
+  // let [roundsLength, setRoundsLength] = useState(10);
+  // function incrementRound() {
+  //   if(atRound===roundsLength) {
+  //     setAtRound(0)
+  //   } else {
+  //     setAtRound(atRound + 1)
+  //   }
+  // } // incrementRound
+
+  //   let [txt,setTxt] = useState("");
+
+  //   useEffect(()=>{
+      
+  //     setWorkoutData({exercises:[]}) // otherwise sometimes increment from before
+  //     setWorkoutCount(0);
+  //     // setElapsedMedia(-1);
+  //     setAtRound(0);
+  //     setRoundsLength(-1);
+  //     setFinishedWorkout(false);
+
+
+
+
+      // Workaround: it's still running twice occasionally
+      // if(window.lastRequest===constructedRequestURI)
+      //   return;
+
+      //   console.log({a:window.lastRequest,b:constructedRequestURI})
+
+
+
+    // return ()=>{
+
+    //   // window.lastRequest = null;;
+    //   // setWorkoutRounds([]);
+    // }
+
+
+    // },[]); // useEffect
+
+
+  // useEffect(()=>{
+  //   tickUp({playing, setElapsed, elapsed})
+  // }, [playing, elapsed])
+
+  // useEffect(()=>{
+  //   tickUp({playing:playingMedia, setElapsed:setElapsedMedia, elapsed:elapsedMedia})
+  // }, [playingMedia, elapsedMedia])
 
 
   // useEffect(()=>{
 
-  //   // Decided against useParams hook so I don't have to code for every single level of /../../
-  //   // console.log("Changed file viewer")
-  //   const newRelativePath= window.location.href.substr(window.location.href.indexOf("/view/")+"/view/".length);
-  //   setRelativePath(newRelativePath)
+  //   if(!window.ran) {
+  //     window.ran = true;
+  //     window.playInRound = true;
+  //   timer.current.si = setInterval(()=>{
+  //     if(window.playInRound) {
+  //       timer.current.count++;
+  //       document.getElementById("dangerous-html").innerHTML = timer.current.count;
+  //     }
+  //     // console.log(timer.current.count);
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(timer.current.s);
+  //   };
+  // }
+  // }, []);
 
-  // },[useLocation().pathname])
+  // let [elapsedTest, setElapsedTest] = useState(0);
 
-    // Decided against useParams hook so I don't have to code for every single level of /../../
-    // if(relativePath.length===0) return;
+  // useEffect(()=>{
 
+  //       setTimeout(()=>{
+  //         setElapsedTest(elapsedTest+1);
+  //       }, 1000)
+  // }, [elapsedTest])
 
-    // let nameUrl = window.location.href
-    // nameUrl = "data/notebooks/" + nameUrl.substr(nameUrl.indexOf("view")+5)
-    let [txt,setTxt] = useState("");
-
-    useEffect(()=>{
-      
-      setWorkoutCounts([]) // otherwise sometimes increment from before
-      setWorkoutCount(0);
-      setElapsedMedia(-1);
-      setAtRound(0);
-      setRoundsLength(-1);
-      setFinishedWorkout(false);
-
-
-      const uriBeforeViewPath = window.location.href.substr(0,window.location.href.indexOf("/view")+1);
-      const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);
-      // console.log({uriBeforeViewPath, constructedRequestURI})
-
-      // let nameUrl = window.location.href
-      // nameUrl = nameUrl.substring(0, nameUrl.indexOf("view")-1) + "/data/notesbooks/" + nameUrl.substring(nameUrl.indexOf("view") + "view".length+1)
-      // console.table({nameUrl})
-      // Workaround: it's still running twice occasionally
-      if(window.lastRequest===constructedRequestURI)
-        return;
-
-      fetch(constructedRequestURI).then(response=>response.text()).then(data=>{
-      // fetch(nameUrl).then(response=>response.text()).then(data=>{
-        // console.log({constructedRequestURI})
-        // console.log({data:data.split(/---/gm)})
-        if(window.lastRequest !== constructedRequestURI && !data.includes("<!DOCTYPE html>" && data.length)) {
-          window.lastRequest = constructedRequestURI;
-          setWorkoutCounts([])
-
-          let groups = data.split(/---/gm);
-          groups.forEach((group,i)=>{
-            let specializeExercise = false;
-
-            // First line if empty will be removed
-            let lines = group.split("\n");
-            while(lines.length && lines[0].length===0) {
-              lines.shift();
-            }
-            
-            lines.forEach((line, j)=>{
-
-
-              if(line.indexOf("INTERVAL ")===0 || line.indexOf("INT ")===0) {
-                if(specializeExercise===false) {
-                  specializeExercise = "INTERVAL"
-                } else if(specializeExercise!=="INTERVAL") {
-                  return ""; // Don't count
-                }
-                // workoutCounts
-                if(i>=workoutCounts.length) {
-                  console.log("Creating new workout lengths slot")
-                  workoutCounts.push(1)
-                  setWorkoutCounts(workoutCounts);
-                } else {
-                  console.log("Updating top workout lengths slot")
-                  workoutCounts[i] = workoutCounts[i] + 1;
-                  setWorkoutCounts(workoutCounts);
-                }
-              } else if(line.indexOf("SET ")===0) {
-                if(specializeExercise===false) {
-                  specializeExercise = "SET"
-                } else if(specializeExercise!=="SET") {
-                  return ""; //  // Don't count
-                }
-
-                // workoutCounts
-                if(i>=workoutCounts.length) {
-                  console.log("Creating new workout lengths slot")
-                  workoutCounts.push(1)
-                  setWorkoutCounts(workoutCounts);
-                } else {
-                  console.log("Updating top workout lengths slot")
-                  workoutCounts[i] = workoutCounts[i] + 1;
-                  setWorkoutCounts(workoutCounts);
-                }
-              } // else if
-
-            }); // line forEach
-
-        }); // group forEach
-        setTxt(data);
-
-        console.log("FETCHED")
-      } // if resource valid, then we parse
-
-    }); // fetch
-
-
-    return ()=>{
-
-      window.lastRequest = null;
-      setWorkoutCounts([]);
-    }
-
-
-    },[]); // useEffect
-
-    function TxtToComponents(props) {
-      const {data} = props
-      // debugger;
-      let groups = data.split(/---/gm);
-      // console.log({groups})
-      // setWorkoutCount(groups.length); // TODO:
-      // debugger;
-
-      function ProcessGroup(props) {
-        let {group, i} = props;
-        // console.log({group})
-
-        // Only allow rep or set, but not both; Only allow one video.
-        let specializeExercise = false;
-        let specializeVideo = false;
-        
-        let lines = group.split("\n");
-        while(lines.length && lines[0].length===0) {
-          lines.shift();
-        }
-        // console.log(lines)
-        // console.log({title:lines[0]})
-        // console.log({testC: lines});
-
-        let workCount = -1;
-
-        let types = lines.map((line,j)=>{
-          let key = ["el",i,j].join("-");
-          let data = line.split(" ");
-          data.shift(0,1); // Mutable
-
-          if(j===0) {
-            return (<summary key={key} onClick={()=>{preSetAtExercise(i)}}>{line}</summary>)
-          } else if(line.length===0) {
-            return (<Spacing key={key}></Spacing>)
-          } else if(line.length<2) {
-            return "";
-          } else if(line.indexOf("VIDEO ")===0 || line.indexOf("VID ")===0) {
-            if(specializeVideo===false) {
-              specializeVideo = "YT"
-            } else {
-              displayError("Error: You are only allowed one video @ "+groups[0])
-              return "";
-            }
-            return (<Video key={key} data={data}/>)
-          } else if(line.indexOf("PICTURE ")===0 || line.indexOf("PIC ")===0) {
-            return (<Picture key={key} data={data}/>)
-          } else if(line.indexOf("DETAIL ")===0 || line.indexOf("DET ")===0) {
-            return (<Detail key={key} data={data}/>)
-          } else if(line.indexOf("INTERVAL ")===0 || line.indexOf("INT ")===0) {
-            if(specializeExercise===false) {
-              specializeExercise = "INTERVAL"
-            } else if(specializeExercise!=="INTERVAL") {
-              displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
-              return "";
-            }
-            return (<Interval key={key} data={data}/>)
-          } else if(line.indexOf("SET ")===0) {
-            if(specializeExercise===false) {
-              specializeExercise = "SET"
-            } else if(specializeExercise!=="SET") {
-              displayError("Error: You are only allowed one exercise type INTERVAL or SET per exercise @ "+groups[0])
-              return "";
-            }
-
-            workCount++
-            return (<Set key={key} data={data} inspect={{workCount, atRound}} isActive={i===atExercise && workCount===atRound}/>)
-          } // else if Set
-        }) // lines map
-
-        if(i>=workoutCounts.length) {
-          workoutCounts.push(0)
-        }
-        return types;
-      } // group
-
-
-      let expandables = groups.map((group,i)=>{ // group is an array of elements
-        return (
-          <details key={"ex-"+i} className="exercise" id={["exercise", i].join("-")} open={atExercise===i}>
-            <ProcessGroup group={group} i={i}/>
-          </details>
-        )
-
-      });
-
-      // console.log({expandables})
-
-      return expandables;
-
-  } // TxtToComponents
-
-  useEffect(()=>{
-    tickUp({playing, setElapsed, elapsed})
-  }, [playing, elapsed])
-
-  useEffect(()=>{
-    tickUp({playing:playingMedia, setElapsed:setElapsedMedia, elapsed:elapsedMedia})
-  }, [playingMedia, elapsedMedia])
-
-
-  useEffect(()=>{
-
-    if(!window.ran) {
-      window.ran = true;
-      window.playInRound = true;
-    timer.current.si = setInterval(()=>{
-      if(window.playInRound) {
-        timer.current.count++;
-        document.getElementById("dangerous-html").innerHTML = timer.current.count;
-      }
-      // console.log(timer.current.count);
-    }, 1000);
-    return () => {
-      clearInterval(timer.current.s);
-    };
-  }
-  }, [])
+  // let elapsedTestMemo = useMemo(() => elapsedTest, [elapsedTest]);
     
     return (
       <div className="file-viewer">
         <div className="file-viewer-contents">
-          {txt.length?<TxtToComponents data={txt}/>:""}
+          <QueryClientProvider client={queryClient}>
+                <Workout/>    
+          </QueryClientProvider>
         </div>
-        <Diagnostics data={{
+        {/* <Diagnostics data={{
           playing,
           elapsed,
           elapsedMedia,
@@ -326,15 +210,16 @@ function FileViewer(props) {
           workoutCount,
           finishedWorkout,
           atRound,
-          workoutCounts,
+          workoutData,
           setPlayMode,
           setPlayModeMedia,
           incrementExercise,
           incrementRound,
           playingMedia,
-          setElapsed
+          setElapsed,
+          elapsedTestMemo
 
-        }}></Diagnostics>
+        }}></Diagnostics> */}
       </div>
     );
   }
@@ -348,13 +233,14 @@ function Diagnostics(props) {
     workoutCount,
     finishedWorkout,
     atRound,
-    workoutCounts,
+    workoutData,
     setPlayMode,
     setPlayModeMedia,
     incrementExercise,
     incrementRound,
     playingMedia,
-    setElapsed
+    setElapsed,
+    elapsedTestMemo
   } = props.data;
 
   
@@ -383,9 +269,11 @@ function Diagnostics(props) {
       <div style={{cursor:"pointer"}} onClick={()=>{ incrementRound() }}>⏭</div>
       <div>atRound {atRound}</div>
       <hr/>
-      <div>woCounts {workoutCounts.join(",")}</div>
+      <div>woCounts {workoutData.exercises.join(",")}</div>
       <hr/>
       <div id="dangerous-html" dangerouslySetInnerHTML={{__html: ''}}></div>
+      <hr/>
+      <div id="test-memo">Test: {elapsedTestMemo}</div>
     </div>
   </span>
   )

@@ -29,11 +29,11 @@ You'll have to run a command to update the Notebook when you change your workout
 Format
 ```
 <exercise_title>
-PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na>
+PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
-VIDEO yt/etc <timemark_or_na> <timemark_or_na>
-DETAIL <your_text>
-DETAIL <your_text>
+YOUTUBE yt/etc <timemark_or_na> <timemark_or_na>
+INSTRUCTION <your_text>
+INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
 SET <reps> <rest_duration>
 SET <reps> <rest_duration>
@@ -44,30 +44,29 @@ Example
 <exercise_title>
 PICTURE <gif/etc link>
 PICTURE <gif/etc link>
-VIDEO yt/etc 3:01 na
-DETAIL <your_text>
-DETAIL <your_text>
+YOUTUBE yt/etc 3:01 na
+INSTRUCTION <your_text>
+INSTRUCTION <your_text>
 INTERVAL 5s 30s na
 SET 5r 30s
 SET 5r na
 ```
 
-Blank lines in the text format will carry over to the app so if you want to add some spacing, just add blank spaces:
+
 ```
 PICTURE <gif/etc link>
-
 PICTURE <gif/etc link>
 ```
 
-For the custom width and heights of the pictures, they are optional. If you do height only, however, you will need something at the width because height is by position the third item in the PICTURE line. You can use na or auto for that width. Auto will keep the aspect ratio of the original picure relative to a custom height or width.
+For the custom width and heights of the pictures, they are optional. If you do height only, however, you will need something at the width because height is by position the third item in the PICTURE line. You can use na or auto for that width. Auto will keep the aspect ratio of the original picure relative to a custom height or width. If you want pictures to be across each other instead of after another, you want to place "--" at the end of each of the pictures that will belong to the row, and remember that it's at the 4th position separated by spaces.
 
 - First line always is title of exercise. Is mandatory.
 - Picture is a link like`https://link-to-pic`
-- Video is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is.
-- After Video separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
-- Detail is your paragraph of explanation. You can have as many as possible on different lines.
-- Then you have either ROUND or SET. You can have many as possible on different lines. To explain further:
-- Round is Getting ready duration, Active duration, and Rest period after
-- Set is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
+- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is.
+- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
+- INSTRUCTION is your paragraph of explanation. You can have as many as possible on different lines.
+- Then you have either INTERVAL or SET. You can have many as possible on different lines. To explain further:
+- INTERVAL is Getting ready duration, Active duration, and Rest period after
+- SET is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
 - No mixing sets and intervals in the same exercise. You can have a completely different exercise
 - Separate each exercise with a line of three slashes `---`.
