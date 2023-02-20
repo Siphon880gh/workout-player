@@ -13,27 +13,27 @@ function Picture({data}) {
     // console.log({data})
     
     let styleObject = {}
-    if(data.length>=2) {
-        if(!data[1].toLowerCase().includes("n")) { // na, n/a, N/A, NA
-            styleObject.maxWidth = data[1];
-            styleObject.minWidth = data[1];
-        }
-    }
     
+    let wantInLine = data[data.length-1] === "--";
+    // console.log({wantInLine})
+    // console.log({data})
+    if(wantInLine) {
+        styleObject.display = "inline-block";
+    } else {
+        styleObject.display = "block";
+    }
+
     if(data.length>=3) {
             if(!data[2].toLowerCase().includes("n")) { // na, n/a, N/A, NA
             styleObject.maxHeight = data[2];
             styleObject.minHeight = data[2];
         }
     }
-
-    let wantInLine = data[data.length-1] === "--";
-    console.log({wantInLine})
-    console.log({data})
-    if(wantInLine) {
-        styleObject.display = "inline-block";
-    } else {
-        styleObject.display = "block";
+    if(data.length>=2) {
+        if(!data[1].toLowerCase().includes("n")) { // na, n/a, N/A, NA
+            styleObject.maxWidth = data[1];
+            styleObject.minWidth = data[1];
+        }
     }
     
     
@@ -47,9 +47,9 @@ function Picture({data}) {
     but because of time constraints, I sacrificed slight performance for developer experience.
     Future version can optimize.
 */
-function Detail({data}) {
+function Instruction({data}) {
     return (
-        <p className="detail">{data.join(" ")}</p>
+        <p className="detail">{data}</p>
     )
 }
 
@@ -83,7 +83,7 @@ function Spacing() {
 export {
     Video,
     Picture,
-    Detail,
+    Instruction,
     Interval,
     Set,
     Spacing

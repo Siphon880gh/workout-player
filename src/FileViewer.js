@@ -5,7 +5,7 @@ import {useLocation} from "react-router-dom";
 import {
   Video,
   Picture,
-  Detail,
+  Instruction,
   Interval,
   Set,
   Spacing
@@ -37,7 +37,7 @@ function Workout() {
 
   String.prototype.toTitleCase = function() {
     let newPhrase = this.split(" ").map(word=>word[0].toUpperCase()+word.substring(1)).join(" ");
-    console.log({newPhrase})
+    // console.log({newPhrase})
     return newPhrase
   }
 
@@ -57,8 +57,11 @@ function Workout() {
           return (
             <details key={i}>
               <summary>{exercise.name}</summary>
-              {exercise.pictures.map(picture=>{
-                return <Picture key={i} data={picture}/>
+              {exercise.pictures.map((picture,j)=>{
+                return <Picture key={["info-pic", j].join("-")} data={picture}/>
+              })}
+              {exercise.instructions.map((instruction,j)=>{
+                return <Instruction key={["info-instruction", j].join("-")} data={instruction}/>
               })}
             </details>
           )
