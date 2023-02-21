@@ -73,8 +73,25 @@ function Set(
         roundType,
 
         repsRequired,
-        repsDone
+        repsDone,
+
+        countdownType,
+        countdownStart
     }) {
+
+    let [countdownProgress, setCountdownProgress] = useState(0)
+
+    useEffect(()=>{
+        console.log({repsDone, b:activeExercise===exerciseNum,c:activeRound===roundNum, d:countdownProgress<countdownStart})
+        if(repsDone && activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
+            setTimeout(()=>{
+                if(countdownProgress+1>=countdownStart) { // increment to next round
+                    store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
+                } 
+                setCountdownProgress(countdownProgress+1);       
+            }, 1000);
+        }
+    }, [repsDone, countdownProgress])
 
     // let {workCount, atRound} = props.inspect;
     return (
@@ -84,12 +101,16 @@ function Set(
             <button className="set-done" 
                 style={{marginRight:"10px", display:repsDone?"none":"inline-block"}}
                 onClick={()=> { 
-                    if(activeExercise===exerciseNum) {
-                        store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
-                    }
+                    // if(activeExercise===exerciseNum) {
+                        // store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
+                        store.dispatch({type: 'round/reps-done/start-rest'})
+                    // }
                 }}
             >{repsRequired} {repsRequired===1?"Rep":"Reps"} Done</button>
-            <span className="set-countdown"></span>
+            <span className="set-countdown">
+                { (repsDone && countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
+            </span>
+            {/* <span>{repsDone.toString()}</span> */}
         </div>
     )
 }

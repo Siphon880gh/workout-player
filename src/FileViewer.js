@@ -33,14 +33,14 @@ const fetchWorkout = async () => {
   return dataWrangled;
 };
 
-function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
+function workoutReducer(state = { activeExercise: 0, activeRound:0, repsDone: false }, action) {
 
   switch (action.type) {
     case 'exercise/incremented':
       let {exercises} = action.payload;
 
       if(state.activeExercise===-1) {
-        return { // // if played all exercises already, it won't restart automatically
+        return { // f played all exercises already, it won't restart automatically
           ...state,
           activeExercise: -1,
           activeRound: -1
@@ -51,7 +51,8 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
         return {
           ...state,
           activeExercise: state.activeExercise + 1,
-          activeRound: 0
+          activeRound: 0,
+          repsDone: false
         }
       } else {
         window.jumpToElementById("workout-finished");
@@ -60,6 +61,12 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
           activeExercise: -1,
           activeRound: -1
         }
+      }
+      break;
+    case 'round/reps-done/start-rest': 
+      return {
+        ...state,
+        repsDone: true
       }
       break;
     case 'round/incremented':
@@ -73,7 +80,8 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
           // increment round        
           return {
             ...state,
-            activeRound: state.activeRound+1
+            activeRound: state.activeRound+1,
+            repsDone: false,
           }
         } else if
         ((state.activeRound + 1) === roundTotal 
@@ -86,6 +94,7 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
             ...state,
             activeExercise: state.activeExercise+1,
             activeRound: 0,
+            repsDone: false,
           }
         } else {
           // at the last exercise and last round
@@ -122,19 +131,24 @@ let ConnectedExercise= connect((state, ownProps)=>{
 })(Exercise);
 
 let ConnectedSet = connect((state, ownProps)=>{
+
   let workoutRx = ownProps.workoutRx;
   let roundDetails = workoutRx.exercises[state.activeExercise].sets[state.activeRound];
   
   let repsRequired = roundDetails.split(" ")[0]
-  repsRequired = parseInt(repsRequired);
+  repsRequired = parseInt(repsRequired); // reformatted
 
-  let repsDone = false;
-
+  let countdownType = "rest";
+  let countdownStart = roundDetails.split(" ")[1];
+  countdownStart = parseInt(countdownStart); // reforamt
 
   return {
     ...state,
     repsRequired,
-    repsDone: false,
+
+    countdownType,
+    countdownStart,
+
     ...ownProps
   }
 })(Set);
