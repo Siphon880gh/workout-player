@@ -11,6 +11,9 @@ import {
   Spacing
 } from "./FileViewer.Types.js";
 import {parseWorkoutData} from "./FileViewer.Utils.js";
+import { configureStore } from '@reduxjs/toolkit'
+import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
 // import {tickUp, reset} from "./FileViewer.Timer.js";
 // import ReactTestUtils from 'react-dom/test-utils'; // ES6
@@ -29,6 +32,56 @@ const fetchWorkout = async () => {
   console.log("FETCHED")
   return dataWrangled;
 };
+
+function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
+  switch (action.type) {
+    case 'exercise/incremented':
+      let {exercises} = action.payload;
+          if(state.activeExercise===-1)
+            return { // // if played all exercises already, it won't restart automatically
+              activeExercise: -1,
+              activeRound: -1
+            }
+          else if((state.activeExercise + 1) !== exercises.length)
+            return { // increment exercise, restart current round to 0
+              activeExercise: state.activeExercise + 1,
+              activeRound: 0
+            }
+          else
+            return {  // if just played all exercises already
+              activeExercise: -1,
+              activeRound: -1
+            }
+    case 'round/incremented':
+      const [roundNum, roundTotal] = action.payload;
+      return { 
+        ...state,
+
+        activeRound: (()=>{
+          if(state.activeRound===-1)
+            return -1; // if played all rounds already, it won't restart automatically
+          else if((state.activeRound + 1) !== roundTotal)
+            return state.activeRound + 1; // increment exercise
+          else
+            return -1; // if just played all rounds already
+        })()
+    }
+    default:
+      return state
+  }
+}
+
+let store = configureStore({ reducer: workoutReducer })
+store.subscribe(() => {
+  console.log(store.getState())
+})
+
+let ConnectedSet = connect((state, ownProps)=>{
+  return {
+    ...state,
+    ...ownProps
+  }
+})(Set);
 
 
 function Workout() {
@@ -53,6 +106,11 @@ function Workout() {
 
       <>
         <h1 id="workout-title">Workout: {workout.workoutName.toTitleCase()}</h1>
+
+        <button onClick={()=> { 
+          store.dispatch({type: 'exercise/incremented', payload:{exercises:workout.exercises}})
+         }} style={{marginBottom:"20px"}}>Test dispatch by incrementing exercise</button>
+
         {workout.exercises.map((exercise,i)=>{
           return (
             <details key={i}>
@@ -69,21 +127,25 @@ function Workout() {
                   let done = false;
                   if(exercise.roundType==="SETS") {
                     return exercise.sets.map((set,roundNum)=>{
-                      let test = {
+                      let props = {
+                        store,
                         isActive,
                         done,
-                        roundNum
+                        roundNum,
+                        roundTotal: exercise.sets.length
                       }
-                      return (<Set key={["round-set", roundNum].join("-")} {...test}/>)
+                      return (<ConnectedSet key={["round-set", roundNum].join("-")} {...props}/>)
                     })
                   } else if(exercise.roundType==="INTERVALS") {
                     return exercise.intervals.map((interval,roundNum)=>{
-                      let test = {
+                      let props = {
+                        store,
                         isActive,
                         done,
-                        roundNum
+                        roundNum,
+                        roundTotal: exercise.intervals.length
                       }
-                      return (<Interval key={["round-interval", roundNum].join("-")} {...test}/>)
+                      return (<Interval key={["round-interval", roundNum].join("-")} {...props}/>)
                     })
                   }
                 })()
@@ -230,7 +292,9 @@ function FileViewer(props) {
       <div className="file-viewer">
         <div className="file-viewer-contents">
           <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
                 <Workout/>    
+            </Provider>
           </QueryClientProvider>
         </div>
         {/* <Diagnostics data={{

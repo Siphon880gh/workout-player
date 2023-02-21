@@ -59,15 +59,21 @@ function Interval() {
     )
 }
 
-function Set({roundNum, isActive, done}) {
+function Set({activeExercise, activeRound, store, roundNum, roundTotal, isActive, done}) {
 
     // let {workCount, atRound} = props.inspect;
     return (
         // <div workCount={workCount} atRound={atRound} className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
         <div className={["set", isActive?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+            {activeRound}
             <div className="set-name">Set {roundNum+1}:</div>
             {/* <button className="set-done" style={{marginRight:"10px", display:done?"none":"block"}} onClick={(event)=>{ props.setDone(true);}}>Done</button> */}
-            <button className="set-done" style={{marginRight:"10px", display:done?"none":"inline-block"}}>Done</button>
+            <button className="set-done" 
+                style={{marginRight:"10px", display:done?"none":"inline-block"}}
+                onClick={()=> { 
+                    store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal]})
+                }}
+            >Done</button>
             <span className="set-countdown"></span>
         </div>
     )
