@@ -33,6 +33,7 @@ window.IntuitiveDuration = class {
   } // constructor
 
   _validate(input) {
+    // eslint-disable-next-line no-useless-escape
     return (/^[hms0-9\.\s]{2,}$/i).test(input)
   }
 

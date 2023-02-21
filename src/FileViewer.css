@@ -68,3 +68,14 @@ summary {
 .sets.active {
     border: 2.5px solid red;
 }
+
+#workout-finished {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-flow: column nowrap;
+    font-size: 200%;
+    font-weight: bolder;
+}

@@ -59,7 +59,7 @@ function Interval() {
     )
 }
 
-function Set({activeExercise, activeRound, store, roundNum, roundTotal, exerciseNum, done}) {
+function Set({activeExercise, activeRound, store, roundNum, roundTotal, exerciseNum, exerciseTotal, done}) {
 
     // let {workCount, atRound} = props.inspect;
     return (
@@ -71,7 +71,7 @@ function Set({activeExercise, activeRound, store, roundNum, roundTotal, exercise
                 style={{marginRight:"10px", display:done?"none":"inline-block"}}
                 onClick={()=> { 
                     if(activeExercise===exerciseNum) {
-                        store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal]})
+                        store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
                     }
                 }}
             >Done</button>
