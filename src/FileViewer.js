@@ -41,6 +41,7 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
 
       if(state.activeExercise===-1) {
         return { // // if played all exercises already, it won't restart automatically
+          ...state,
           activeExercise: -1,
           activeRound: -1
         }
@@ -48,12 +49,14 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
           // increment exercise, restart current round to 0
         window.jumpToElementById(`exercise-${state.activeExercise + 1}`)
         return {
+          ...state,
           activeExercise: state.activeExercise + 1,
           activeRound: 0
         }
       } else {
         window.jumpToElementById("workout-finished");
         return {  // if just played all exercises already
+          ...state,
           activeExercise: -1,
           activeRound: -1
         }
@@ -80,6 +83,7 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
           // if can advance to next exercise
           window.jumpToElementById(`exercise-${state.activeExercise+1}`)
           return {
+            ...state,
             activeExercise: state.activeExercise+1,
             activeRound: 0,
           }
@@ -87,6 +91,7 @@ function workoutReducer(state = { activeExercise: 0, activeRound:0 }, action) {
           // at the last exercise and last round
           window.jumpToElementById("workout-finished");
           return {
+            ...state,
             activeExercise: -1,
             activeRound: -1
           }
@@ -117,8 +122,19 @@ let ConnectedExercise= connect((state, ownProps)=>{
 })(Exercise);
 
 let ConnectedSet = connect((state, ownProps)=>{
+  let workoutRx = ownProps.workoutRx;
+  let roundDetails = workoutRx.exercises[state.activeExercise].sets[state.activeRound];
+  
+  let repsRequired = roundDetails.split(" ")[0]
+  repsRequired = parseInt(repsRequired);
+
+  let repsDone = false;
+
+
   return {
     ...state,
+    repsRequired,
+    repsDone: false,
     ...ownProps
   }
 })(Set);
@@ -130,7 +146,7 @@ let ConnectedInterval = connect((state, ownProps)=>{
   }
 })(Interval);
 
-function Exercise({exercise, exerciseTotal, i, activeExercise}) {
+function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
   return (
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary>{exercise.name}</summary>
@@ -155,7 +171,8 @@ function Exercise({exercise, exerciseTotal, i, activeExercise}) {
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
-                  roundTotal: exercise.sets.length
+                  roundTotal: exercise.sets.length,
+                  workoutRx
                 }
                 return (<ConnectedSet key={["round-set", roundNum].join("-")} {...props}/>)
               })
@@ -166,7 +183,8 @@ function Exercise({exercise, exerciseTotal, i, activeExercise}) {
                   done,
                   exerciseNum: i,
                   roundNum,
-                  roundTotal: exercise.intervals.length
+                  roundTotal: exercise.intervals.length,
+                  workoutRx
                 }
                 return (<ConnectedInterval key={["round-interval", roundNum].join("-")} {...props}/>)
               })
@@ -179,25 +197,25 @@ function Exercise({exercise, exerciseTotal, i, activeExercise}) {
 
 function Workout({activeExercise}) {
 
-  const { data:workout, status, error } = useQuery("workoutQuery", fetchWorkout);
+  const { data:workoutRx, status, error } = useQuery("workoutQuery", fetchWorkout);
 
   return (<div>
     {error && (error)}
-    {!error && workout?.workoutName && (
+    {!error && workoutRx?.workoutName && (
 
       <>
         {/* Title */}
-        <h1 id="workout-title">Workout: {workout.workoutName.toTitleCase()}</h1>
+        <h1 id="workout-title">Workout: {workoutRx.workoutName.toTitleCase()}</h1>
 
         {/* Test incrementing */}
         <button onClick={()=> { 
-          store.dispatch({type: 'exercise/incremented', payload:{exercises:workout.exercises}})
+          store.dispatch({type: 'exercise/incremented', payload:{exercises:workoutRx.exercises}})
          }} style={{margin:"10px auto", display:"block"}}>Test incrementing exercise</button>
         <button onClick={()=> { // aa
           store.dispatch({type: 'round/incremented', payload:(()=>{
             let activeRound = store.getState().activeRound;
-            let roundTotal = workout?.exercises[store?.getState()?.activeExercise]?.roundTotal;
-            let exerciseTotal = workout.exercises.length;
+            let roundTotal = workoutRx?.exercises[store?.getState()?.activeExercise]?.roundTotal;
+            let exerciseTotal = workoutRx.exercises.length;
             return [
               activeRound,
               roundTotal,
@@ -209,9 +227,9 @@ function Workout({activeExercise}) {
          style={{margin:"10px auto", display:"block"}}>Test incrementing round</button>
 
         {/* Exercise Components */}
-        {workout.exercises.map((exercise,i, exercises)=>{
+        {workoutRx.exercises.map((exercise,i, exercises)=>{
           return (
-            <ConnectedExercise key={["exercise", i].join("-")} {...{exercise, exerciseTotal:exercises.length || 0, i}}></ConnectedExercise>
+            <ConnectedExercise key={["exercise", i].join("-")} {...{workoutRx, exercise, exerciseTotal:exercises.length || 0, i}}></ConnectedExercise>
           )
         })}
 
