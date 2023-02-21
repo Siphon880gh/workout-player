@@ -76,6 +76,13 @@ store.subscribe(() => {
   console.log(store.getState())
 })
 
+let ConnectedExercise= connect((state, ownProps)=>{
+  return {
+    activeExercise: state.activeExercise,
+    ...ownProps
+  }
+})(Exercise);
+
 let ConnectedSet = connect((state, ownProps)=>{
   return {
     ...state,
@@ -83,22 +90,61 @@ let ConnectedSet = connect((state, ownProps)=>{
   }
 })(Set);
 
+let ConnectedInterval = connect((state, ownProps)=>{
+  return {
+    ...state,
+    ...ownProps
+  }
+})(Interval);
+
+function Exercise({exercise,i, activeExercise}) {
+  return (
+    <details key={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
+      <summary>{exercise.name}</summary>
+      
+      {/* Pictures */}
+      {exercise.pictures.map((picture,j)=>{
+        return <Picture key={["info-pic", j].join("-")} data={picture}/>
+      })}
+
+      {/* Instruction */}
+      {exercise.instructions.map((instruction,j)=>{
+        return <Instruction key={["info-instruction", j].join("-")} data={instruction}/>
+      })}
+      {
+        (()=>{
+          let done = false;
+          if(exercise.roundType==="SETS") {
+            return exercise.sets.map((set,roundNum)=>{
+              let props = {
+                store,
+                done,
+                exerciseNum: i,
+                roundNum,
+                roundTotal: exercise.sets.length
+              }
+              return (<ConnectedSet key={["round-set", roundNum].join("-")} {...props}/>)
+            })
+          } else if(exercise.roundType==="INTERVALS") {
+            return exercise.intervals.map((interval,roundNum)=>{
+              let props = {
+                store,
+                done,
+                exerciseNum: i,
+                roundNum,
+                roundTotal: exercise.intervals.length
+              }
+              return (<ConnectedInterval key={["round-interval", roundNum].join("-")} {...props}/>)
+            })
+          }
+        })()
+      }
+    </details>)
+}
 
 function Workout() {
 
   const { data:workout, status, error } = useQuery("workoutQuery", fetchWorkout);
-
-  String.prototype.toTitleCase = function() {
-    let newPhrase = this.split(" ").map(word=>word[0].toUpperCase()+word.substring(1)).join(" ");
-    // console.log({newPhrase})
-    return newPhrase
-  }
-
-  function eachExercise(exercises) {
-    exercises.map((exercise,i)=>{
-      return [<div>exercise.name</div>];
-    })
-  }
 
   return (<div>
     {error && (error)}
@@ -107,50 +153,14 @@ function Workout() {
       <>
         <h1 id="workout-title">Workout: {workout.workoutName.toTitleCase()}</h1>
 
-        <button onClick={()=> { 
+        {/* <button onClick={()=> { 
           store.dispatch({type: 'exercise/incremented', payload:{exercises:workout.exercises}})
-         }} style={{marginBottom:"20px"}}>Test dispatch by incrementing exercise</button>
+         }} style={{marginBottom:"20px"}}>Test dispatch by incrementing exercise</button> */}
 
         {workout.exercises.map((exercise,i)=>{
+          
           return (
-            <details key={i}>
-              <summary>{exercise.name}</summary>
-              {exercise.pictures.map((picture,j)=>{
-                return <Picture key={["info-pic", j].join("-")} data={picture}/>
-              })}
-              {exercise.instructions.map((instruction,j)=>{
-                return <Instruction key={["info-instruction", j].join("-")} data={instruction}/>
-              })}
-              {
-                (()=>{
-                  let isActive = true;
-                  let done = false;
-                  if(exercise.roundType==="SETS") {
-                    return exercise.sets.map((set,roundNum)=>{
-                      let props = {
-                        store,
-                        isActive,
-                        done,
-                        roundNum,
-                        roundTotal: exercise.sets.length
-                      }
-                      return (<ConnectedSet key={["round-set", roundNum].join("-")} {...props}/>)
-                    })
-                  } else if(exercise.roundType==="INTERVALS") {
-                    return exercise.intervals.map((interval,roundNum)=>{
-                      let props = {
-                        store,
-                        isActive,
-                        done,
-                        roundNum,
-                        roundTotal: exercise.intervals.length
-                      }
-                      return (<Interval key={["round-interval", roundNum].join("-")} {...props}/>)
-                    })
-                  }
-                })()
-              }
-            </details>
+            <ConnectedExercise {...{exercise,i}}></ConnectedExercise>
           )
         })}
       </>
