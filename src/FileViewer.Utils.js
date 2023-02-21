@@ -1,10 +1,5 @@
 function parseWorkoutData(data) {
 
-        function displayError(msg) {
-            // TODO: Should appear on the website as a slide-in then slide-out, so immediately know format errors of the workout text file
-            console.error(msg);
-        }
-
         let groups = data.split(/---/gm);
         let exercises = groups.map((group,i)=>{
 
@@ -51,7 +46,7 @@ function parseWorkoutData(data) {
         let roundType = "";
         if(sets.length && intervals.length) {
             intervals.length = 0;
-            displayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
+            window.displayErrordisplayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
         }
         // For conditional rendering. Forgone Enum so code is less bloated.
         if(sets.length) {

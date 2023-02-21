@@ -99,7 +99,7 @@ let ConnectedInterval = connect((state, ownProps)=>{
 
 function Exercise({exercise,i, activeExercise}) {
   return (
-    <details key={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
+    <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
       <summary>{exercise.name}</summary>
       
       {/* Pictures */}
@@ -160,7 +160,7 @@ function Workout() {
         {workout.exercises.map((exercise,i)=>{
           
           return (
-            <ConnectedExercise {...{exercise,i}}></ConnectedExercise>
+            <ConnectedExercise key={["exercise", i].join("-")} {...{exercise,i}}></ConnectedExercise>
           )
         })}
       </>
