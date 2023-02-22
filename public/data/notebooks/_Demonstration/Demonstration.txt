@@ -9,7 +9,7 @@ INSTRUCTION With feet on the floor, lift...
 
 # INTERVAL 5s 5s 5s
 # INTERVAL 5s 5s 5s
-# INTERVAL 5s 5s 5s
+INTERVAL 5s 5s 5s
 INTERVAL 2s 2s 2s
 
 # SET 5r 3s
@@ -30,7 +30,7 @@ SET 5r 3s
 SET 5r 3s
 
 # INTERVAL 2s 3s 2s
-INTERVAL 2s 3s 2s
+# INTERVAL 2s 3s 2s
 
 ---
 Exercise 3

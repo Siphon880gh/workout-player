@@ -88,7 +88,15 @@ function workoutReducer(
       var {activeRound, activeExercise} = state;
 
       function getNextCountdown__countdownType__countdownStart(roundDetails, countdownType) {
-        var [ready,active,rest] = roundDetails.split(" ");
+        var [ready,active,rest] = [-1,-1,-1];
+        try {
+            var arr = roundDetails.split(" ").concat(["", "", ""]);
+            ready = arr[0];
+            active = arr[1];
+            rest = arr[2];
+        } catch {
+            window.displayError("Error getting interval round details. Likely you have no set or interval round in an exercise!")
+        }
         const castToSeconds = window.intuitiveDuration__getSeconds;
         ready = castToSeconds(ready)
         active = castToSeconds(active)
@@ -260,10 +268,15 @@ let ConnectedExercise= connect((state, ownProps)=>{
 let ConnectedSet = connect((state, ownProps)=>{
 
   let workoutRx = ownProps.workoutRx;
-  let roundDetails = workoutRx.exercises[state.activeExercise].sets[state.activeRound];
+  let roundDetails = workoutRx.exercises[ownProps.exerciseNum].sets[ownProps.roundNum];
   
-  let repsRequired = roundDetails.split(" ")[0]
-  repsRequired = parseInt(repsRequired); // reformatted
+  let repsRequired = -1;
+  try {
+    repsRequired = roundDetails.split(" ")[0]
+    repsRequired = parseInt(repsRequired); // reformatted
+  } catch {
+    window.displayError("Error getting set round details. Likely you have no set or interval round in an exercise!")
+  }
 
   let countdownType = "rest";
   let enums = { REST_PERIOD:1 } // 0th position is number of reps in a set round
@@ -284,7 +297,7 @@ let ConnectedSet = connect((state, ownProps)=>{
 let ConnectedInterval = connect((state, ownProps)=>{
 
   let workoutRx = ownProps.workoutRx;
-  let roundDetails = state.activeExercise!==-1?workoutRx.exercises[state.activeExercise].intervals[state.activeRound]:"";
+  let roundDetails = state.activeExercise!==-1?workoutRx.exercises[ownProps.exerciseNum].intervals[ownProps.roundNum]:"";
 
   return {
     ...state,
@@ -322,7 +335,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   roundTotal: exercise.sets.length,
                   workoutRx
                 }
-                return (<ConnectedSet key={["round-set", activeExercise, roundNum].join("-")} {...props}/>)
+                return (<ConnectedSet key={["round-set", i, roundNum].join("-")} {...props}/>)
               })
             } else if(exercise.roundType==="INTERVALS") {
               return exercise.intervals.map((interval,roundNum)=>{
@@ -335,7 +348,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   roundTotal: exercise.intervals.length,
                   workoutRx
                 }
-                return (<ConnectedInterval key={["round-interval", activeExercise, roundNum].join("-")} {...props}/>)
+                return (<ConnectedInterval key={["round-interval", i, roundNum].join("-")} {...props}/>)
               })
             }
           })()

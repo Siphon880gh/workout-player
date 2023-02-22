@@ -77,7 +77,15 @@ function Interval(
 
     // Init countdowns
     useEffect(()=>{
-        var [ready,active,rest] = roundDetails.split(" ");
+        var [ready,active,rest] = [-1,-1,-1];
+        try {
+            var arr = roundDetails.split(" ").concat(["", "", ""]);
+            ready = arr[0];
+            active = arr[1];
+            rest = arr[2];
+        } catch {
+            window.displayError("Error getting interval round details. Likely you have no set or interval round in an exercise!")
+        }
         const castToSeconds = window.intuitiveDuration__getSeconds;
         ready = castToSeconds(ready)
         active = castToSeconds(active)
@@ -103,7 +111,7 @@ function Interval(
     useEffect(()=>{
         setCountdownProgress(0)
     }, [])
-    useEffect(updateTimer, [countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
+    useEffect(updateTimer, [activeRound,countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
 
     return (
         <div className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
@@ -180,7 +188,7 @@ function Set(
                     store.dispatch({type: 'round/reps-done/start-rest'})
                     // }
                 }}
-            >{repsRequired} {repsRequired===1?"Rep":"Reps"} Done</button>
+            >DONE {repsRequired} {repsRequired===1?"Rep":"Reps"}</button>
             <span className="set-countdown">
                 { (repsDone && countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
             </span>

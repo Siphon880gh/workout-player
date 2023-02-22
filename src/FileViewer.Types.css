@@ -1,6 +1,7 @@
 .set-name,
 .interval-name {
     margin: 0;
+    margin-bottom: 10px;
     padding: 0;
     margin-right: 10px;
 }

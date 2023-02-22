@@ -15,7 +15,8 @@ export default function setupGlobals() {
 // TODO: Will slide-in panel at index.html to display the error instead of showing error in console
   window.displayError = function(msg) {
       // TODO: Should appear on the website as a slide-in then slide-out, so immediately know format errors of the workout text file
-      console.error(msg);
+      // console.error(msg);
+      alert(msg);
   }
 
   window.jumpToElementById = function(id) {
