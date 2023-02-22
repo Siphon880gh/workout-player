@@ -53,24 +53,96 @@ function Instruction({data}) {
     )
 }
 
-function Interval() {
-    return (
-        <div className="interval">Interval type</div>
-    )
-}
-
-function Set(
+function Interval(
     {
         store, 
+        workoutRx,
         
         activeExercise, 
         exerciseTotal, 
         exerciseNum, 
         
         activeRound, 
-        roundNum, 
-        roundTotal,
-        roundType,
+        roundNum, // active round in the active exercise
+        roundTotal, // total number of rounds in the exercise
+
+        roundDetails, // all three countdowns of the interval round, eg. 5s 30s 15s for ready, active, and rest periods
+        countdownType,
+        countdownStart
+    }) {
+
+    let [countdownProgress, setCountdownProgress] = useState(-1)
+    // let [rerender, setForceRerender] = useState(0)
+
+
+    // Init countdowns
+    useEffect(()=>{
+        var [ready,active,rest] = roundDetails.split(" ");
+        const castToSeconds = window.intuitiveDuration__getSeconds;
+        ready = castToSeconds(ready)
+        active = castToSeconds(active)
+        rest = castToSeconds(rest)
+
+        store.dispatch({type: 'interval/countdown/start', payload:{roundNum, roundTotal, exerciseTotal, ready, active, rest, countdownType, workoutRx}})
+    }, []);
+
+    function updateTimer() {
+        if(activeExercise==-1) {
+            return;
+        }
+        else if(activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
+            setTimeout(()=>{
+                setCountdownProgress(countdownProgress+1);       
+                if(countdownProgress+1===countdownStart) { // increment to next round
+                    store.dispatch({type: 'interval/countdown/next', payload:{roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx}})
+                    setCountdownProgress(0);    
+                } 
+            }, 1000);
+        }
+    }
+    useEffect(()=>{
+        setCountdownProgress(0)
+    }, [])
+    useEffect(updateTimer, [countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
+
+    return (
+        <div className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+            {(activeExercise===exerciseNum && activeRound===roundNum)?
+            (
+                <>
+                    <h3 className="interval-name">Interval {roundNum+1}:</h3>
+                    <span className="interval-countdown interval-countdown-ready">
+                        { (countdownType==="ready")?(countdownStart-countdownProgress)+"s":""}
+                    </span>
+                    <span className="interval-countdown interval-countdown-active">
+                        { (countdownType==="active")?(countdownStart-countdownProgress)+"s":""}
+                    </span>
+                    <span className="interval-countdown interval-countdown-rest">
+                        { (countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
+                    </span>
+                </>    
+            )
+            :(<></>)}
+
+            {/* <div>
+                re {rerender}
+            </div> */}
+        </div>
+    )
+} // Interval
+
+function Set(
+    {
+        store, 
+        workoutRx,
+        
+        activeExercise, 
+        exerciseTotal, 
+        exerciseNum, 
+        
+        activeRound, 
+        roundNum, // active round in the active exercise
+        roundTotal, // total number of rounds in the exercise
 
         repsRequired,
         repsDone,
@@ -82,38 +154,39 @@ function Set(
     let [countdownProgress, setCountdownProgress] = useState(0)
 
     useEffect(()=>{
-        console.log({repsDone, b:activeExercise===exerciseNum,c:activeRound===roundNum, d:countdownProgress<countdownStart})
-        if(repsDone && activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
+        // console.log({repsDone, b:activeExercise===exerciseNum,c:activeRound===roundNum, d:countdownProgress<countdownStart})
+        if(activeExercise==-1) {
+            return;
+        }
+        else if(repsDone && activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
             setTimeout(()=>{
                 if(countdownProgress+1>=countdownStart) { // increment to next round
                     store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
+                    setCountdownProgress(0); 
                 } 
                 setCountdownProgress(countdownProgress+1);       
             }, 1000);
         }
     }, [repsDone, countdownProgress])
 
-    // let {workCount, atRound} = props.inspect;
     return (
-        // <div workCount={workCount} atRound={atRound} className={["sets", props.isActive?"active":""].join(" ")}>Set type</div>
         <div className={["set", activeExercise===exerciseNum&&activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
-            <div className="set-name">Set {roundNum+1}:</div>
+            <h3 className="set-name">Set {roundNum+1}:</h3>
             <button className="set-done" 
                 style={{marginRight:"10px", display:repsDone?"none":"inline-block"}}
                 onClick={()=> { 
                     // if(activeExercise===exerciseNum) {
                         // store.dispatch({type: 'round/incremented', payload:[roundNum, roundTotal, exerciseTotal]})
-                        store.dispatch({type: 'round/reps-done/start-rest'})
+                    store.dispatch({type: 'round/reps-done/start-rest'})
                     // }
                 }}
             >{repsRequired} {repsRequired===1?"Rep":"Reps"} Done</button>
             <span className="set-countdown">
                 { (repsDone && countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
             </span>
-            {/* <span>{repsDone.toString()}</span> */}
         </div>
     )
-}
+} // Set
 
 function Spacing() {
     return (

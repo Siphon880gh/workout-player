@@ -6,9 +6,15 @@ PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/fil
 INSTRUCTION Lie down on a bench... 
 INSTRUCTION With feet on the floor, lift... 
 
-SET 5r 3s
-SET 5r 3s
-SET 5r 3s
+
+# INTERVAL 5s 5s 5s
+# INTERVAL 5s 5s 5s
+# INTERVAL 5s 5s 5s
+INTERVAL 2s 2s 2s
+
+# SET 5r 3s
+# SET 5r 3s
+# SET 5r 3s
 
 ---
 Exercise 2
@@ -21,6 +27,10 @@ INSTRUCTION With feet on the floor, lift...
 
 # INTERVAL 5s 30s 10r
 SET 5r 3s
+SET 5r 3s
+
+# INTERVAL 2s 3s 2s
+INTERVAL 2s 3s 2s
 
 ---
 Exercise 3
@@ -31,4 +41,8 @@ INSTRUCTION Lie down on a bench...
 INSTRUCTION With feet on the floor, lift... 
 
 # INTERVAL 5s 30s 10r
-SET 5r 3s
+# SET 5r 3s
+
+
+INTERVAL 2s 3s 2s
+INTERVAL 2s 3s 2s

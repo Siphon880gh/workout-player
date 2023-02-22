@@ -1,8 +1,12 @@
-.set-name {
+.set-name,
+.interval-name {
+    margin: 0;
+    padding: 0;
     margin-right: 10px;
 }
 
-.set.active {
+.set.active,
+.interval.active {
     border: 1px dashed red;
     border-right-color: transparent;
     border-left-color: transparent;
@@ -53,5 +57,21 @@
 }
 
 .set-countdown::before {
-    content: "⏳";
+    content: "⏳ REST ";
+}
+
+.interval-countdown:empty {
+    display: none;
+}
+
+.interval-countdown-ready::before {
+    content: "⏳ READY ";
+}
+
+.interval-countdown-active::before {
+    content: "⏳ ACTIVE ";
+}
+
+.interval-countdown-rest::before {
+    content: "⏳ REST ";
 }

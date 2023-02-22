@@ -22,51 +22,41 @@ export default function setupGlobals() {
     window.document.querySelector("html,body").scrollTo(0,window.document.getElementById(id).offsetTop, 1000, "easeInOutQuint")
   }
 
-window.IntuitiveDuration = class {
-  constructor(input) {
-    
-    if(this._validate(input)) {
-      this.input = input;
-    } else {
-      window.displayError("Incorrect duration format")
-    }
-  } // constructor
+  window.intuitiveDuration__getSeconds = function(token) {
+    const getSeconds = (token) => {
+      let intermediate = token.toLowerCase();
+      intermediate = intermediate.replaceAll(" ", "");
+      intermediate = intermediate.replaceAll("h", "h ")
+      intermediate = intermediate.replaceAll("m", "m ")
+      intermediate = intermediate.replaceAll("s", "s ")
+      let intermediates = intermediate.split(" ");
+      intermediates = intermediates.filter(intermediate=>intermediate.length);
 
-  _validate(input) {
-    // eslint-disable-next-line no-useless-escape
-    return (/^[hms0-9\.\s]{2,}$/i).test(input)
-  }
+      let accumulator = 0;
+      for(let i = 0; i<intermediates.length; i++) {
+        let token = intermediates[i];
+        let num = parseFloat(token);
 
-  // Tests
-  // (new IntuitiveDuration("2m2s")).getSeconds();
-  // (new IntuitiveDuration("1h2m2s")).getSeconds();
-  getSeconds() {
-    let intermediate = this.input;
-    intermediate = intermediate.toLowerCase();
-    intermediate = intermediate.replaceAll(" ", "");
-    intermediate = intermediate.replaceAll("h", "h ")
-    intermediate = intermediate.replaceAll("m", "m ")
-    intermediate = intermediate.replaceAll("s", "s ")
-    let intermediates = intermediate.split(" ");
-    intermediates = intermediates.filter(intermediate=>intermediate.length);
-
-    let accumulator = 0;
-    for(let i = 0; i<intermediates.length; i++) {
-      let token = intermediates[i];
-      let num = parseFloat(token);
-
-      if(token.includes("h")) {
-        accumulator+=num*60*60;
-      } else if(token.includes("m")) {
-        accumulator+=num*60;
-      } else {
-        accumulator+=num;
+        if(token.includes("h")) {
+          accumulator+=num*60*60;
+        } else if(token.includes("m")) {
+          accumulator+=num*60;
+        } else {
+          accumulator+=num;
+        }
       }
+      // console.log(accumulator)
+      return accumulator;
+    } // getSeconds(token)
+
+    const isValidToken = (/^[hms0-9\.\s]{2,}$/i).test(token) // Eg. 1h2m3s
+    if(isValidToken) {
+      return getSeconds(token)
+    } else {
+      return -1;
     }
-    // console.log(accumulator)
-    return accumulator;
-  }
-} // class IntuitiveDuration
+  } // intuitiveDuration__getSeconds
+
 
   // Setup String method to change to title case
   // eslint-disable-next-line no-extend-native

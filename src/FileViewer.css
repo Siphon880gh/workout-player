@@ -28,6 +28,12 @@ summary {
     cursor: pointer;
 }
 
+summary>* {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
 #play-mode {
     position: fixed;
     right: 10px;

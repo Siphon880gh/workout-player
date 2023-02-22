@@ -46,17 +46,18 @@ function parseWorkoutData(data) {
             let roundType = "";
             if(sets.length && intervals.length) {
                 intervals.length = 0;
-                window.displayErrordisplayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
+                window.displayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
             }
             // For conditional rendering. Forgone Enum so code is less bloated.
+            // debugger;
             if(sets.length) {
                 roundType = "SETS";
             } else if(intervals.length) {
                 roundType = "INTERVALS";
             }
             
+            // debugger;
             // Enrich: Adding round types
-            
             let roundTotal = sets.length || intervals.length || 0;
 
 
