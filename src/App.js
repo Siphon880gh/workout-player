@@ -33,7 +33,15 @@ function App() {
         </Routes>
       </main>
       </Router>
+
+      <span id="open-file" onClick={()=>{
+        const hasTextFile = window.location.href.includes(".txt") || window.location.href.includes(".md")
+        if(!hasTextFile) alert("You haven't opened a workout yet to be able to see it's full text format")
+        window.open(window.location.href.replace("view/", "data/notebooks/"));
+      }}>📖</span>
+
       <span id="toggle-sidebar" onClick={()=>setShowMisc(!showMisc)}>👁</span>
+      
     </div>
   );
 }

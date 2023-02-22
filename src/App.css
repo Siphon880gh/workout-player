@@ -38,6 +38,14 @@ header h1 {
     flex-flow: row nowrap;
 }
 
+#open-file {
+    position: fixed;
+    left: 10px;
+    bottom: 40px;
+    cursor: pointer;
+    font-size: 16pt;
+}
+
 #toggle-sidebar {
     position: fixed;
     left: 10px;
