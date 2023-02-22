@@ -115,10 +115,10 @@ function Interval(
 
     return (
         <div className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+            <h4 className="interval-name">Interval {roundNum+1}{(activeExercise===exerciseNum && activeRound===roundNum)?":":""}</h4>
             {(activeExercise===exerciseNum && activeRound===roundNum)?
             (
                 <>
-                    <h3 className="interval-name">Interval {roundNum+1}:</h3>
                     <span className="interval-countdown interval-countdown-ready">
                         { (countdownType==="ready")?(countdownStart-countdownProgress)+"s":""}
                     </span>
@@ -179,7 +179,7 @@ function Set(
 
     return (
         <div className={["set", activeExercise===exerciseNum&&activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
-            <h3 className="set-name">Set {roundNum+1}:</h3>
+            <h4 className="set-name">Set {roundNum+1}:</h4>
             <button className="set-done" 
                 style={{marginRight:"10px", display:repsDone?"none":"inline-block"}}
                 onClick={()=> { 
