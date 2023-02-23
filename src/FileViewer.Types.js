@@ -2,9 +2,70 @@ import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDid
 
 import "./FileViewer.Types.css";
 
-function Video() {
+function Youtube({data}) {
+    data = data.split(" ");
+    if(data.length===1) {
+        data = data.concat(["na", "na"]);
+    } else if(data.length===2) {
+        data = data.concat(["na"]);
+    }
+    {/* 
+        Reference
+        <iframe src="https://www.youtube.com/embed/lETF5JRgEN8?start=362&end=365" style="width:400px; height:200px"></iframe> 
+        <iframe src="https://www.youtube.com/watch?v=" style="width:400px; height:200px"></iframe> 
+        http://youtu.be/FdeioVndUhs
+    */}
+    let [url, start, end] = data;
+    url = ((token)=>{
+        if(token.includes("?v=")) {
+            let leftDelimiter = "?v=";
+            let rightDelimiter = "&";
+            let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
+            if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+                fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
+            }
+            token = fromStart;
+        } else if(token.includes("embed/")) {
+            let leftDelimiter = "embed/";
+            let rightDelimiter = "?";
+            let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
+            if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+                fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
+            }
+            token = fromStart;
+        } else if(token.includes("youtu.be/")) {
+
+            let leftDelimiter = "youtu.be/";
+            let rightDelimiter = "/";
+            let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
+            if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+                fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
+            }
+            token = fromStart;
+        }
+        return "https://www.youtube.com/embed/" + token;
+    })(url)
+    // console.log({dL:data.length});
+
+    let hasStart = !start.includes("n");
+    let hasEnd = !end.includes("n");
+    const getSeconds = window.timemarks__getSeconds_cm;
+
+    if(hasStart && !hasEnd) {
+        url = url + "?start=" + getSeconds(start);
+    } else if(hasStart && hasEnd) {
+        url = url + "?start=" + getSeconds(start) + "&end=" + getSeconds(end);
+    } else if(!hasStart && !hasEnd) {
+    } else if(!hasStart && hasEnd) {
+        url = url + "?end=" + getSeconds(end);
+    }
+
     return (
-        <div className="video">Video type</div>
+        <div className="youtube">
+            <iframe src={url} frameBorder="0"></iframe>
+            <div className="loading-sprite">Loading Youtube...</div>
+            {(!url.includes("start=") || !url.includes("end=")) && (<div className="clip-indicator"></div>)}
+        </div>
     )
 }
 
@@ -86,7 +147,7 @@ function Interval(
         } catch {
             window.displayError("Error getting interval round details. Likely you have no set or interval round in an exercise!")
         }
-        const castToSeconds = window.intuitiveDuration__getSeconds;
+        const castToSeconds = window.intuitiveDuration__getSeconds_cm;
         ready = castToSeconds(ready)
         active = castToSeconds(active)
         rest = castToSeconds(rest)
@@ -196,19 +257,11 @@ function Set(
     )
 } // Set
 
-function Spacing() {
-    return (
-        <br></br>
-    )
-}
-
-
 
 export {
-    Video,
+    Youtube,
     Picture,
     Instruction,
     Interval,
-    Set,
-    Spacing
+    Set
 }

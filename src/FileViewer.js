@@ -3,12 +3,11 @@ import {useState, useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {useLocation} from "react-router-dom";
 import {
-  Video,
+  Youtube,
   Picture,
   Instruction,
   Interval,
-  Set,
-  Spacing
+  Set
 } from "./FileViewer.Types.js";
 import {parseWorkoutData} from "./FileViewer.Utils.js";
 import { configureStore } from '@reduxjs/toolkit'
@@ -97,7 +96,7 @@ function workoutReducer(
         } catch {
             window.displayError("Error getting interval round details. Likely you have no set or interval round in an exercise!")
         }
-        const castToSeconds = window.intuitiveDuration__getSeconds;
+        const castToSeconds = window.intuitiveDuration__getSeconds_cm;
         ready = castToSeconds(ready)
         active = castToSeconds(active)
         rest = castToSeconds(rest)
@@ -281,7 +280,8 @@ let ConnectedSet = connect((state, ownProps)=>{
   let countdownType = "rest";
   let enums = { REST_PERIOD:1 } // 0th position is number of reps in a set round
   let countdownStart = roundDetails.split(" ")[enums.REST_PERIOD];
-  countdownStart = window.intuitiveDuration__getSeconds(countdownStart); // reforamt
+  const castToSeconds = window.intuitiveDuration__getSeconds_cm;
+  countdownStart = castToSeconds(countdownStart); // reforamt
 
   return {
     ...state,
@@ -313,14 +313,19 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary><h3>{exercise.name}</h3></summary>
         
+        {/* Youtube's */}
+        {exercise.youtubes.map((youtube,j)=>{
+          return <Youtube key={["info-youtube", i, j].join("-")} data={youtube}/>
+        })}
+
         {/* Pictures */}
         {exercise.pictures.map((picture,j)=>{
-          return <Picture key={["info-pic", j].join("-")} data={picture}/>
+          return <Picture key={["info-pic", i,  j].join("-")} data={picture}/>
         })}
 
         {/* Instruction */}
         {exercise.instructions.map((instruction,j)=>{
-          return <Instruction key={["info-instruction", j].join("-")} data={instruction}/>
+          return <Instruction key={["info-instruction", i,  j].join("-")} data={instruction}/>
         })}
         {
           (()=>{

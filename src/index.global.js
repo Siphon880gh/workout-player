@@ -1,13 +1,3 @@
-
-// window.elapsedTime=0;
-// window.play = true;
-// setInterval(()=>{
-//   if(window.play) {
-//     window.elapsedTime++;
-//     // console.log(window.elapsedTime);
-//   }
-// },1000)
-
 export default function setupGlobals() {
 
   window.playing = true; // TODO: Will add button at index.html that lets user control playing or not
@@ -23,7 +13,42 @@ export default function setupGlobals() {
     window.document.querySelector("html,body").scrollTo(0,window.document.getElementById(id).offsetTop, 1000, "easeInOutQuint")
   }
 
-  window.intuitiveDuration__getSeconds = function(token) {
+  /**
+   * 
+   * Timemark is like 0:01, 1:00, 1:02:03
+   */
+  window.timemarks__getSeconds_cm = function(token) {
+    let subtokens = token.split(":");
+    let [h,m,s] = [0,0,0];
+
+    if(subtokens.length>3)
+      subtokens.length=3;
+
+    switch (subtokens.length) {
+      case 1: 
+        s = parseInt(subtokens[0]);
+        break;
+      case 2: 
+        m = parseInt(subtokens[0]);
+        s = parseInt(subtokens[1]);
+        break;
+      case 3: 
+        h = parseInt(subtokens[0]);
+        m = parseInt(subtokens[1]);
+        s = parseInt(subtokens[2]);
+        break;
+      default:
+    }
+
+    return (h*60*60) + (m*60) + s;
+    
+  } // timemarks__getSeconds_cm
+
+  /**
+   * 
+   * Intuitive Duration is like 1h2m1s, 2m1s, or variations with spacing: 2m 1s, 1h 2m 1s
+   */
+  window.intuitiveDuration__getSeconds_cm = function(token) {
     const getSeconds = (token) => {
       let intermediate = token.toLowerCase();
       intermediate = intermediate.replaceAll(" ", "");

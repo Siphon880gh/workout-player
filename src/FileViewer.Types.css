@@ -76,3 +76,62 @@
 .interval-countdown-rest::before {
     content: "⏳ REST ";
 }
+
+.youtube {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.youtube,
+.youtube iframe {
+    width: 400px;
+    height: 200px;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.youtube .clip-indicator::before {
+    content: "Clipped";
+}
+
+.youtube .loading-sprite {
+    z-index: -1;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    left: 2.5%;
+    top: 2.5%;
+    border: 1px dashed rgba(255, 255, 255, .8);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .8);
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    animation: fadeInFadeOut 3s infinite linear;
+}
+
+@keyframes fadeInFadeOut {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.youtube .clip-indicator {
+    z-index: 3;
+    position: absolute;
+    text-align: middle;
+    padding: 5px;
+    border-radius: 10px;
+    width: auto;
+    height: 20px;
+    font-weight: bold;
+    background-color: red;
+    right: 0;
+    top: 0;
+}
