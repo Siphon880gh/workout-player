@@ -368,7 +368,7 @@ function Workout({activeExercise}) {
 
       <>
         {/* Title */}
-        <h2 id="workout-title">Workout: {workoutRx.workoutName.toTitleCase()}</h2>
+        <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
 
         {/* Test incrementing */}
         {/* <button onClick={()=> { 

@@ -1,0 +1,30 @@
+Exercise 1
+YOUTUBE https://www.youtube.com/watch?v=lETF5JRgEN8 7:16 8:70
+
+INSTRUCTION Tight chest from sitting too much... 
+INSTRUCTION Includes assessment instructions... 
+INSTRUCTION Includes performance instructions... 
+
+INTERVAL na 30s 30s
+INTERVAL na 30s 30s
+INTERVAL na 30s 30s
+
+# SET 5r 3s
+# SET 5r 3s
+# SET 5r 3s
+
+---
+Exercise 2
+PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg  150px na
+
+PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na
+
+INSTRUCTION Lie down on a bench... 
+INSTRUCTION With feet on the floor, lift... 
+
+# INTERVAL 5s 30s 10r
+SET 5r 3s
+SET 5r 3s
+
+# INTERVAL 2s 3s 2s
+# INTERVAL 2s 3s 2s
