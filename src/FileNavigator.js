@@ -12,7 +12,8 @@ function FileNavigator() {
     setLis(importedLis);
   }, [])
 
-  function changeFolderStatus(i, level) {
+  function changeFolderStatus(i, fromElement) {
+    const level = parseInt(fromElement.getAttribute("level"));
     if(lis[i].className==="file") { // we do not expand a file
       return;
     } else if(i+1>=importedLis.length || (lis[i+1].level !== level+1)) { // nothing to expand
@@ -73,10 +74,12 @@ function FileNavigator() {
                       rerendercode={rerenderCode} 
                       className={[className, lis[i].active?"active":""].join(" ")} 
                       parent={parent} level={level} path={path} descendants={descendants} 
-                      onClick={(event)=>{ changeFolderStatus(i, parseInt(event.target.getAttribute("level"))) }}
+                      onClick={(event)=>{ changeFolderStatus(i, event.target) }}
                     >
-                    <span className="icon"></span>
-                    <span className="title">{textContent}</span>
+                    <span className="icon" 
+                      onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}></span>
+                    <span className="title"
+                      onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}>{textContent}</span>
                     </li>
                   )
               );
