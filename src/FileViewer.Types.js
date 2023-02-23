@@ -12,13 +12,39 @@ function MiscVideo({data}) {
         return (<embed className="video instagram" src="https://www.instagram.com/p/CluXkCgD2m7/embed/" width="500" height="678" frameBorder="0" scrolling="no" allowTransparency="true"></embed>);
     }
     if(data.includes("tiktok.com")) {
-        // Link of tiktok video page https://www.tiktok.com/@wildboybrett69/video/7067337585433070895?q=deadlift&t=1677192255304
+        // Link of Tiktok video page https://www.tiktok.com/@wildboybrett69/video/7067337585433070895?q=deadlift&t=1677192255304
         // TODO README: Link of tiktok video page
 
         return (
             <div className="video tiktok">
                 <TikTok url='https://www.tiktok.com/@squatuniversity/video/7170818647353543982' />
             </div>
+        )
+    }
+    if(data.includes("facebook.com") && data.includes("/videos/")) {
+        // Link of Facebook video page https://www.facebook.com/bloombylily/videos/1155497921799424/
+        // TODO README: Link of Facebook video page
+
+        return (
+            <iframe className="video facebook" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F1155497921799424%2F&show_text=false&width=267&t=0" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+        )
+    }
+    if(data.includes("vimeo.com")) {
+        // Link of Vimeo video page https://vimeo.com/660530975
+        // TODO README: Link of Vimeo video page
+
+        // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+
+        const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
+
+        return (
+            <>
+                <div className="video vimeo">
+                    <iframe src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7&autoplay=1&loop=1&background=1&byline=0&portrait=0" style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                    <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
+                </div>
+                <br/>
+            </>
         )
     }
     return (<div>Video format not supported</div>)

@@ -314,15 +314,16 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary><h3>{exercise.name}</h3></summary>
         
+        {/* Youtube's */}
+        {exercise.youtubes.map((youtube,j)=>{
+          return <Youtube key={["info-youtube", i, j].join("-")} data={youtube}/>
+        })}
+        
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
         {exercise.miscvideos.map((miscvideo,j)=>{
           return <MiscVideo key={["info-misc-video", i, j].join("-")} data={miscvideo}/>
         })}
         
-        {/* Youtube's */}
-        {exercise.youtubes.map((youtube,j)=>{
-          return <Youtube key={["info-youtube", i, j].join("-")} data={youtube}/>
-        })}
 
         {/* Pictures */}
         {exercise.pictures.map((picture,j)=>{

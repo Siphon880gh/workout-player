@@ -111,6 +111,7 @@
 }
 
 .youtube .clipped-indicator,
+.vimeo .btn-zoom,
 .youtube .btn-zoom {
     cursor: pointer;
     transition: all 750ms ease;
@@ -129,6 +130,7 @@
 }
 
 .youtube .btn-zoom,
+.vimeo .btn-zoom,
 .clipped-indicator {
     width: 75px !important;
 }
@@ -138,7 +140,8 @@
     color: white;
 }
 
-.youtube .btn-zoom:hover {
+.youtube .btn-zoom:hover,
+.vimeo .btn-zoom:hover {
     background-color: white;
     color: red;
 }
@@ -147,6 +150,7 @@
     content: "Clipped";
 }
 
+.vimeo .btn-zoom::before,
 .youtube .btn-zoom::before {
     content: "Zoom";
 }
@@ -182,7 +186,7 @@
 .youtube .clipped-indicator {
     z-index: 3;
     position: absolute;
-    text-align: middle;
+    text-align: center;
     padding: 5px;
     border-radius: 10px;
     width: auto;
@@ -193,10 +197,11 @@
     top: 0;
 }
 
-.youtube .btn-zoom {
+.youtube .btn-zoom,
+.vimeo .btn-zoom {
     z-index: 3;
     position: absolute;
-    text-align: middle;
+    text-align: center;
     padding: 5px;
     border-radius: 10px;
     width: auto;
@@ -210,6 +215,23 @@
 embed.video {
     display: block;
     margin: 0 auto;
+}
+
+.video.vimeo {
+    display: inline-block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 45vh;
+    position: relative;
+}
+
+.video.vimeo:not(.zoomed) {
+    width: 267px;
+}
+
+.video.vimeo.zoomed {
+    width: 75%;
+    height: 75vh;
 }
 
 .video.tiktok>* {
