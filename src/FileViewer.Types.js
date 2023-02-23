@@ -64,7 +64,7 @@ function Youtube({data}) {
         <div className="youtube">
             <iframe src={url} frameBorder="0"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
-            {(!url.includes("start=") || !url.includes("end=")) && (<div className="clip-indicator"></div>)}
+            {(url.includes("start=") || url.includes("end=")) && (<div className="clip-indicator" onClick={(event)=>{ event.target.closest(".youtube").classList.toggle("zoomed"); }}></div>)}
         </div>
     )
 }

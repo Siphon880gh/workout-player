@@ -31,7 +31,7 @@ Format
 <exercise_title>
 PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
-YOUTUBE yt/etc <timemark_or_na> <timemark_or_na>
+YOUTUBE <youtube-link> <timemark_or_na> <timemark_or_na>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
@@ -44,7 +44,7 @@ Example
 <exercise_title>
 PICTURE <gif/etc link>
 PICTURE <gif/etc link>
-YOUTUBE yt/etc 3:01 na
+YOUTUBE <youtube-link> 3:01 na
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL 5s 30s na
@@ -62,7 +62,7 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 - First line always is title of exercise. Is mandatory.
 - Picture is a link like`https://link-to-pic`
-- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is.
+- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
 - After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
 - INSTRUCTION is your paragraph of explanation. You can have as many as possible on different lines.
 - Then you have either INTERVAL or SET. You can have many as possible on different lines. To explain further:
