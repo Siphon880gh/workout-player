@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {useLocation} from "react-router-dom";
 import {
+  MiscVideo,
   Youtube,
   Picture,
   Instruction,
@@ -312,6 +313,11 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
   return (
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary><h3>{exercise.name}</h3></summary>
+        
+        {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
+        {exercise.miscvideos.map((miscvideo,j)=>{
+          return <MiscVideo key={["info-misc-video", i, j].join("-")} data={miscvideo}/>
+        })}
         
         {/* Youtube's */}
         {exercise.youtubes.map((youtube,j)=>{

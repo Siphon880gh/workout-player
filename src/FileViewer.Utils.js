@@ -15,6 +15,9 @@ function parseWorkoutData(data) {
             // Restructuring: Reference model for creating stores
             let name = lines.shift(0);
             
+            let miscvideos = lines.filter(line=>line.indexOf("MISCVIDEO ")===0)
+            // console.log({miscvideos})
+
             let youtubes = lines.filter(line=>line.indexOf("YOUTUBE ")===0)
             // console.log({youtubes})
             
@@ -70,6 +73,7 @@ function parseWorkoutData(data) {
                 name,
                 roundType,
                 roundTotal,
+                miscvideos,
                 youtubes,
                 pictures,
                 instructions,

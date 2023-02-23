@@ -1,6 +1,28 @@
+import { TikTok } from 'react-tiktok';
 import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
 
 import "./FileViewer.Types.css";
+
+function MiscVideo({data}) {
+    // data = data.split(" "); // Clipping disabled for misc videos because could be instagram, tiktok, FB reel, Vimeo, etc
+    if(data.includes("instagram.com")) {
+        // Reference https://www.instagram.com/reel/CluXkCgD2m7
+        // Reference clicked Share -> Embed: <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/CnalYzEuo85/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"...</blockquote> <script async src="//www.instagram.com/embed.js"></script>
+        // TODO README: Reel post from profile link / Embed code from ...
+        return (<embed className="video instagram" src="https://www.instagram.com/p/CluXkCgD2m7/embed/" width="500" height="678" frameBorder="0" scrolling="no" allowTransparency="true"></embed>);
+    }
+    if(data.includes("tiktok.com")) {
+        // Link of tiktok video page https://www.tiktok.com/@wildboybrett69/video/7067337585433070895?q=deadlift&t=1677192255304
+        // TODO README: Link of tiktok video page
+
+        return (
+            <div className="video tiktok">
+                <TikTok url='https://www.tiktok.com/@squatuniversity/video/7170818647353543982' />
+            </div>
+        )
+    }
+    return (<div>Video format not supported</div>)
+}
 
 function Youtube({data}) {
     data = data.split(" ");
@@ -262,6 +284,7 @@ function Set(
 
 
 export {
+    MiscVideo,
     Youtube,
     Picture,
     Instruction,
