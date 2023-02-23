@@ -77,6 +77,18 @@
     content: "⏳ REST ";
 }
 
+@keyframes textblur {
+    0% {
+        -webkit-filter: blur(0px);
+    }
+    50% {
+        -webkit-filter: blur(5px);
+    }
+    100% {
+        -webkit-filter: blur(0px);
+    }
+}
+
 .youtube {
     position: relative;
     width: 400px;
@@ -98,18 +110,45 @@
     z-index: 2;
 }
 
-.youtube .clip-indicator {
+.youtube .clipped-indicator,
+.youtube .btn-zoom {
     cursor: pointer;
     transition: all 750ms ease;
 }
 
-.youtube .clip-indicator:hover {
+.youtube .clipped-indicator:hover {
     background-color: white;
     color: red;
 }
 
-.youtube .clip-indicator::before {
+.youtube .clipped-indicator:hover::before {
+    content: "Zoom";
+    animation-name: textblur;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+}
+
+.youtube .btn-zoom,
+.clipped-indicator {
+    width: 75px !important;
+}
+
+.youtube .btn-zoom {
+    background-color: red;
+    color: white;
+}
+
+.youtube .btn-zoom:hover {
+    background-color: white;
+    color: red;
+}
+
+.youtube .clipped-indicator::before {
     content: "Clipped";
+}
+
+.youtube .btn-zoom::before {
+    content: "Zoom";
 }
 
 .youtube .loading-sprite {
@@ -140,7 +179,21 @@
     }
 }
 
-.youtube .clip-indicator {
+.youtube .clipped-indicator {
+    z-index: 3;
+    position: absolute;
+    text-align: middle;
+    padding: 5px;
+    border-radius: 10px;
+    width: auto;
+    height: 20px;
+    font-weight: bold;
+    background-color: red;
+    right: 0;
+    top: 0;
+}
+
+.youtube .btn-zoom {
     z-index: 3;
     position: absolute;
     text-align: middle;

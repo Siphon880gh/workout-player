@@ -60,11 +60,14 @@ function Youtube({data}) {
         url = url + "?end=" + getSeconds(end);
     }
 
+    const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
+
     return (
-        <div className="youtube">
+        <div className="video youtube">
             <iframe src={url} frameBorder="0"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
-            {(url.includes("start=") || url.includes("end=")) && (<div className="clip-indicator" onClick={(event)=>{ event.target.closest(".youtube").classList.toggle("zoomed"); }}></div>)}
+            <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
+            {(url.includes("start=") || url.includes("end=")) && (<div className="clipped-indicator" onClick={(event)=>zoom(event)}></div>)}
         </div>
     )
 }
