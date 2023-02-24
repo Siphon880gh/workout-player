@@ -35,12 +35,15 @@ function MiscVideo({data}) {
 
         // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 
+        // Autoplay
+        // autoplay=0 or autoplay=1 in URL for Vimeo
+
         const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
 
         return (
             <>
                 <div className="video vimeo">
-                    <iframe src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7&autoplay=1&loop=1&background=1&byline=0&portrait=0" style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                    <iframe src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7&autoplay=0&loop=1&byline=0&portrait=0" style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
                     <div className="loading-sprite">Loading Vimeo...</div>
                     <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
                 </div>
@@ -63,7 +66,13 @@ function Youtube({data}) {
         <iframe src="https://www.youtube.com/embed/lETF5JRgEN8?start=362&end=365" style="width:400px; height:200px"></iframe> 
         <iframe src="https://www.youtube.com/watch?v=" style="width:400px; height:200px"></iframe> 
         http://youtu.be/FdeioVndUhs
+    
+        Autoplay
+        Is only allowed on Youtube embed if it's also muted
+        ?autoplay=1&mute=1
     */}
+
+    
     let [url, start, end] = data;
     url = ((token)=>{
         if(token.includes("?v=")) {
@@ -92,7 +101,7 @@ function Youtube({data}) {
             }
             token = fromStart;
         }
-        return "https://www.youtube.com/embed/" + token;
+        return "https://www.youtube.com/embed/" + token; // + "?autoplay=1&mute=1";
     })(url)
     // console.log({dL:data.length});
 
@@ -113,7 +122,7 @@ function Youtube({data}) {
 
     return (
         <div className="video youtube">
-            <iframe src={url} frameBorder="0"></iframe>
+            <iframe src={url} frameBorder="0" allow="autoplay"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
             <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
             {(url.includes("start=") || url.includes("end=")) && (<div className="clipped-indicator" onClick={(event)=>zoom(event)}></div>)}

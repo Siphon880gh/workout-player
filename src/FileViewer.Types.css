@@ -156,7 +156,7 @@
 }
 
 .youtube .loading-sprite {
-    z-index: 0;
+    z-index: -1;
     position: absolute;
     width: 95%;
     height: 95%;
