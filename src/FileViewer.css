@@ -24,6 +24,12 @@ details[open] summary {
     margin: 20px 100px;
 }
 
+@media (max-width:768px) {
+    details[open] summary {
+        margin: 20px 20px;
+    }
+}
+
 summary {
     cursor: pointer;
 }

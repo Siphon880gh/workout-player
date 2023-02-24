@@ -174,7 +174,7 @@
 .vimeo .loading-sprite {
     z-index: 0;
     position: absolute;
-    width: 95%;
+    min-width: 250px;
     min-height: 148px;
     left: 2.5%;
     top: 0;
@@ -185,6 +185,10 @@
     justify-content: center;
     flex-flow: column nowrap;
     animation: fadeInFadeOut 3s infinite linear;
+}
+
+.vimeo.zoomed .loading-sprite {
+    display: none;
 }
 
 .vimeo iframe {

@@ -9,6 +9,16 @@
     resize: horizontal;
 }
 
+@media (max-width:768px) {
+    .flex-row {
+        flex-flow: column wrap;
+    }
+    #tree-main {
+        width: 100vw;
+        min-height: auto;
+    }
+}
+
 #tree-main li {
     display: block;
     line-height: 11pt;
