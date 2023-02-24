@@ -156,7 +156,7 @@
 }
 
 .youtube .loading-sprite {
-    z-index: -1;
+    z-index: 0;
     position: absolute;
     width: 95%;
     height: 95%;
@@ -169,6 +169,27 @@
     justify-content: center;
     flex-flow: column nowrap;
     animation: fadeInFadeOut 3s infinite linear;
+}
+
+.vimeo .loading-sprite {
+    z-index: 0;
+    position: absolute;
+    width: 95%;
+    min-height: 148px;
+    left: 2.5%;
+    top: 0;
+    border: 1px dashed rgba(255, 255, 255, .8);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .8);
+    display: flex;
+    justify-content: center;
+    flex-flow: column nowrap;
+    animation: fadeInFadeOut 3s infinite linear;
+}
+
+.vimeo iframe {
+    z-index: 1;
+    position: relative;
 }
 
 @keyframes fadeInFadeOut {
