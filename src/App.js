@@ -1,14 +1,9 @@
 import './App.css';
 import FileNavigator from "./FileNavigator"
 import FileViewer from "./FileViewer"
+import {useLocation} from "react-router-dom";
 
 import {useState} from "react";
-
-import { BrowserRouter } from "react-router-dom";
-import { Route } from "react-router-dom";
-import { Routes } from "react-router-dom";
-
-const Router = BrowserRouter;
 
 function Header() {
   return (
@@ -24,15 +19,11 @@ function App() {
   return (
     <div className="App">
       {showMisc?<Header/>:""}
-      <Router>
       <main className="flex-row">
         {showMisc?<FileNavigator/>:""}
         
-        <Routes>
-          <Route path="/view/*" element={<FileViewer/>}></Route>
-        </Routes>
+        <FileViewer/>
       </main>
-      </Router>
 
       <span id="open-file" onClick={()=>{
         const hasTextFile = window.location.href.includes(".txt") || window.location.href.includes(".md")

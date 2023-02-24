@@ -1,7 +1,6 @@
 import "./FileViewer.css"
 import {useState, useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import {useLocation} from "react-router-dom";
 import {
   MiscVideo,
   Youtube,

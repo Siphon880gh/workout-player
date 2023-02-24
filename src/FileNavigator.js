@@ -1,7 +1,6 @@
 import "./FileNavigator.css"
 import importedLis from "./paths.json";
 import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
 
 function FileNavigator() {
   let [lis, setLis] = useState([]);
@@ -61,9 +60,9 @@ function FileNavigator() {
               function onlyFilesChangeRoutes(wrappedInside) {
                 if(className==="file") {
                   return (
-                  <Link key={i} to={"/view/"+path}>
+                  <a key={i} href={"/view/"+path}>
                     {wrappedInside}
-                  </Link>
+                  </a>
                   );
                   }
 
