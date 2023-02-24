@@ -1,23 +1,39 @@
-import { TikTok } from 'react-tiktok';
+import React from "react";
+import { TikTok } from "react-tiktok";
 import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
 
 import "./FileViewer.Types.css";
 
-function MiscVideo({data}) {
+function MiscVideo(props) {
+    const {data} = props;
     // data = data.split(" "); // Clipping disabled for misc videos because could be instagram, tiktok, FB reel, Vimeo, etc
+
     if(data.includes("instagram.com")) {
         // Reference https://www.instagram.com/reel/CluXkCgD2m7
         // Reference clicked Share -> Embed: <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/CnalYzEuo85/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"...</blockquote> <script async src="//www.instagram.com/embed.js"></script>
         // TODO README: Reel post from profile link / Embed code from ...
-        return (<embed className="video instagram" src="https://www.instagram.com/p/CluXkCgD2m7/embed/" width="500" height="678" frameBorder="0" scrolling="no" allowTransparency="true"></embed>);
+
+        let token = data;
+        let leftDelimiter = "reel/";
+        let rightDelimiter = "/?utm_source"
+        let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
+        if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+            fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
+        }
+        let parsed = fromStart;
+
+        return (<embed className="video instagram" src={["https://www.instagram.com/p/", parsed, "/embed/"].join("")} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
     }
     if(data.includes("tiktok.com")) {
-        // Link of Tiktok video page https://www.tiktok.com/@wildboybrett69/video/7067337585433070895?q=deadlift&t=1677192255304
+        // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
         // TODO README: Link of tiktok video page
 
+        // Workaround:
+        // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
+
         return (
-            <div className="video tiktok">
-                <TikTok url='https://www.tiktok.com/@squatuniversity/video/7170818647353543982' />
+            <div data-workaround-extension-conflicts className="video tiktok">
+                <TikTok url={data} />
             </div>
         )
     }
@@ -26,14 +42,14 @@ function MiscVideo({data}) {
         // TODO README: Link of Facebook video page
 
         return (
-            <iframe className="video facebook" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F1155497921799424%2F&show_text=false&width=267&t=0" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+            <iframe className="video facebook" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F1155497921799424%2F&show_text=false&width=267&t=0" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
         )
     }
     if(data.includes("vimeo.com")) {
         // Link of Vimeo video page https://vimeo.com/660530975
         // TODO README: Link of Vimeo video page
 
-        // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+        // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
 
         // Autoplay
         // autoplay=0 or autoplay=1 in URL for Vimeo
@@ -43,7 +59,7 @@ function MiscVideo({data}) {
         return (
             <>
                 <div className="video vimeo">
-                    <iframe src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7&autoplay=0&loop=1&byline=0&portrait=0" style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+                    <iframe src="https://player.vimeo.com/video/660530975?h=5fb6b6c6b7&autoplay=0&loop=1&byline=0&portrait=0" style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                     <div className="loading-sprite">Loading Vimeo...</div>
                     <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
                 </div>
@@ -103,7 +119,6 @@ function Youtube({data}) {
         }
         return "https://www.youtube.com/embed/" + token; // + "?autoplay=1&mute=1";
     })(url)
-    // console.log({dL:data.length});
 
     let hasStart = !start.includes("n");
     let hasEnd = !end.includes("n");
@@ -137,8 +152,6 @@ function Picture({data}) {
     let styleObject = {}
     
     let wantInLine = data[data.length-1] === "--";
-    // console.log({wantInLine})
-    // console.log({data})
     if(wantInLine) {
         styleObject.display = "inline-block";
     } else {

@@ -34,6 +34,8 @@ function parseWorkoutData(data) {
             // console.log({intervals})
             
             // Cleaning: Another cleaning to remove keywords in text source
+            miscvideos = miscvideos.map(line=>line.substring(line.indexOf(" ")+1))
+            // console.log({miscvideos})
             youtubes = youtubes.map(line=>line.substring(line.indexOf(" ")+1))
             // console.log({youtubes})
             pictures = pictures.map(line=>line.substring(line.indexOf(" ")+1))

@@ -318,7 +318,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
         {exercise.youtubes.map((youtube,j)=>{
           return <Youtube key={["info-youtube", i, j].join("-")} data={youtube}/>
         })}
-        
+
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
         {exercise.miscvideos.map((miscvideo,j)=>{
           return <MiscVideo key={["info-misc-video", i, j].join("-")} data={miscvideo}/>

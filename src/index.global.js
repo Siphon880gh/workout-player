@@ -92,4 +92,12 @@ export default function setupGlobals() {
     return newPhrase
   }
 
+  // Workaround:
+  // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
+  setInterval(()=>{
+    document.querySelectorAll("[data-workaround-extension-conflicts] > div[style='display: none;']").forEach(el=>{
+        el.style.display = "flex";
+    });
+  }, 1000);
+
 } // setupGlobals

@@ -1,7 +1,28 @@
-Exercise 1
+Exercise with Vimeo
 MISCVIDEO https://vimeo.com/660530975
+
+INSTRUCTION Tight chest from sitting too much... 
+INSTRUCTION Includes assessment instructions... 
+INSTRUCTION Includes performance instructions... 
+
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
+
+---
+Exercise with Facebook
 MISCVIDEO https://www.facebook.com/bloombylily/videos/1155497921799424/
-MISCVIDEO https://www.tiktok.com/@wildboybrett69/video/7067337585433070895?q=deadlift&t=1677192255304
+
+INSTRUCTION Tight chest from sitting too much... 
+INSTRUCTION Includes assessment instructions... 
+INSTRUCTION Includes performance instructions... 
+
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
+
+---
+Exercise with Instagram
 MISCVIDEO https://www.instagram.com/reel/CluXkCgD2m7/?utm_source=ig_web_copy_link
 
 INSTRUCTION Tight chest from sitting too much... 
@@ -13,10 +34,14 @@ INTERVAL na 3s 3s
 INTERVAL na 3s 3s
 
 ---
-Exercise 2
+Exercise with Tiktok
+MISCVIDEO https://www.tiktok.com/@squatuniversity/video/7170818647353543982
+MISCVIDEO https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
 
-INSTRUCTION Lie down on a bench... 
-INSTRUCTION With feet on the floor, lift... 
+INSTRUCTION Tight chest from sitting too much... 
+INSTRUCTION Includes assessment instructions... 
+INSTRUCTION Includes performance instructions... 
 
-SET 5r 3s
-SET 5r 3s
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
+INTERVAL na 3s 3s
