@@ -35,7 +35,6 @@ INTERVAL na 3s 3s
 
 ---
 Exercise with Tiktok
-MISCVIDEO https://www.tiktok.com/@squatuniversity/video/7170818647353543982
 MISCVIDEO https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
 
 INSTRUCTION Tight chest from sitting too much... 

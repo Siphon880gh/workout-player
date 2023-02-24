@@ -26,14 +26,20 @@ function MiscVideo(props) {
     }
     if(data.includes("tiktok.com")) {
         // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
+        // Or https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
         // TODO README: Link of tiktok video page
+
+        let token = data;
+        let rightDelimiter = "?q=";
+        if(token.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+            token = token.substr(0, token.indexOf(rightDelimiter));
+        }
 
         // Workaround:
         // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
-
         return (
             <div data-workaround-extension-conflicts className="video tiktok">
-                <TikTok url={data} />
+                <TikTok url={token} />
             </div>
         )
     }
