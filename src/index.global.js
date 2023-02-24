@@ -92,6 +92,4 @@ export default function setupGlobals() {
     return newPhrase
   }
 
-
-
-}
+} // setupGlobals
