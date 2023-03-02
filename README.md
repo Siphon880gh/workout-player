@@ -45,6 +45,7 @@ Example
 PICTURE <gif/etc link>
 PICTURE <gif/etc link>
 YOUTUBE <youtube-link> 3:01 na
+MISCVIDEO <fb/insta/tiktok/vimeo-link>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL 5s 30s na
@@ -58,15 +59,17 @@ PICTURE <gif/etc link>
 PICTURE <gif/etc link>
 ```
 
+Important: Separate each exercise with a line of three slashes `---`.
+
 For the custom width and heights of the pictures, they are optional. If you do height only, however, you will need something at the width because height is by position the third item in the PICTURE line. You can use na or auto for that width. Auto will keep the aspect ratio of the original picure relative to a custom height or width. If you want pictures to be across each other instead of after another, you want to place "--" at the end of each of the pictures that will belong to the row, and remember that it's at the 4th position separated by spaces.
 
 - First line always is title of exercise. Is mandatory.
 - Picture is a link like`https://link-to-pic`
 - YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
 - After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
+- MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
 - INSTRUCTION is your paragraph of explanation. You can have as many as possible on different lines.
 - Then you have either INTERVAL or SET. You can have many as possible on different lines. To explain further:
 - INTERVAL is Getting ready duration, Active duration, and Rest period after
 - SET is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
 - No mixing sets and intervals in the same exercise. You can have a completely different exercise
-- Separate each exercise with a line of three slashes `---`.
