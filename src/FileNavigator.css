@@ -1,13 +1,14 @@
 #tree-main {
     margin: 0;
     padding: 10px 0;
-    padding-left: 30px;
     border-right: 1px solid rgba(191, 191, 191, .75);
     width: 25vw;
     min-height: 100vh;
     display: block;
     overflow-x: auto;
     resize: horizontal;
+    line-height: 1.15rem;
+    padding-bottom: 40px;
 }
 
 @media (max-width:768px) {
@@ -24,7 +25,6 @@
 
 #tree-main li {
     display: block;
-    line-height: 11pt;
     font-size: 11pt;
     cursor: pointer;
 }

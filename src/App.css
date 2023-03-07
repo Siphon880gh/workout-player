@@ -38,7 +38,8 @@ header h1 {
     flex-flow: row nowrap;
 }
 
-#open-file {
+
+/* #open-file {
     position: fixed;
     left: 10px;
     bottom: 40px;
@@ -52,4 +53,16 @@ header h1 {
     bottom: 10px;
     cursor: pointer;
     font-size: 16pt;
+} */
+
+#global-controls {
+    position: fixed;
+    left: 0;
+    bottom: 5px;
+    padding-left: 12px;
+    font-size: 26px;
+}
+
+#global-controls>* {
+    margin-right: 15px;
 }
