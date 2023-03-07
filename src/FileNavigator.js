@@ -52,10 +52,10 @@ function FileNavigator() {
                 textContent} = li;
 
               // Open first level. Remember is a flattened array and file-type li is either none or displayed by active property
-              console.log({className})
-              if(className==="file" && level===1) {
-                lis[i].active = true;
-              }
+              // console.log({className})
+              // if(className==="file" && level===1) {
+              //   lis[i].active = true;
+              // }
 
               function onlyFilesChangeRoutes(wrappedInside) {
                 if(className==="file") {

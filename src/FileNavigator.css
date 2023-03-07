@@ -1,6 +1,7 @@
 #tree-main {
     margin: 0;
     padding: 10px 0;
+    padding-left: 30px;
     border-right: 1px solid rgba(191, 191, 191, .75);
     width: 25vw;
     min-height: 100vh;
@@ -16,6 +17,8 @@
     #tree-main {
         width: 100vw;
         min-height: auto;
+        border-bottom: 1px solid rgba(191, 191, 191, .75);
+        padding-bottom: 30px;
     }
 }
 
