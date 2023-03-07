@@ -2,8 +2,10 @@ import "./FileViewer.css"
 import {useState, useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {
+  FbReel,
   MiscVideo,
-  Youtube,
+  YoutubeShort,
+  YoutubeVid,
   Picture,
   Instruction,
   Interval,
@@ -313,9 +315,19 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary><h3>{exercise.name}</h3></summary>
         
-        {/* Youtube's */}
-        {exercise.youtubes.map((youtube,j)=>{
-          return <Youtube key={["info-youtube", i, j].join("-")} data={youtube}/>
+        {/* Facebook Reel's */}
+        {exercise.fbreels.map((fbreel,j)=>{
+          return <FbReel key={["info-fb-reel", i, j].join("-")} data={fbreel}/>
+        })}
+        
+        {/* Youtube Vid's */}
+        {exercise.youtubevids.map((youtubevid,j)=>{
+          return <YoutubeVid key={["info-youtube", i, j].join("-")} data={youtubevid}/>
+        })}
+
+        {/* Youtube Shorts's */}
+        {exercise.youtubevids.map((youtubevid,j)=>{
+          return <YoutubeShort key={["info-youtube", i, j].join("-")} data={youtubevid}/>
         })}
 
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}

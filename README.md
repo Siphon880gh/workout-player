@@ -44,7 +44,8 @@ Example
 <exercise_title>
 PICTURE <gif/etc link>
 PICTURE <gif/etc link>
-YOUTUBE <youtube-link> 3:01 na
+YOUTUBE <youtube-vid-link> 3:01 na
+YOUTUBE <youtube-short-link>
 MISCVIDEO <fb/insta/tiktok/vimeo-link>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
@@ -65,11 +66,62 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 - First line always is title of exercise. Is mandatory.
 - Picture is a link like`https://link-to-pic`
-- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. Only Youtube videos supported for now. You can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
+- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
 - After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
+- YOUTUBESHORT is a Youtube short link like `https://wwww.youtube.com/shorts/...`. Clipping a start/end time is not supported.
 - MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
 - INSTRUCTION is your paragraph of explanation. You can have as many as possible on different lines.
 - Then you have either INTERVAL or SET. You can have many as possible on different lines. To explain further:
 - INTERVAL is Getting ready duration, Active duration, and Rest period after
 - SET is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
 - No mixing sets and intervals in the same exercise. You can have a completely different exercise
+
+## Supported Videos:
+
+- Facebook video
+
+- Instagram reel
+
+- TikTok video
+
+- Vimeo video
+
+- Youtube video
+
+## Semi-Supported Videos (requires some manual work):
+
+- Facebook reel (Status: Untested whether it expires, so is classified as semi)
+
+## Unsupported Videos:
+
+- Instagram multireel (like a Facebook story with consecutive video clips in one screen)
+You could right click and inspect for a direct video URL that is similiar to `https://scontent-sjc3-1.cdninstagram.com/v/`... then this app would have an iframe linking to a PHP file that cURL the video to circumvent CORS. Then the same PHP file would echo the cUR: output into video tag after the base64 language. However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct video URL and refresh it in the text file daily. In that case, the PHP file is:
+
+
+ 
+    ```
+    <?php
+
+    // URL needs to have direct link to the video file which you inspected from the Instagram multireel
+    $url = "https://scontent-sjc3-1.cdninstagram.com/v/t50.2886-16/333350818_605316164744103_3047548513347287896_n.mp4?efg=eyJ2ZW5jb2RlX3RhZyI6InZ0c192b2RfdXJsZ2VuLjQ4MC5jYXJvdXNlbF9pdGVtLmJhc2VsaW5lIiwicWVfZ3JvdXBzIjoiW1wiaWdfd2ViX2RlbGl2ZXJ5X3Z0c19vdGZcIl0ifQ&_nc_ht=scontent-sjc3-1.cdninstagram.com&_nc_cat=103&_nc_ohc=FXz0A4TXm0gAX-65SS6&edm=ALQROFkBAAAA&vs=5918845071542470_3199349661&_nc_vs=HBkcFQAYJEdLS0gzaE9uOC1rbWlDWUNBRmk3MWUwNUVVc3Fia1lMQUFBRhUAAsgBACgAGAAbAYgHdXNlX29pbAEwFQAAJqb%2FjJfGlZhBFQIoAkMzLBdAHMzMzMzMzRgSZGFzaF9iYXNlbGluZV8yX3YxEQB17gcA&ccb=7-5&oh=00_AfBrngzf4hbCCisKevWZm7CZlTGtDNHP7nwwddwEY8KAbQ&oe=64019EAC&_nc_sid=30a2ef";
+
+    $curl = curl_init();
+    $timeout = 30;
+    $ret = "";
+    curl_setopt ($curl, CURLOPT_URL, $url);
+    curl_setopt ($curl, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt ($curl, CURLOPT_MAXREDIRS, 20);
+    curl_setopt ($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.5) Gecko/2008120122 Firefox/3.0.5");
+    curl_setopt ($curl, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $data = curl_exec($curl);
+    // echo $data;
+
+    echo '<div content="Content-Type: video/mp4">
+<video width="366" height="455" controls="controls" poster="image" preload="metadata">
+<source src="data:video/mp4;base64,'.base64_encode($data).'"/>;
+</video>
+</div>';
+
+    ?>
+    ```

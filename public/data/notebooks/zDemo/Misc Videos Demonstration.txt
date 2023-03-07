@@ -1,4 +1,4 @@
-Exercise with Vimeo
+Exercise with Vimeo Video
 MISCVIDEO https://vimeo.com/660530975
 
 INSTRUCTION Tight chest from sitting too much... 
@@ -10,7 +10,7 @@ INTERVAL na 3s 3s
 INTERVAL na 3s 3s
 
 ---
-Exercise with Facebook
+Exercise with Facebook Video (not reel)
 MISCVIDEO https://www.facebook.com/bloombylily/videos/1155497921799424/
 
 INSTRUCTION Tight chest from sitting too much... 
@@ -22,7 +22,7 @@ INTERVAL na 3s 3s
 INTERVAL na 3s 3s
 
 ---
-Exercise with Instagram
+Exercise with Instagram Reel
 MISCVIDEO https://www.instagram.com/reel/CluXkCgD2m7/?utm_source=ig_web_copy_link
 
 INSTRUCTION Tight chest from sitting too much... 
@@ -34,7 +34,7 @@ INTERVAL na 3s 3s
 INTERVAL na 3s 3s
 
 ---
-Exercise with Tiktok
+Exercise with Tiktok Video
 MISCVIDEO https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
 
 INSTRUCTION Tight chest from sitting too much... 

@@ -4,6 +4,34 @@ import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDid
 
 import "./FileViewer.Types.css";
 
+function FbReel(props) {
+    const {data} = props;
+    
+    const [video, audio] = data.split(" ");
+    if(video && audio) {
+        // Link of Facebook reel page https://www.facebook.com/bloombylily/videos/1155497921799424/
+
+        // Facebook reel embed is not supported yet, unlike Facebook video.
+        // Facebook reel is actually a silent video clip and an audio clip that plays in sync (autoplay, pause/stop, play)
+
+        // Grab the two clips:
+        // Right-click -> View Source ->> Copy to VS Code
+        // Find base_url. After base_url is the width and height. That's unprepped URL for the video portion. To prep it, replace all `\/` with `/`
+        // Find base_url where the width and height after is is 0 and 0 `"height":0,"width":0,`. That is the one for the audio, and again you need to replace the escaped forward slashes.
+
+        // Then the text format is "FBREEL <vid_clip_direct_url> <aud_clip_direct_url>"
+
+
+        return (
+            <div className="video fb-reel">
+                <div>Warning: FB Reel does not allow embedding yet. It fractured into an audio clip and video clip</div>
+                <iframe className="video facebook" src={video} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                <iframe className="video facebook" src={audio} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            </div>
+        )
+    }
+
+}
 function MiscVideo(props) {
     const {data} = props;
     // data = data.split(" "); // Clipping disabled for misc videos because could be instagram, tiktok, FB reel, Vimeo, etc
@@ -28,13 +56,13 @@ function MiscVideo(props) {
         // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
         // Or https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
         // TODO README: Link of tiktok video page
-
+        
         let token = data;
         let rightDelimiter = "?q=";
         if(token.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
             token = token.substr(0, token.indexOf(rightDelimiter));
         }
-
+        
         // Workaround:
         // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
         return (
@@ -44,11 +72,12 @@ function MiscVideo(props) {
         )
     }
     if(data.includes("facebook.com") && data.includes("/videos/")) {
-        // Link of Facebook video page https://www.facebook.com/bloombylily/videos/1155497921799424/
+        // Link of Facebook video page https://www.facebook.com/reel/1274784783080626
         // TODO README: Link of Facebook video page
+        let videoId = data.substring(data.indexOf("/videos/")+"/videos/".length).replaceAll("/", "");
 
         return (
-            <iframe className="video facebook" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F1155497921799424%2F&show_text=false&width=267&t=0" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            <iframe className="video facebook" src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F${videoId}%2F&show_text=false&width=267&t=0`} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
         )
     }
     if(data.includes("vimeo.com")) {
@@ -76,7 +105,29 @@ function MiscVideo(props) {
     return (<div>Video format not supported</div>)
 }
 
-function Youtube({data}) {
+function YoutubeShort({data}) {
+    {/* 
+        Reference: https://www.youtube.com/shorts/oLYM46dWYzM
+    */}
+
+    let url = ((mutatee)=>{
+        mutatee.replaceAll(" ", "")
+        let token = mutatee.substring( mutatee.indexOf("/shorts/") + "/shorts/".length )
+
+        let url = "https://www.youtube.com/embed/" + token; // + "?autoplay=1&mute=1";
+
+        return url;
+    })(data);
+
+    return (
+        <div className="video youtube">
+            <iframe src={url} frameBorder="0" allow="autoplay"></iframe>
+            <div className="loading-sprite">Loading Youtube...</div>
+        </div>
+    )
+} // YoutubeVid
+
+function YoutubeVid({data}) {
     data = data.split(" ");
     if(data.length===1) {
         data = data.concat(["na", "na"]);
@@ -149,7 +200,7 @@ function Youtube({data}) {
             {(url.includes("start=") || url.includes("end=")) && (<div className="clipped-indicator" onClick={(event)=>zoom(event)}></div>)}
         </div>
     )
-}
+} // YoutubeVid
 
 function Picture({data}) {
     data = data.split(" ");
@@ -339,8 +390,10 @@ function Set(
 
 
 export {
+    FbReel,
     MiscVideo,
-    Youtube,
+    YoutubeShort,
+    YoutubeVid,
     Picture,
     Instruction,
     Interval,
