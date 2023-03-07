@@ -26,8 +26,9 @@
         "jsdom": "^16.7.0"
     },
     "scripts": {
-        "start": "node public/data/update-paths; cp public/data/paths.json src/paths.json; react-scripts start",
-        "build": "node public/data/update-paths; cp public/data/paths.json src/paths.json; react-scripts build",
+        "start": "node ./update-paths; cp ./paths.json ./public/data/paths.json; cp ./paths.json ./src/paths.json; react-scripts start",
+        "bypass": "react-scripts start",
+        "build": "node ./update-paths; cp ./paths.json ./public/data/paths.json; cp ./paths.json ./src/paths.json; react-scripts build",
         "test-old": "react-scripts test",
         "test": "clear; jest test",
         "eject": "react-scripts eject"

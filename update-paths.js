@@ -6,6 +6,12 @@ const notebooksFolder = "public/data/notebooks/";
 let tree = {}
 tree = dree.scan(notebooksFolder, {emptyDirectory:true, hash:true, descendants:true});
 
+
+// fs.writeFile("paths-prewrangled.json", JSON.stringify(tree), "utf8", (err)=>{
+//     if(err)
+//         console.error(err)
+// })
+
 let flattened = [];
 
 function transform(object, level) {
@@ -73,7 +79,7 @@ flattened = recurse([tree]); // At object representing FS directory node "/test"
 flattened.shift(0,1);
 // console.log({treeString: JSON.stringify(flattened)});
 
-fs.writeFile("public/data/paths.json", JSON.stringify(flattened), "utf8", (err)=>{
+fs.writeFile("paths.json", JSON.stringify(flattened), "utf8", (err)=>{
     if(err)
         console.error(err)
 })

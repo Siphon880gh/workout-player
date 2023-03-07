@@ -13,20 +13,32 @@ function FileNavigator() {
 
   function changeFolderStatus(i, fromElement) {
     const level = parseInt(fromElement.getAttribute("level"));
-    if(lis[i].className==="file") { // we do not expand a file
+
+    // Validate is folder with contents to expand
+    if(lis[i].className==="file") { // a file does not get expanded in a file navigator
       return;
     } else if(i+1>=importedLis.length || (lis[i+1].level !== level+1)) { // nothing to expand
       return;
     }
 
-    // Is directory
     let newLis = lis;
+    let currentParent = lis[i].textContent;
+    let currentNestedLevel = parseInt(lis[i].level)+1;
+
+    // Toggle folder status
     let newStatus = !newLis[i+1].active;
     newLis[i].active = newStatus;
+
+    // Toggle file statuses downward from clicked list item where applicable
+    // TODO: Rewrite so is not O(n^2) worse case
     for(let j=i+1; j<lis.length; j++) {
-      if(lis[j].level!==level+1) // If the flattened node is no longer at the next level, we are done showing files/folders from expanding
-        break;
-      newLis[j].active = newStatus;
+      // if(lis[j].level!==level+1) // If the flattened node is no longer at the next level, we are done showing files/folders from expanding
+      //   break;
+      // ^ Have run until the last item of flattened tree to make multi-level nested subdirectories possible without interferring with the expansion
+      
+      // if file belongs the clicked folder and is of proper child level and is a file (because you can have nested folders), then expand:
+      if(newLis[j].parent===currentParent && newLis[j].level === currentNestedLevel && newLis[j].className==="file")
+        newLis[j].active = newStatus;
     }
 
     setLis(newLis);
