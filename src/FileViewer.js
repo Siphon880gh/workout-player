@@ -1,5 +1,5 @@
 import "./FileViewer.css"
-// import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {
   FbReel,
@@ -37,6 +37,13 @@ function workoutReducer(
   action) {
 
   switch (action.type) {
+    case 'workout/reinit':
+      return { // f played all exercises already, it won't restart automatically
+        ...state,
+        activeExercise: 0,
+        activeRound: 0,
+        repsDone: false
+      }
     case 'exercise/incremented':
       let {exercises} = action.payload;
 
@@ -385,8 +392,11 @@ function Workout({activeExercise}) {
   let location = useLocation();
 
   const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchWorkout);
-  console.log({workoutRx})
+  // console.log({workoutRx})
 
+  useEffect(()=>{
+    store.dispatch({type: 'workout/reinit'})
+  }, [location])
 
   return (<div>
     {status && (status!=="success")}
