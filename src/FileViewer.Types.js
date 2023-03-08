@@ -207,6 +207,12 @@ function YoutubeVid(props) {
             <div className="loading-sprite">Loading Youtube...</div>
             <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
             {(url.includes("start=") || url.includes("end=")) && (<div className="clipped-indicator" onClick={(event)=>zoom(event)}></div>)}
+            <div key={["youtube-clip-restart", i, j].join("-")} className="btn-restart-from-clip" onClick={(event)=>{
+                let iframe = event.target.closest(".video").querySelector("iframe")
+                let src = iframe.src;
+                iframe.src = "";
+                iframe.src=src;
+            }}></div>
         </div>
     )
 } // YoutubeVid

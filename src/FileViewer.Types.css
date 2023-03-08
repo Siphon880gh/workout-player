@@ -150,6 +150,21 @@
     content: "Clipped";
 }
 
+.youtube .btn-restart-from-clip {
+    background-color: rgba(255, 60, 20, 1);
+    cursor: pointer;
+    padding: 5px auto;
+    transition: all 700ms ease;
+}
+
+.youtube .btn-restart-from-clip:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+.youtube .btn-restart-from-clip::before {
+    content: "Restart Clip";
+}
+
 .vimeo .btn-zoom::before,
 .youtube .btn-zoom::before {
     content: "Zoom";
