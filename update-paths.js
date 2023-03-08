@@ -13,20 +13,13 @@ tree = dree.scan(notebooksFolder, {emptyDirectory:true, hash:true, descendants:t
 // })
 
 let flattened = [];
+let flattenedIndex = -2;
 
-function transform(object, level) {
-    return {
-        id: "hash-"+object?.hash, 
-        className: object?.type==="directory"?"dir":"file",
-        parent: object?.path?.match(/.*\/(.*)\/.*\w+/)[1],
-        level: object?.relativePath?.split("/").length - 1,
-        path: object?.relativePath,
-        textContent: object?.name // actually filename from dree
-    }
-}
 let recurseHelpers = {
 
     transform: function(object) {
+        flattenedIndex++;
+
         return {
             id: "hash-"+object?.hash, 
             className: object?.type==="directory"?"dir":"file",
@@ -34,7 +27,8 @@ let recurseHelpers = {
             level: object?.relativePath?.split("/").length - 1,
             path: object?.relativePath,
             descendants: object?.descendants ? object?.descendants: 0,
-            textContent: object?.name // actually filename from dree
+            textContent: object?.name, // actually filename from dree
+            flattenedIndex
         }
     },
     validate: function(filename) {
@@ -61,12 +55,11 @@ function recurse(tree) {
             // console.log(node)
             if(Array.isArray(node?.children)) // Empty folders don't have .children
                 recurse(node.children)
-        } else if(node.type==="file" && !recurseHelpers.validate(node.name)) { // filter out files that are not .md, .txt, etc
-            return true; // next loop 
-        } else if(node.type==="file") {
+        } else if(node.type==="file") { // filter out files that are not .md, .txt, etc
+            if(!recurseHelpers.validate(node.name))
+                return true; // failed validation, so go onto next loop 
             const transformedNode = recurseHelpers.transform(node);
             flattened = flattened.concat(transformedNode);
-            // console.log(node)
         }
 
         // console.log({fType: node.type, fName: node.name})

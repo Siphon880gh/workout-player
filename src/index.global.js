@@ -75,6 +75,7 @@ export default function setupGlobals() {
       return accumulator;
     } // getSeconds(token)
 
+  // eslint-disable-next-line no-useless-escape
     const isValidToken = (/^[hms0-9\.\s]{2,}$/i).test(token) // Eg. 1h2m3s
     if(isValidToken) {
       return getSeconds(token)

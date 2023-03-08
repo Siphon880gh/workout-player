@@ -16,6 +16,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 
+import {useLocation} from "react-router-dom";
+
 const queryClient = new QueryClient()
 
 const fetchWorkout = async () => {
@@ -382,7 +384,9 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
 
 function Workout({activeExercise}) {
 
-  const { data:workoutRx, status, error } = useQuery("workoutQuery", fetchWorkout);
+  let location = useLocation();
+
+  const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchWorkout);
   console.log({workoutRx})
 
   return (<div>
@@ -392,25 +396,6 @@ function Workout({activeExercise}) {
       <>
         {/* Title */}
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
-
-        {/* Test incrementing */}
-        {/* <button onClick={()=> { 
-          store.dispatch({type: 'exercise/incremented', payload:{exercises:workoutRx.exercises}})
-         }} style={{margin:"10px auto", display:"block"}}>Test incrementing exercise</button>
-        <button onClick={()=> { // aa
-          store.dispatch({type: 'round/incremented', payload:(()=>{
-            let activeRound = store.getState().activeRound;
-            let roundTotal = workoutRx?.exercises[store?.getState()?.activeExercise]?.roundTotal;
-            let exerciseTotal = workoutRx.exercises.length;
-            return [
-              activeRound,
-              roundTotal,
-              exerciseTotal
-            ]
-          })() // dispatch round/incremented
-          })
-         }} 
-         style={{margin:"10px auto", display:"block"}}>Test incrementing round</button> */}
 
         {/* Exercise Components */}
         {workoutRx.exercises.map((exercise,i, exercises)=>{
@@ -423,7 +408,6 @@ function Workout({activeExercise}) {
         <div id="workout-finished" style={{display:(activeExercise===-1)?"flex":"none"}}>Congrats! Workout Finished.</div>
       </>
 
-
     )}
 
 
@@ -431,7 +415,7 @@ function Workout({activeExercise}) {
 } // Workout
 
 function FileViewer(props) {
-    
+
     return (
       <div className="file-viewer">
         <div className="file-viewer-contents">

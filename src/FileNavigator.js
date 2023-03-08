@@ -1,6 +1,7 @@
 import "./FileNavigator.css"
 import importedLis from "./paths.json";
 import {useState, useEffect} from "react";
+import {NavLink} from "react-router-dom"
 
 function FileNavigator() {
   let [lis, setLis] = useState([]);
@@ -69,24 +70,16 @@ function FileNavigator() {
               //   lis[i].active = true;
               // }
 
-              function onlyFilesChangeRoutes(wrappedInside) {
-                if(className==="file") {
-                  return (
-                  <a key={i} href={"/view/"+path}>
-                    {wrappedInside}
-                  </a>
-                  );
-                  }
-
-                  return (
-                    <span key={i} className="no-link">
-                      {wrappedInside}
-                    </span>
-                  )
-              }
+                const mockRoute = (path) => {
+                  // eslint-disable-next-line no-restricted-globals
+                  event.preventDefault()
+                  window.history.pushState({}, "", path);
+                }
 
               return (
-                onlyFilesChangeRoutes(
+                (className==="file")?
+                  // (<a key={i} href="#" old-href={"/view/"+path} onClick={(event)=> { mockRoute("/view/"+path, event) }}>
+                  (<NavLink key={i} to={"/view/"+path}>
                     <li id={id} 
                       rerendercode={rerenderCode} 
                       className={[className, lis[i].active?"active":""].join(" ")} 
@@ -98,6 +91,21 @@ function FileNavigator() {
                     <span className="title"
                       onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}>{textContent}</span>
                     </li>
+                  </NavLink>
+                  ):(
+                    <span key={i} className="no-link">
+                      <li id={id} 
+                        rerendercode={rerenderCode} 
+                        className={[className, lis[i].active?"active":""].join(" ")} 
+                        parent={parent} level={level} path={path} descendants={descendants} 
+                        onClick={(event)=>{ changeFolderStatus(i, event.target) }}
+                      >
+                      <span className="icon" 
+                        onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}></span>
+                      <span className="title"
+                        onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}>{textContent}</span>
+                      </li>
+                    </span>
                   )
               );
             })):""
