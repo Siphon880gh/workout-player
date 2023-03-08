@@ -18,6 +18,10 @@ export default function setupGlobals() {
    * Timemark is like 0:01, 1:00, 1:02:03
    */
   window.timemarks__getSeconds_cm = function(token) {
+    if(token.indexOf(":")===-1) {
+      return parseInt(token);
+    }
+
     let subtokens = token.split(":");
     let [h,m,s] = [0,0,0];
 

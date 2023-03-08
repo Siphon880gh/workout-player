@@ -406,8 +406,12 @@ function Workout({activeExercise}) {
       <>
         {/* Title */}
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
-        <div id="workout-desc">{workoutRx?.workoutDescs?.map(workoutdesc=>(<p>{workoutdesc}</p>))}</div>
-
+        {
+          workoutRx?.workoutDescs?.length?
+          (<div id="workout-desc">{workoutRx?.workoutDescs?.map(workoutdesc=>(<p>{workoutdesc}</p>))}</div>):
+          ([])
+        }
+        
         {/* Exercise Components */}
         {workoutRx.exercises.map((exercise,i, exercises)=>{
           return (

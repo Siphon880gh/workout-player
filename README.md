@@ -34,7 +34,7 @@ PICTURE <gif/etc link>
 FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>
 YOUTUBE <youtube-link> <timemark_or_seconds_or_na> <timemark_or_seconds_or_na>
 YOUTUBESHORT https://www.youtube.com/shorts/oLYM46dWYzM
-MISCVIDEO <fb/insta/tiktok/vimeo-link>
+MISCVIDEO <fbVideo/insta/tiktok/vimeo>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
@@ -103,7 +103,9 @@ Remember that the app only supports unlisted or public videos. Even if your priv
 
 - Vimeo video
 
-- Youtube video (not short)
+- Youtube video
+
+- Youtube short
 
 ## Semi-Supported Videos (requires some manual work):
 

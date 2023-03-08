@@ -90,12 +90,12 @@ function MiscVideo(props) {
         // autoplay=0 or autoplay=1 in URL for Vimeo
 
         const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
-        let videoIdWithParam = data.substring(data.indexOf(".com/")+".com/".length).replaceAll("/", "");
+        let videoId = data.substring(data.indexOf(".com/")+".com/".length).replaceAll("/", "");
 
         return (
             <>
                 <div className="video vimeo">
-                    <iframe title={["iframe", i, j].join("-")} src={`https://player.vimeo.com/video/${videoIdWithParam}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                    <iframe title={["iframe", i, j].join("-")} src={`https://player.vimeo.com/video/${videoId}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                     <div className="loading-sprite">Loading Vimeo...</div>
                     <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
                 </div>
