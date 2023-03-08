@@ -1,5 +1,5 @@
 import "./FileViewer.css"
-import {useState, useEffect} from "react";
+// import {useState, useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {
   FbReel,
@@ -63,16 +63,15 @@ function workoutReducer(
           activeRound: -1
         }
       }
-      break;
     case 'round/reps-done/start-rest': 
       return {
         ...state,
         repsDone: true
       }
-      break;
     case 'interval/countdown/start':
       var {ready,active,rest} = action.payload;
 
+  // eslint-disable-next-line no-redeclare
       return {
         ...state,
         countdownStart:(()=>{
@@ -87,6 +86,7 @@ function workoutReducer(
         })()
       }
     case 'interval/countdown/next':
+      // eslint-disable-next-line no-unused-vars
       var {roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx} = action.payload;
       var {activeRound, activeExercise} = state;
 
@@ -146,6 +146,7 @@ function workoutReducer(
         }
       } // getNextCountdown
 
+      // eslint-disable-next-line no-redeclare
       var {countdownType, countdownStart} = getNextCountdown__countdownType__countdownStart(roundDetails, countdownType)
 
       if(countdownType!==-1) {
@@ -190,6 +191,7 @@ function workoutReducer(
         let newRoundType = newExercise.roundType;
         let newRoundDetails = newRoundType==="SETS"?newExercise.sets[activeRound]:newExercise.intervals[activeRound];
 
+        // eslint-disable-next-line no-redeclare
         var {countdownType, countdownStart} = getNextCountdown__countdownType__countdownStart(newRoundDetails, -1);
 
         return {
@@ -204,6 +206,7 @@ function workoutReducer(
 
       break;
     case 'round/incremented':
+      // eslint-disable-next-line no-redeclare, no-unused-vars
       var [roundNum, roundTotal, exerciseTotal] = action.payload;
       // console.log(action.payload)
       
@@ -239,7 +242,6 @@ function workoutReducer(
           activeRound: -1
         }
       }
-      break;
     default:
       return state
   } // switch
@@ -290,10 +292,8 @@ let ConnectedSet = connect((state, ownProps)=>{
   return {
     ...state,
     repsRequired,
-
     countdownType,
     countdownStart,
-
     ...ownProps
   }
 })(Set);
@@ -319,22 +319,22 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
         
         {/* Facebook Reel's */}
         {exercise.fbreels.map((fbreel,j)=>{
-          return <FbReel key={["info-fb-reel", i, j].join("-")} data={fbreel}/>
+          return <FbReel key={["info-fb-reel", i, j].join("-")} data={Object.assign(fbreel, {i, j})}/>
         })}
         
         {/* Youtube Vid's */}
         {exercise.youtubevids.map((youtubevid,j)=>{
-          return <YoutubeVid key={["info-youtube", i, j].join("-")} data={youtubevid}/>
+          return <YoutubeVid key={["info-youtube", i, j].join("-")} data={Object.assign(youtubevid, {i, j})}/>
         })}
 
         {/* Youtube Shorts's */}
         {exercise.youtubeshorts.map((youtubeshort,j)=>{
-          return <YoutubeShort key={["info-youtube", i, j].join("-")} data={youtubeshort}/>
+          return <YoutubeShort key={["info-youtube", i, j].join("-")} data={Object.assign(youtubeshort, {i, j})}/>
         })}
 
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
         {exercise.miscvideos.map((miscvideo,j)=>{
-          return <MiscVideo key={["info-misc-video", i, j].join("-")} data={miscvideo}/>
+          return <MiscVideo key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
         })}
         
 
@@ -357,8 +357,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
-                  roundTotal: exercise.sets.length,
-                  workoutRx
+                  roundTotal: exercise.sets.length
                 }
                 return (<ConnectedSet key={["round-set", i, roundNum].join("-")} {...props}/>)
               })
@@ -370,8 +369,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
-                  roundTotal: exercise.intervals.length,
-                  workoutRx
+                  roundTotal: exercise.intervals.length
                 }
                 return (<ConnectedInterval key={["round-interval", i, roundNum].join("-")} {...props}/>)
               })
@@ -389,7 +387,9 @@ function Workout({activeExercise}) {
   const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchWorkout);
   console.log({workoutRx})
 
+
   return (<div>
+    {status && (status!=="success")}
     {error && (error)}
     {!error && workoutRx?.workoutName && (
 

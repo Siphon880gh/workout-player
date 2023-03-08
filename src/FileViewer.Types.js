@@ -1,11 +1,11 @@
 import React from "react";
 import { TikTok } from "react-tiktok";
-import {useState, useMemo, useEffect, componentWillUnmount, useRef, componentDidUpdate, shouldComponentUpdate, componentWillUpdate, componentShouldUpdate} from "react";
+import {useState, useEffect} from "react";
 
 import "./FileViewer.Types.css";
 
 function FbReel(props) {
-    const {data} = props;
+    let {data,i,j} = props;
     
     const [video, audio] = data.split(" ");
     if(video && audio) {
@@ -25,15 +25,15 @@ function FbReel(props) {
         return (
             <div className="video fb-reel">
                 <div style={{paddingBottom:"10px"}}>Facebook Reel: Facebook does not officially support Reel embeds as of 3/23.<br/>This is a workaround with them splitting a reel into audio and video clips</div>
-                <iframe className="video facebook" src={video} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe><br/>
-                <iframe className="video facebook" src={audio} width="267" height="55" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                <iframe title={["iframe", i, j].join("-")} className="video facebook" src={video} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe><br/>
+                <iframe title={["iframe", i, j].join("-")} className="video facebook" src={audio} width="267" height="55" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </div>
         )
     }
 
 }
 function MiscVideo(props) {
-    const {data} = props;
+    let {data,i,j} = props;
     // data = data.split(" "); // Clipping disabled for misc videos because could be instagram, tiktok, FB reel, Vimeo, etc
 
     if(data.includes("instagram.com")) {
@@ -77,7 +77,7 @@ function MiscVideo(props) {
         let videoId = data.substring(data.indexOf("/videos/")+"/videos/".length).replaceAll("/", "");
 
         return (
-            <iframe className="video facebook" src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F${videoId}%2F&show_text=false&width=267&t=0`} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+            <iframe title={["iframe", i, j].join("-")} className="video facebook" src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F${videoId}%2F&show_text=false&width=267&t=0`} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
         )
     }
     if(data.includes("vimeo.com")) {
@@ -95,7 +95,7 @@ function MiscVideo(props) {
         return (
             <>
                 <div className="video vimeo">
-                    <iframe src={`https://player.vimeo.com/video/${videoIdWithParam}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                    <iframe title={["iframe", i, j].join("-")} src={`https://player.vimeo.com/video/${videoIdWithParam}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
                     <div className="loading-sprite">Loading Vimeo...</div>
                     <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
                 </div>
@@ -106,10 +106,11 @@ function MiscVideo(props) {
     return (<div>Video format not supported</div>)
 }
 
-function YoutubeShort({data}) {
-    {/* 
-        Reference: https://www.youtube.com/shorts/oLYM46dWYzM
-    */}
+function YoutubeShort(props) {
+    let {data,i,j} = props;
+
+    // Reference: https://www.youtube.com/shorts/oLYM46dWYzM
+
     const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
 
 
@@ -125,21 +126,24 @@ function YoutubeShort({data}) {
 
     return (
         <div className="video youtube">
-            <iframe src={url} frameBorder="0" allow="autoplay"></iframe>
+            <iframe title={["iframe", i, j].join("-")} src={url} frameBorder="0" allow="autoplay"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
             <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
         </div>
     )
 } // YoutubeVid
 
-function YoutubeVid({data}) {
+function YoutubeVid(props) {
+    let {data,i,j} = props;
+
     data = data.split(" ");
     if(data.length===1) {
         data = data.concat(["na", "na"]);
     } else if(data.length===2) {
         data = data.concat(["na"]);
     }
-    {/* 
+    
+    /* 
         Reference
         <iframe src="https://www.youtube.com/embed/lETF5JRgEN8?start=362&end=365" style="width:400px; height:200px"></iframe> 
         <iframe src="https://www.youtube.com/watch?v=" style="width:400px; height:200px"></iframe> 
@@ -148,7 +152,7 @@ function YoutubeVid({data}) {
         Autoplay
         Is only allowed on Youtube embed if it's also muted
         ?autoplay=1&mute=1
-    */}
+    */
 
     
     let [url, start, end] = data;
@@ -199,7 +203,7 @@ function YoutubeVid({data}) {
 
     return (
         <div className="video youtube">
-            <iframe src={url} frameBorder="0" allow="autoplay"></iframe>
+            <iframe title={["iframe", i, j].join("-")} src={url} frameBorder="0" allow="autoplay"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
             <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
             {(url.includes("start=") || url.includes("end=")) && (<div className="clipped-indicator" onClick={(event)=>zoom(event)}></div>)}
@@ -289,10 +293,11 @@ function Interval(
         rest = castToSeconds(rest)
 
         store.dispatch({type: 'interval/countdown/start', payload:{roundNum, roundTotal, exerciseTotal, ready, active, rest, countdownType, workoutRx}})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function updateTimer() {
-        if(activeExercise==-1) {
+        if(activeExercise===-1) {
             return;
         }
         else if(activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
@@ -308,6 +313,7 @@ function Interval(
     useEffect(()=>{
         setCountdownProgress(0)
     }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(updateTimer, [activeRound,countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
 
     return (
@@ -360,7 +366,7 @@ function Set(
 
     useEffect(()=>{
         // console.log({repsDone, b:activeExercise===exerciseNum,c:activeRound===roundNum, d:countdownProgress<countdownStart})
-        if(activeExercise==-1) {
+        if(activeExercise===-1) {
             return;
         }
         else if(repsDone && activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
@@ -372,6 +378,7 @@ function Set(
                 setCountdownProgress(countdownProgress+1);       
             }, 1000);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [repsDone, countdownProgress])
 
     return (
