@@ -114,8 +114,15 @@ Remember that the app only supports unlisted or public videos. Even if your priv
 ## Unsupported Videos:
 
 - Instagram multireel
+
 Is like a Facebook story with consecutive video clips in one screen.
-You could right click and inspect for a direct video URL that is similiar to `https://scontent-sjc3-1.cdninstagram.com/v/`... then this app would have an iframe linking to a PHP file that cURL the video to circumvent CORS. Then the same PHP file would echo the cUR: output into video tag after the base64 language. However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct video URL and refresh it in the text file daily. In that case, the PHP file is:
+For example: https://www.instagram.com/p/CpLIeRPOr5m/?utm_source=ig_web_copy_link
+
+Instagram does not support iframe into a multireel or the sharing of one of the reels.
+
+When you attempt to share only one reel of a multireel, you have to work around Instagram not changing the URL for each reel of the multireel. This would be worked around by right clicking and inspecting on the specific reel being played, and you would copy the direct media file link whose format is similar to `https://scontent-sjc3-1.cdninstagram.com/v/`. Then you would use that link in an iframe. 
+
+However, Instagram does not allow CORS on multireel (or even embedding of multireel); You would circumvent the CORS restriction with the PHP file (public/video-formatters/obsoleted-instagram-multireel/index.php). Then that PHP file would echo the cURL output into a video source set to base64 data. However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct media file link and then also update the text file. This would have to be daily or however frequently Instagram expires their direct media file link. If you are willing to work on that development, the PHP file is:
  
     ```
     <?php
