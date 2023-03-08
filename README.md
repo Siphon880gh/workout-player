@@ -31,7 +31,10 @@ Format
 <exercise_title>
 PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
-YOUTUBE <youtube-link> <timemark_or_na> <timemark_or_na>
+FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>
+YOUTUBE <youtube-link> <timemark_or_seconds_or_na> <timemark_or_seconds_or_na>
+YOUTUBESHORT https://www.youtube.com/shorts/oLYM46dWYzM
+MISCVIDEO <fb/insta/tiktok/vimeo-link>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
@@ -39,7 +42,7 @@ SET <reps> <rest_duration>
 SET <reps> <rest_duration>
 ```
 
-Format with without description. You must group workout descriptions into its own section using `---`
+Format with workout description. You must group workout descriptions into its own section using `---`
 ```
 WORKOUTDESC This is a pull split day
 WORKOUTDESC Muscles worked include biceps and hamstrings
@@ -47,7 +50,6 @@ WORKOUTDESC Muscles worked include biceps and hamstrings
 <exercise_title>
 PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
-YOUTUBE <youtube-link> <timemark_or_na> <timemark_or_na>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
@@ -62,18 +64,11 @@ PICTURE <gif/etc link>
 PICTURE <gif/etc link>
 YOUTUBE <youtube-vid-link> 3:01 na
 YOUTUBE <youtube-short-link>
-MISCVIDEO <fb/insta/tiktok/vimeo-link>
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL 5s 30s na
 SET 5r 30s
 SET 5r na
-```
-
-
-```
-PICTURE <gif/etc link>
-PICTURE <gif/etc link>
 ```
 
 Important: Separate each exercise with a line of three slashes `---`.
@@ -82,19 +77,25 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 - First line always is title of exercise. Is mandatory.
 - Picture is a link like`https://link-to-pic`
-- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
-- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
-- YOUTUBESHORT is a Youtube short link like `https://wwww.youtube.com/shorts/...`. Clipping a start/end time is not supported.
-- MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
 - INSTRUCTION is your paragraph of explanation. You can have as many as possible on different lines.
 - Then you have either INTERVAL or SET. You can have many as possible on different lines. To explain further:
 - INTERVAL is Getting ready duration, Active duration, and Rest period after
 - SET is reps and rest period (can be s, m, or a mix. Eg. 30s, Eg. 1m, Eg. 1m30s). Make sure with mixed time units, that they are together with no spaces (Eg. 1m30s); otherwise what's after the space is ignored.
 - No mixing sets and intervals in the same exercise. You can have a completely different exercise
 
+## Video Format:
+
+- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
+- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Other scenarios possible as well, but make sure to use na if a time isn't applicable. Time format is MM:SS like 3:01.
+- YOUTUBESHORT is a Youtube short link like `https://wwww.youtube.com/shorts/...`. Clipping a start/end time is not supported.
+- MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
+- FBREEL is Facebook Reel, NOT Facebook Video. FBREEL is semi-supported. You have to do additional steps using Chrome DevTools' Inspect to get the proper URLs. Facebook does not support embedding Facebook Reels, and they have separated a reel into both video and audio clips that play synchronously.
+
+Remember that the app only supports unlisted or public videos. Even if your private Vimeo video has the hash "h" URL query, it will not be supported. 
+
 ## Supported Videos:
 
-- Facebook video
+- Facebook video (not reel)
 
 - Instagram reel
 
@@ -102,7 +103,7 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 - Vimeo video
 
-- Youtube video
+- Youtube video (not short)
 
 ## Semi-Supported Videos (requires some manual work):
 
@@ -110,10 +111,9 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 ## Unsupported Videos:
 
-- Instagram multireel (like a Facebook story with consecutive video clips in one screen)
+- Instagram multireel
+Is like a Facebook story with consecutive video clips in one screen.
 You could right click and inspect for a direct video URL that is similiar to `https://scontent-sjc3-1.cdninstagram.com/v/`... then this app would have an iframe linking to a PHP file that cURL the video to circumvent CORS. Then the same PHP file would echo the cUR: output into video tag after the base64 language. However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct video URL and refresh it in the text file daily. In that case, the PHP file is:
-
-
  
     ```
     <?php
@@ -141,3 +141,23 @@ You could right click and inspect for a direct video URL that is similiar to `ht
 
     ?>
     ```
+
+## Clipping
+
+You may clip a Youtube video that's too long. Often you may encounter a workout video that has multiple exercises and you only need a clip of that video to explain the exercise. You can clip a Youtube video with either format: by timemark or seconds.
+
+By timemarks:
+```
+YOUTUBE https://www.youtube.com/watch?v=lETF5JRgEN8 7:16 8:20
+```
+
+By seconds:
+```
+YOUTUBE https://www.youtube.com/watch?v=lETF5JRgEN8 436 500
+```
+
+Note that clipping Youtube shorts are not supported.
+
+### Clipping Support
+
+- Youtube Videos
