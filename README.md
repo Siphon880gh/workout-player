@@ -120,9 +120,11 @@ For example: https://www.instagram.com/p/CpLIeRPOr5m/?utm_source=ig_web_copy_lin
 
 Instagram does not support iframe into a multireel or the sharing of one of the reels.
 
-When you attempt to share only one reel of a multireel, you have to work around Instagram not changing the URL for each reel of the multireel. This would be worked around by right clicking and inspecting on the specific reel being played, and you would copy the direct media file link whose format is similar to `https://scontent-sjc3-1.cdninstagram.com/v/`. Then you would use that link in an iframe. 
+When you attempt to share only one reel of a multireel, you have to work around Instagram not changing the URL for each reel of the multireel. This would be worked around by right clicking and inspecting on the specific reel being played, and you would copy the direct media file link whose format is similar to `https://scontent-sjc3-1.cdninstagram.com/v/` from the video tag. Then you would use that link in an iframe. 
 
-However, Instagram does not allow CORS on multireel (or even embedding of multireel); You would circumvent the CORS restriction with the PHP file (public/video-formatters/obsoleted-instagram-multireel/index.php). Then that PHP file would echo the cURL output into a video source set to base64 data. However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct media file link and then also update the text file. This would have to be daily or however frequently Instagram expires their direct media file link. If you are willing to work on that development, the PHP file is:
+However, Instagram does not allow CORS on a multireel (or even embedding of multireel) so your iframe would not load; You would circumvent the CORS restriction with the PHP file (public/video-formatters/obsoleted-instagram-multireel/index.php). Then that PHP file would echo the cURL output into a video source set to base64 data.
+
+However, the Instagram multireel link would expire, making this impractical unless you have a cron job that will parse for the direct media file link of the specific reel of interest from the main Instagram multireel link. In addition, your cron job will also update the workout text file. This will have to be daily or however frequently Instagram expires their direct media file links. If you are willing to work on that development, the PHP file is:
  
     ```
     <?php
