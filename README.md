@@ -39,6 +39,22 @@ SET <reps> <rest_duration>
 SET <reps> <rest_duration>
 ```
 
+Format with without description. You must group workout descriptions into its own section using `---`
+```
+WORKOUTDESC This is a pull split day
+WORKOUTDESC Muscles worked include biceps and hamstrings
+---
+<exercise_title>
+PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
+PICTURE <gif/etc link>
+YOUTUBE <youtube-link> <timemark_or_na> <timemark_or_na>
+INSTRUCTION <your_text>
+INSTRUCTION <your_text>
+INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
+SET <reps> <rest_duration>
+SET <reps> <rest_duration>
+```
+
 Example
 ```
 <exercise_title>

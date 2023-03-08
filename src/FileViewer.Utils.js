@@ -1,8 +1,24 @@
 function parseWorkoutData(data) {
 
         const removeKeywordSpace = line=>line.substring(line.indexOf(" ")+1);
-
+        
         let groups = data.split(/---/gm);
+
+        let workoutDescs = [];
+        if(groups.length) {
+            if(groups[0].indexOf("WORKOUTDESC ")>=0) {
+                console.log("WORKOUTDESC detected")
+                workoutDescs = groups[0].replaceAll("WORKOUTDESC ", "").split("\n");
+                groups.shift(0);
+            }
+        } // groups.length
+
+
+        /*
+         *  group: is an exercise
+         *  i is the group or exercise position
+         * 
+         */
         let exercises = groups.map((group,i)=>{
 
             // Cleaning: Trim newlines before and after workout text
@@ -16,8 +32,9 @@ function parseWorkoutData(data) {
             let lines = group.split("\n");
 
             // Restructuring: Reference model for creating stores
+            // Exercise name
             let name = lines.shift(0);
-            
+
             let miscvideos = lines.filter(line=>line.indexOf("MISCVIDEO ")===0).map(removeKeywordSpace)
             
             let fbreels = lines.filter(line=>line.indexOf("FBREEL ")===0).map(removeKeywordSpace)
@@ -73,16 +90,13 @@ function parseWorkoutData(data) {
 
         }); // group aka exercise each
 
-    const getWorkoutName = (() =>{
-        return window.location.href.substring(window.location.href.lastIndexOf("/")+1).replaceAll(".txt", "")
-    });
-
     let workout = {
-        workoutName: getWorkoutName(),
+        workoutName: decodeURI(window.location.href.substring(window.location.href.lastIndexOf("/")+1).replaceAll(".txt", "")),
+        workoutDescs, 
         exercises
     }
 
-    console.log({workout})
+    // console.log({workout})
     return workout;
 } // parseWorkoutData 
 

@@ -20,14 +20,14 @@ import {useLocation} from "react-router-dom";
 
 const queryClient = new QueryClient()
 
-const fetchWorkout = async () => {
+const fetchAndParseWorkout = async () => {
   const uriBeforeViewPath = window.location.href.substring(0,window.location.href.indexOf("/view")+1);
   const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);
 
   const res = await fetch(constructedRequestURI);
   const text = await res.text();
   const dataWrangled = parseWorkoutData(text)
-  // console.log({dataWrangled})
+  console.log({dataWrangled})
   console.log("FETCHED")
   return dataWrangled;
 };
@@ -391,7 +391,7 @@ function Workout({activeExercise}) {
 
   let location = useLocation();
 
-  const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchWorkout);
+  const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchAndParseWorkout);
   // console.log({workoutRx})
 
   useEffect(()=>{
@@ -406,6 +406,7 @@ function Workout({activeExercise}) {
       <>
         {/* Title */}
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
+        <div id="workout-desc">{workoutRx?.workoutDescs?.map(workoutdesc=>(<p>{workoutdesc}</p>))}</div>
 
         {/* Exercise Components */}
         {workoutRx.exercises.map((exercise,i, exercises)=>{
