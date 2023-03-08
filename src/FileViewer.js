@@ -328,8 +328,8 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
         })}
 
         {/* Youtube Shorts's */}
-        {exercise.youtubevids.map((youtubevid,j)=>{
-          return <YoutubeShort key={["info-youtube", i, j].join("-")} data={youtubevid}/>
+        {exercise.youtubeshorts.map((youtubeshort,j)=>{
+          return <YoutubeShort key={["info-youtube", i, j].join("-")} data={youtubeshort}/>
         })}
 
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}

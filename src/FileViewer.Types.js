@@ -24,9 +24,9 @@ function FbReel(props) {
 
         return (
             <div className="video fb-reel">
-                <div>Warning: FB Reel does not allow embedding yet. It fractured into an audio clip and video clip</div>
-                <iframe className="video facebook" src={video} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                <iframe className="video facebook" src={audio} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                <div style={{paddingBottom:"10px"}}>Facebook Reel: Facebook does not officially support Reel embeds as of 3/23.<br/>This is a workaround with them splitting a reel into audio and video clips</div>
+                <iframe className="video facebook" src={video} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe><br/>
+                <iframe className="video facebook" src={audio} width="267" height="55" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
             </div>
         )
     }
@@ -109,6 +109,8 @@ function YoutubeShort({data}) {
     {/* 
         Reference: https://www.youtube.com/shorts/oLYM46dWYzM
     */}
+    const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
+
 
     let url = ((mutatee)=>{
         mutatee.replaceAll(" ", "")
@@ -118,11 +120,13 @@ function YoutubeShort({data}) {
 
         return url;
     })(data);
+    console.log({url})
 
     return (
         <div className="video youtube">
             <iframe src={url} frameBorder="0" allow="autoplay"></iframe>
             <div className="loading-sprite">Loading Youtube...</div>
+            <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
         </div>
     )
 } // YoutubeVid
