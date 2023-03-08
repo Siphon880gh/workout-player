@@ -19,42 +19,20 @@ function parseWorkoutData(data) {
             let name = lines.shift(0);
             
             let miscvideos = lines.filter(line=>line.indexOf("MISCVIDEO ")===0).map(removeKeywordSpace)
-            // console.log({miscvideos})
             
             let fbreels = lines.filter(line=>line.indexOf("FBREEL ")===0).map(removeKeywordSpace)
-            // console.log({youtubes})
 
             let youtubevids = lines.filter(line=>(line.indexOf("YOUTUBE ")===0)).map(removeKeywordSpace)
 
             let youtubeshorts = lines.filter(line=>(line.indexOf("YOUTUBESHORT ")===0)).map(removeKeywordSpace)
-            // console.log({youtubes})
-
             
             let pictures = lines.filter(line=>line.indexOf("PICTURE ")===0).map(removeKeywordSpace)
-            // console.log({pictures})
             
             let instructions = lines.filter(line=>line.indexOf("INSTRUCTION ")===0).map(removeKeywordSpace)
-            // console.log({instructions})
             
             let sets = lines.filter(line=>line.indexOf("SET ")===0).map(removeKeywordSpace)
-            // console.log({intervals})
 
             let intervals = lines.filter(line=>line.indexOf("INTERVAL ")===0).map(removeKeywordSpace)
-            // console.log({intervals})
-            
-            // // Cleaning: Another cleaning to remove keywords in text source
-            // miscvideos = miscvideos.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({miscvideos})
-            // youtubes = youtubes.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({youtubes})
-            // pictures = pictures.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({pictures})
-            // instructions = instructions.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({instructions})
-            // sets = sets.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({sets})
-            // intervals = intervals.map(line=>line.substring(line.indexOf(" ")+1))
-            // // console.log({intervals})
             
             // Enrich: Adding round types
             let roundType = "";
@@ -62,15 +40,14 @@ function parseWorkoutData(data) {
                 intervals.length = 0;
                 window.displayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
             }
+
             // For conditional rendering. Forgone Enum so code is less bloated.
-            // debugger;
             if(sets.length) {
                 roundType = "SETS";
             } else if(intervals.length) {
                 roundType = "INTERVALS";
             }
             
-            // debugger;
             // Enrich: Adding round types
             let roundTotal = sets.length || intervals.length || 0;
 
