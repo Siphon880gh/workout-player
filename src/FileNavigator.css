@@ -82,11 +82,11 @@
     content: "📄\20";
 }
 
-#tree-main li.dir:not(.active) .icon::before {
+#tree-main li.dir:not(.expanded) .icon::before {
     content: "📁\20";
 }
 
-#tree-main li.dir.active .icon::before {
+#tree-main li.dir.expanded .icon::before {
     content: "📂\20";
 }
 
@@ -98,18 +98,25 @@
 
 /* Collapsing and hiding logic */
 
-#tree-main .dir.active {
+#tree-main .dir.expanded {
     font-weight: bold;
 }
 
-#tree-main .dir:not(.active) .title {
+#tree-main .dir:not(.expanded) .title {
     font-style: italic;
 }
 
-#tree-main .dir:not(.active)::after {
+#tree-main .dir:not(.expanded)::after {
     content: "\00a0\00a0(" attr(descendants) ")";
 }
 
-#tree-main .file:not(.active):not([level="0"]) {
+#tree-main .file:not(.expanded):not([level="0"]) {
     display: none;
+}
+
+
+/* NavLink switches active class */
+
+#tree-main a.active {
+    color: #FF6B6B;
 }

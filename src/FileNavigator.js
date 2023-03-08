@@ -8,7 +8,8 @@ function FileNavigator() {
   let [rerenderCode, setReeenderCode] = useState(Date.now());
 
   useEffect(()=>{
-    importedLis = importedLis.map(li=>{ li.active=false; return li; });
+    // Model will track expanded/collapsed
+    importedLis = importedLis.map(li=>{ li.expanded=false; return li; });
     setLis(importedLis);
   }, [])
 
@@ -27,8 +28,8 @@ function FileNavigator() {
     let currentNestedLevel = parseInt(lis[i].level)+1;
 
     // Toggle folder status
-    let newStatus = !newLis[i+1].active;
-    newLis[i].active = newStatus;
+    let newStatus = !newLis[i+1].expanded;
+    newLis[i].expanded = newStatus;
 
     // Toggle file statuses downward from clicked list item where applicable
     // TODO: Rewrite so is not O(n^2) worse case
@@ -39,11 +40,11 @@ function FileNavigator() {
       
       // if file belongs the clicked folder and is of proper child level and is a file (because you can have nested folders), then expand:
       if(newLis[j].parent===currentParent && newLis[j].level === currentNestedLevel && newLis[j].className==="file")
-        newLis[j].active = newStatus;
+        newLis[j].expanded = newStatus;
     }
 
     setLis(newLis);
-    setReeenderCode(Date.now()); // lis[i].active doesn't rerender component, so this is the other pattern that will make it happen
+    setReeenderCode(Date.now()); // lis[i].expanded doesn't rerender component, so this is the other pattern that will make it happen
     // console.log(lis);
   }
 
@@ -64,10 +65,10 @@ function FileNavigator() {
                 descendants,
                 textContent} = li;
 
-              // Open first level. Remember is a flattened array and file-type li is either none or displayed by active property
+              // Open first level. Remember is a flattened array and file-type li is either none or displayed by expanded property
               // console.log({className})
               // if(className==="file" && level===1) {
-              //   lis[i].active = true;
+              //   lis[i].expanded = true;
               // }
 
                 const mockRoute = (path) => {
@@ -82,7 +83,7 @@ function FileNavigator() {
                   (<NavLink key={i} to={"/view/"+path}>
                     <li id={id} 
                       rerendercode={rerenderCode} 
-                      className={[className, lis[i].active?"active":""].join(" ")} 
+                      className={[className, lis[i].expanded?"expanded":""].join(" ")} 
                       parent={parent} level={level} path={path} descendants={descendants} 
                       onClick={(event)=>{ changeFolderStatus(i, event.target) }}
                     >
@@ -96,7 +97,7 @@ function FileNavigator() {
                     <span key={i} className="no-link">
                       <li id={id} 
                         rerendercode={rerenderCode} 
-                        className={[className, lis[i].active?"active":""].join(" ")} 
+                        className={[className, lis[i].expanded?"expanded":""].join(" ")} 
                         parent={parent} level={level} path={path} descendants={descendants} 
                         onClick={(event)=>{ changeFolderStatus(i, event.target) }}
                       >
