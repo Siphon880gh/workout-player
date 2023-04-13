@@ -3,6 +3,7 @@ function parseWorkoutData(data) {
         const removeKeywordSpace = line=>line.substring(line.indexOf(" ")+1);
         
         let groups = data.split(/---/gm);
+        console.log({groups})
 
         let workoutDescs = [];
         if(groups.length) {

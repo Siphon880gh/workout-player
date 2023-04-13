@@ -428,7 +428,7 @@ function Workout({activeExercise}) {
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
         {
           workoutRx?.workoutDescs?.length?
-          (<div id="workout-desc">{workoutRx?.workoutDescs?.map(workoutdesc=>(<p>{workoutdesc}</p>))}</div>):
+          (<div id="workout-desc">{workoutRx?.workoutDescs?.map((workoutdesc,i)=>(<p key={["workoutdesc", i].join("-")}>{workoutdesc}</p>))}</div>):
           ([])
         }
         

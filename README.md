@@ -86,10 +86,7 @@ The app will display the workout name from the filename. Each exercise must foll
 
 When it comes to the video link, certain video platform will require "FBREEL" or "YOUTUBE" or "YOUTUBESHORT" rather than the catch-all "MISCVIDEO". This is because their embed or viewing logic is different than usual and my app needs to know your intention. In the future, the app will look at the URL and determine the type of video playing algorithm to use, however I am short on time right now.
 
-Your SET or INTERVAL is how you perform the exercise. If it's an INTERVAL, it wil count down
-
-
-
+Your SET or INTERVAL is how you perform the exercise. If it's an INTERVAL, it will count down for the duration of your exercise (usually cardio or stretching). If it's a SET, you click the button when done with the number of reps for that set.
 
 Format with workout description. You must group workout descriptions into its own section using `---`
 ```
