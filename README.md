@@ -120,7 +120,7 @@ SET 5r 3s
 SET 5r 3s
 ```
 
-To reiterate, a text file is your workout session from the video links. You may add timemarks if the video has impertinent segments (like a video intro/outro/transitions/B-roll's, other exercises that don't fit yout workout, etc). For Video Timemarks formatting rules, refer to: Video Timemarks format.
+To reiterate, a text file is your workout session from the video links. You may add timemarks if the video has impertinent segments (like a video intro/outro/transitions/B-roll's, other exercises that don't fit yout workout, etc). For Video Timemarks formatting rules, refer to: Video Timemarks Format.
 
 The app will display the workout name from the filename. Each exercise must follow the format of an Exercise name, then any pictures and/or video links, then a set or an interval. Optionally, you may have a section of workout descriptions to explain the workout session under the title, but that section must be at the top of the text file. So in the above format example, you have a workout description section, exercise section, then another exercise section.
 
@@ -205,14 +205,14 @@ Notice you add "--" at the end of the PICTURE line. If you want pictures to be a
 ## Video Format:
 
 - YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
-- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Briefly, the TIME can be timemark like MM:SS, or in seconds like 10s. For more details, refer to Video Timemarks format.
+- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Briefly, the TIME can be timemark like MM:SS, or in seconds like 10s. For more details, refer to Video Timemarks Format.
 - YOUTUBESHORT is a Youtube short link like `https://wwww.youtube.com/shorts/...`. Clipping a start/end time is not supported.
 - MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
 - FBREEL is Facebook Reel, NOT Facebook Video. FBREEL is semi-supported. You have to do additional steps using Chrome DevTools' Inspect to get the proper URLs. Facebook does not support embedding Facebook Reels, and they have separated a reel into both video and audio clips that play synchronously.
 
 Remember that the app only supports unlisted or public videos. Even if your private Vimeo video has the hash "h" URL query, it will not be supported.
 
-## Video Timemarks format
+## Video Timemarks Format
 
 You may clip a Youtube video that's too long. Often you may encounter a workout video that has multiple exercises and you only need a clip of that video to explain the exercise. You can clip a Youtube video with either format: by timemark or seconds.
 
@@ -277,5 +277,45 @@ echo '<div content="Content-Type: video/mp4"><video width="366" height="455" con
 ?>
 ```
 
+## Appendix: Architecture
 
+This app uses React-Router-Dom for SPA dynamic rendering and Redux for state management.
 
+When you run `npm run start` it first runs update-paths.js which will create a paths.json file that represents all your folders and text files of workouts from `public/data/notebooks`. The paths.json is created at root, then copied over to /src so that the components have access (all components will simply be in /src). Then it starts the create-react-app.
+
+App.js will render a FileNavigator on the left and FileViewer on the right. The FileNavigator loads this paths.json and takes care of presenting the workouts and categories to the user and the UI logic. The UI logic includes expanding folders, collapsing folders, switching to a file. SetReenderCode forces the DOM to diff so that it gets re-rendered.
+
+FileViewer.js takes over once a text file (workout) is clicked from the FileNavigator. Based on the folder nesting and filename from the File Navigator, the actual txt file gets fetched by fetchAndParseWorkout. Then workout date is parsed from that text file by parseWorkoutData which is from FileViewer.Utils.js. 
+
+When parsing workout data, it'll break up the textfile into sections aka groups (it's called groups in the code). The groups could be workout description section and exercise section(s). Or it could just be exercise sections because the workout description section is optional.
+
+For every exercise section/group, it would filter lines that start with MISCVIDEO, YOUTUBE, YOUTUBESHORT, VIMEO, PICTURE, INSTRUCTION, SET, or INTERVAL, for example. Those different lines will be returned from FileViewer.Utils.js:parseWorkoutData to FileViewer.js as an object of youtube link array, instructions array, etc. Some of those arrays may be blank if not applicable - for example - an exercise not having any instruction lines. We will come back to this object of arrays in a bit.
+
+At FileViewer.js, you have a ConnectedExercise component which is a wrapper around Exercise component. You have a ConnectedWorkout component which is a wrapper around Workout component. Remember that in Redux, connected components give the stores access to the component's props. 
+
+The workout component is basically a page that contains exercise components. The exercise component may contain smaller components: Facebook Reel component(s), Youtube Reel component(s), Picture component(s), Instructions component(s), Set or Interval component(s), etc. 
+
+Those smaller components are rendered based on the object of arrays that was parsed from an exercise section in the text file: Youtube videos link(s), Facebook Reel link(s), Picture link(s), Instruction(s), Set/Interval(s), etc. 
+
+The smaller components JSX are imported into FileViewer.js from FileViewer.Types.js. At FileViewer.Types.js, a component has access to their lines from the textfile. Further parsing is done to figure out details such as whether clipping should be done to a video.
+
+For example, a video with timemarks for start and end will produce a shorter video for the workout app:
+```
+YOUTUBE https://www.youtube.com/watch?v=lETF5JRgEN8 7:16 8:20
+```
+
+The FileViewer.Types.js components also take care of the Redux logic involving which exercise you are at, countdown timers, which set you are at, etc that the user sees and interacts with. 
+
+At FileViewer.Types.js, the store and its contained dispatch method was passed down as a prop from FileViewer.js at every component. There at FileViewer.js, the reducer configured to the store is also defined. The reducer is not in a separate file and is defined on the spot at FileViewer.js.
+
+Going over the reducer, the actions are labeled at the workout level vs exercise level vs interval level vs round level. A round is basically a set where reps are done.
+
+Of particular note, "exercise/incremented" takes care of UI state where you are going to the next exercise because the app is done playing an exercise.
+
+The "workout-finished" renders that you are done with the workout, usually when the app incremented from the final exercise.
+
+The "interval/countdown/..." takes care of logic for interval based exercise activities. An interval based exercise could be stretching or cardio for a certain duration. There are three types of intervals that this group of reducers manage: ready duration, active duration, rest duration.
+
+The "round/..." takes care of logic for set-reps based exercise activities. Each set has a number of reps then a rest duration. The user sees the number of reps and clicks the button "DONE X Reps".
+
+That describes the basic architecture and control flow of the app.
