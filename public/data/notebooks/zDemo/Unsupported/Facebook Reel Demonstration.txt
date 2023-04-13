@@ -1,4 +1,7 @@
-Exercise with Facebook Reel but requires manual work by workout preparer
+WORKOUTDESC Obsoleted: Exercise with Facebook Reel but requires manual work by workout preparer
+WORKOUTDESC Was previously thought to be supported with `FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>`
+WORKOUTDESC However at a much later time, "URL signature expired" would output from their server.
+---
+Obsoleted: FB Reel
 FBREEL https://video-dfw5-2.xx.fbcdn.net/v/t39.25447-2/331280947_1249341702326403_1104343008950277983_n.mp4?_nc_cat=1&ccb=1-7&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfcjJfYXYxX2dlbjFhdmNfbGNfcTgwX2ZyYWdfMl92aWRlbyJ9&_nc_ohc=wZVHRVNB5cEAX9gaTEU&_nc_ht=video-dfw5-2.xx&oh=00_AfAc_8hfHC7y8ACSoPNVsK6xUqnebg3O04tTZzjE0Oav5Q&oe=640B15D0 https://video.xx.fbcdn.net/v/t39.25447-2/331009925_728672628906816_7236509093091059329_n.mp4?_nc_cat=1&ccb=1-7&_nc_sid=5aebc0&efg=eyJ2ZW5jb2RlX3RhZyI6ImRhc2hfYXVkaW9fYWFjcF82NF9mbm9ybTE0X2ZyYWdfMl9hdWRpbyJ9&_nc_ohc=4HnnqnDLjM8AX-DRxMP&_nc_ht=video-dfw5-2.xx&oh=00_AfAEdEO5ZYoxq7DuM6E5oD63ltHjQlEkTnoWiwyYFy0UtQ&oe=640C7D71
-
 INSTRUCTION Tight chest from sitting too much... 

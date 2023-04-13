@@ -8,30 +8,64 @@ By Weng Fei Fung.
 <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow"><img src="https://camo.githubusercontent.com/0f56393c2fe76a2cd803ead7e5508f916eb5f1e62358226112e98f7e933301d7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e6b6564496e2d626c75653f7374796c653d666c6174266c6f676f3d6c696e6b6564696e266c6162656c436f6c6f723d626c7565" alt="Linked-In" data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" style="max-width:10ch;"></a>
 <a target="_blank" href="https://www.youtube.com/user/Siphon880yt/" rel="nofollow"><img src="https://camo.githubusercontent.com/0bf5ba8ac9f286f95b2a2e86aee46371e0ac03d38b64ee2b78b9b1490df38458/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f596f75747562652d7265643f7374796c653d666c6174266c6f676f3d796f7574756265266c6162656c436f6c6f723d726564" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" style="max-width:10ch;"></a>
 
-Curate your folders of workout MD files and be able to view a workout as a slideshow or accordion with video instructions.
 
-## At a Glance
+Organize your fitness links from videos on Facebook, Instagram, Youtube, TikTok, and Vimeo. You're simply saving the links into text files. Optionally you can be specific about the timemarks. This app will let you choose any text file of exercise links and play through it. The idea is that you may not be familiar with these exercises but you can be instructed on them through the video links you saved and hoped to get to.
 
-This is a great tool if you like to edit workouts in MD files. You can organize your MD files into folders and subfolders however you want to organize it (Eg. Workout type -> Body Part). You can do resistance training / cardio / stretching / mobility / etc because as long as you follow the formatting rules in MD, it can be time based or rep based. You can incorporate Youtube etc clips and it'll be part of an accordion or slideshow so you can watch the exercise instructions on an iPad.
+## Supported Videos:
 
-What this is not is a workout logging app. Towards the end of the road map, I might add logging ability.
+- Facebook video (not reel)
 
-## Where to Place
+- Instagram reel
 
-Your folders/subfolders/MD files should be placed in /data/workouts
+- TikTok video
 
-## How to update the notebook
+- Vimeo video
 
-You'll have to run a command to update the Notebook when you change your workout file structure until I implement a server later in the roadmap. However, updating your workout content doesn't require an update command. The updating is for file and foleder structure. For example, if you renamed a file or you moved a file elsewhere, you'll need to update the app. In a future milestone, by using a server this React app will automatically update to the MD files and folders you have. To update the app, just run `npm run start`.
+- Youtube video
 
-## Follow the MD format:
+- Youtube short
 
-Format
+## Unsupported Videos
+
+
+- Facebook Reel 
+
+Was previously thought to be supported with
+`FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>`
+
+However at a much later time, "URL signature expired" would output from their server.
+
+- Instagram Multireel
+
+
+## How to save workouts
+
+- Workout = text file
+- Category/subcategory/subsubcategory = folder
+
+Organizing the workouts is easy. A text file repersents one workout (30 minute or 90 minute session, or however long, up to you). You save the video links in the text file, and optionally timemarks if you only need a part of the video. You can have the text files inside a folder. Thus, a text file represents the workout session.
+
+You can have folders of folders depending on your organizational needs. As long as they're inside `public/data/notebooks`, the app will show all folders with their workouts in the Navigation Panel. Click the text file in the app to play it like a slideshow, and the video links that have timemarks will be clipped for the slideshow. 
+
+A folder organization scheme can be by Workout type -> Body part -> Muscle group. You might not have muscle group if that workout type is more of a split program. You can name workout type like Resistance Training / Cardio / Stretching / Mobility / etc.
+
+All your workout text files and folders should be inside `/data/workouts`. 
+
+## How to update the app's Navigation Panel
+
+You'll have to run a command to update the app when you change your workout file structure (changed file or folder name, added/deleted file, added/deleted folder). You do not need to run the command if you updated the text file's links and contents. The app's navigator just needs to be updated.
+
+In the future this will be automatic when I implement a server, however there is not much time on my end right now. 
+
+To update the app, just run `npm run start`.
+
+## Follow the text format:
+
+Format is
 ```
 <exercise_title>
 PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
-FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>
 YOUTUBE <youtube-link> <timemark_or_seconds_or_na> <timemark_or_seconds_or_na>
 YOUTUBESHORT https://www.youtube.com/shorts/oLYM46dWYzM
 MISCVIDEO <fbVideo/insta/tiktok/vimeo>
@@ -40,7 +74,22 @@ INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
 SET <reps> <rest_duration>
 SET <reps> <rest_duration>
+
+
+<exercise_title>
+...
 ```
+
+To reiterate, a text file is your workout session from the video links. You may add timemarks if the video has impertinent segments (like a video intro/outro/transitions/B-roll's, other exercises that don't fit yout workout, etc).
+
+The app will display the workout name from the filename. Each exercise must follow the format of an Exercise name, then any pictures and/or video links, then a set or an interval. 
+
+When it comes to the video link, certain video platform will require "FBREEL" or "YOUTUBE" or "YOUTUBESHORT" rather than the catch-all "MISCVIDEO". This is because their embed or viewing logic is different than usual and my app needs to know your intention. In the future, the app will look at the URL and determine the type of video playing algorithm to use, however I am short on time right now.
+
+Your SET or INTERVAL is how you perform the exercise. If it's an INTERVAL, it wil count down
+
+
+
 
 Format with workout description. You must group workout descriptions into its own section using `---`
 ```
@@ -93,19 +142,6 @@ For the custom width and heights of the pictures, they are optional. If you do h
 
 Remember that the app only supports unlisted or public videos. Even if your private Vimeo video has the hash "h" URL query, it will not be supported. 
 
-## Supported Videos:
-
-- Facebook video (not reel)
-
-- Instagram reel
-
-- TikTok video
-
-- Vimeo video
-
-- Youtube video
-
-- Youtube short
 
 ## Semi-Supported Videos (requires some manual work):
 

@@ -26,9 +26,29 @@ const fetchAndParseWorkout = async () => {
 
   const res = await fetch(constructedRequestURI);
   const text = await res.text();
-  const dataWrangled = parseWorkoutData(text)
-  console.log({dataWrangled})
-  console.log("FETCHED")
+  let dataWrangled = {};
+
+  // WORKOUT: Catch when a file cannot load and tell user to update the Navigation Panel by running the command. 
+  // When fetch fails to find a .txt file, by default it fetches the index.html 
+  // So the workaround is to look for the title line of index.html
+  if(text.includes("<title>Workout Notebook</title>")) {
+    dataWrangled = {
+      exercises: [],
+      workoutDescs: [
+        "You probably deleted or renamed the file but have not updated the app's Navigation Panel.",
+        "Currently you must run `npm run start` whenever you change the file structure of public/data/notebooks."
+      ],
+      workoutName: "ERROR"
+    }
+  } else {
+    dataWrangled = parseWorkoutData(text)
+  }
+
+  // console.log({constructedRequestURI})
+  // console.log({res})
+  // console.log({text})
+  // console.log({dataWrangled})
+  // console.log("FETCHED")
   return dataWrangled;
 };
 
