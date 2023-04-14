@@ -9,11 +9,9 @@ By Weng Fei Fung.
 <a target="_blank" href="https://www.linkedin.com/in/weng-fung/" rel="nofollow"><img src="https://camo.githubusercontent.com/0f56393c2fe76a2cd803ead7e5508f916eb5f1e62358226112e98f7e933301d7/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e6b6564496e2d626c75653f7374796c653d666c6174266c6f676f3d6c696e6b6564696e266c6162656c436f6c6f723d626c7565" alt="Linked-In" data-canonical-src="https://img.shields.io/badge/LinkedIn-blue?style=flat&amp;logo=linkedin&amp;labelColor=blue" style="max-width:10ch;"></a>
 <a target="_blank" href="https://www.youtube.com/user/Siphon880yt/" rel="nofollow"><img src="https://camo.githubusercontent.com/0bf5ba8ac9f286f95b2a2e86aee46371e0ac03d38b64ee2b78b9b1490df38458/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f596f75747562652d7265643f7374796c653d666c6174266c6f676f3d796f7574756265266c6162656c436f6c6f723d726564" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" style="max-width:10ch;"></a>
 
-Saved a bunch of picture links and exercise video links? You might never get to it. But with this app, you're saving the links into text files and the app will create a workout with instructions you can follow along. For a list of supported video links, refer to: Supported Videos.
+Saved a bunch of picture links and exercise video links? You might never get to it. But with this app, you're saving the links into text files and the app will create a workout with instructions you can follow along. May add reps and countdowns at the text file for a full workout.
 
-If a video is too long, you can add specific timemarks to the exercise at the text file. The app can play a clip of the video. 
-
-You can have a more helpful workout by adding countdowns and rep counts into the text file. 
+If a video is too long, you can add specific timemarks to the exercise at the text file. The app can play a clip of the video. For a list of supported video links, refer to: Supported Videos.
 
 The idea is that you may not be familiar with these exercises that you collected from picture and video links, but the app can instruct you and get you moving.
 
