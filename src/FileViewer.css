@@ -119,3 +119,12 @@ summary>* {
 h4 {
     font-size: 1.08em;
 }
+
+#jump-to-active {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16pt;
+    z-index: 3;
+}

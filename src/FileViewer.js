@@ -409,6 +409,16 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
 
 function Workout({activeExercise}) {
 
+  function jumpToActiveWorkout() {
+    if(!document.querySelector(".interval.active")) {
+      let wantRestart = confirm("All exercises finished already. Restart workout?");
+      if(wantRestart) {
+        window.location.reload();
+      }
+    }
+    document.querySelector(".interval.active")?.closest("details")?.scrollIntoView()
+  }
+
   let location = useLocation();
 
   const { data:workoutRx, status, error } = useQuery(["workoutQuery", location], fetchAndParseWorkout);
@@ -441,6 +451,7 @@ function Workout({activeExercise}) {
 
         {/* Finished workout message */}
         <div id="workout-finished" style={{display:(activeExercise===-1)?"flex":"none"}}>Congrats! Workout Finished.</div>
+        <span id="jump-to-active" onClick={()=>{jumpToActiveWorkout();}}>🎯</span>
       </>
 
     )}
