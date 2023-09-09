@@ -23,12 +23,14 @@
         "@testing-library/user-event": "^13.5.0",
         "babel-jest": "^27.5.1",
         "jest": "^27.5.1",
-        "jsdom": "^16.7.0"
+        "jsdom": "^16.7.0",
+        "nodemon": "^3.0.1"
     },
     "scripts": {
-        "start": "node ./update-paths; cp ./paths.json ./public/data/paths.json; cp ./paths.json ./src/paths.json; react-scripts start",
+        "start": "react-scripts start",
         "bypass": "react-scripts start",
         "build": "node update-paths; node ./update-paths; cp ./paths.json ./public/data/paths.json; cp ./paths.json ./src/paths.json; react-scripts build",
+        "dev": "nodemon",
         "test-old": "react-scripts test",
         "test": "clear; jest test",
         "eject": "react-scripts eject"
