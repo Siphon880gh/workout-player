@@ -27,6 +27,11 @@ details {
     margin-bottom: 20px;
     background-color: rgba(200,0,0,0.25);
 }
+@media screen and (max-width: 768px) {
+    details {
+        margin: 30px auto;
+    }
+}
 details[open] {
     padding-bottom: 15px;
 }
