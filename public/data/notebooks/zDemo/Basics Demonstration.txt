@@ -32,5 +32,5 @@ PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/fil
 INSTRUCTION Lie down on a bench... 
 INSTRUCTION With feet on the floor, lift... 
 
-INTERVAL 3s 3s 3s
-INTERVAL 3s 3s 3s
+INTERVAL 8s 3s 3s
+INTERVAL 8s 3s 3s

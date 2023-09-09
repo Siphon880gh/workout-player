@@ -58,6 +58,7 @@ function workoutReducer(
 
   switch (action.type) {
     case 'workout/reinit':
+      console.log("workout/reinit");
       return { // f played all exercises already, it won't restart automatically
         ...state,
         activeExercise: 0,
@@ -65,6 +66,7 @@ function workoutReducer(
         repsDone: false
       }
     case 'exercise/incremented':
+      console.log("exercise/incremented");
       let {exercises} = action.payload;
 
       if(state.activeExercise===-1) {
@@ -91,11 +93,13 @@ function workoutReducer(
         }
       }
     case 'round/reps-done/start-rest': 
+    console.log("round/reps-done/start-rest");
       return {
         ...state,
         repsDone: true
       }
     case 'interval/countdown/start':
+      console.log("interval/countdown/start");
       var {ready,active,rest} = action.payload;
 
   // eslint-disable-next-line no-redeclare
@@ -113,6 +117,7 @@ function workoutReducer(
         })()
       }
     case 'interval/countdown/next':
+      console.log("interval/countdown/next");
       // eslint-disable-next-line no-unused-vars
       var {roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx} = action.payload;
       var {activeRound, activeExercise} = state;
@@ -133,6 +138,8 @@ function workoutReducer(
         rest = castToSeconds(rest)
 
         var countdownStart = -1;
+
+        console.log({countdownType, countdownStart, ready, active, rest})
 
         if(countdownType===-1) {
           if(ready!==-1) {
@@ -184,6 +191,7 @@ function workoutReducer(
           countdownType
         }
       } else if(countdownType===-1) {
+        console.log("countdownType===-1");
           if(activeRound+1!==roundTotal) {
               console.log("FROM activeRound+1!==roundTotal")
               activeRound++;
@@ -191,8 +199,13 @@ function workoutReducer(
             if(activeExercise+1!==exerciseTotal) {
               console.log("FROM activeExercise+1!==exerciseTotal")
               activeRound = 0;
-              activeExercise++;
+              // activeExercise = activeExercise+1;
+              ++activeExercise;
+              // exerciseNum = activeExercise;
+              console.log({activeExercise, exerciseTotal});
+              console.log({activeRound, roundTotal, roundNum, exerciseNum});
             } else if(activeExercise+1===exerciseTotal) { // End of all exercises and rounds
+              console.log("activeExercise+1===exerciseTotal")
               activeRound = -1;
               activeExercise = -1;
               return {
@@ -220,6 +233,7 @@ function workoutReducer(
 
         // eslint-disable-next-line no-redeclare
         var {countdownType, countdownStart} = getNextCountdown__countdownType__countdownStart(newRoundDetails, -1);
+        //window.displayError((JSON.stringify({countdownType, countdownStart})));
 
         return {
           ...state,
@@ -233,6 +247,7 @@ function workoutReducer(
 
       break;
     case 'round/incremented':
+      console.log("round/incremented")
       // eslint-disable-next-line no-redeclare, no-unused-vars
       var [roundNum, roundTotal, exerciseTotal] = action.payload;
       // console.log(action.payload)
@@ -329,6 +344,8 @@ let ConnectedInterval = connect((state, ownProps)=>{
 
   let workoutRx = ownProps.workoutRx;
   let roundDetails = state.activeExercise!==-1?workoutRx.exercises[ownProps.exerciseNum].intervals[ownProps.roundNum]:"";
+
+  // console.log("Exercise Num: " + ownProps.exerciseNum);
 
   return {
     ...state,

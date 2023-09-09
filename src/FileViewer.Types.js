@@ -284,6 +284,7 @@ function Interval(
 
     // Init countdowns
     useEffect(()=>{
+        // console.log({countdownStart});
         var [ready,active,rest] = [-1,-1,-1];
         try {
             var arr = roundDetails.split(" ").concat(["", "", ""]);
@@ -299,43 +300,50 @@ function Interval(
         rest = castToSeconds(rest)
 
         store.dispatch({type: 'interval/countdown/start', payload:{roundNum, roundTotal, exerciseTotal, ready, active, rest, countdownType, workoutRx}})
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function updateTimer() {
+    function updateTimer() {   
+        console.log({activeExercise,exerciseNum}) 
         if(activeExercise===-1) {
-            return;
         }
-        else if(activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
+        // else if(activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
+        else if(activeExercise===exerciseNum && activeRound===roundNum) {
             setTimeout(()=>{
-                setCountdownProgress(countdownProgress+1);       
+                console.log("timeout");
+                setCountdownProgress(countdownProgress+1);   
                 if(countdownProgress+1===countdownStart) { // increment to next round
                     store.dispatch({type: 'interval/countdown/next', payload:{roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx}})
                     setCountdownProgress(0);    
                 } 
             }, 1000);
+        } else {
         }
     }
     useEffect(()=>{
         setCountdownProgress(0)
     }, [])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(updateTimer, [activeRound,countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
+    useEffect(updateTimer, [activeExercise,activeRound,countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
 
     return (
-        <div className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+        <div debugExerciseNum={exerciseNum} className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
             <h4 className="interval-name">Interval {roundNum+1}{(activeExercise===exerciseNum && activeRound===roundNum)?":":""}</h4>
             {(activeExercise===exerciseNum && activeRound===roundNum)?
             (
                 <>
                     <span className="interval-countdown interval-countdown-ready">
                         { (countdownType==="ready")?(countdownStart-countdownProgress)+"s":""}
+                        {/* { (countdownType==="ready")?(countdownProgress)+"s":""} */}
+                        {/* {countdownProgress} */}
                     </span>
                     <span className="interval-countdown interval-countdown-active">
                         { (countdownType==="active")?(countdownStart-countdownProgress)+"s":""}
+                        {/* { (countdownType==="active")?(countdownProgress)+"s":""} */}
+                        {/* {countdownProgress} */}
                     </span>
                     <span className="interval-countdown interval-countdown-rest">
                         { (countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
+                        {/* { (countdownType==="rest")?(countdownProgress)+"s":""} */}
+                        {/* {countdownProgress} */}
                     </span>
                 </>    
             )
@@ -384,8 +392,7 @@ function Set(
                 setCountdownProgress(countdownProgress+1);       
             }, 1000);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [repsDone, countdownProgress])
+    }, [activeExercise, repsDone, countdownProgress])
 
     return (
         <div className={["set", activeExercise===exerciseNum&&activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
