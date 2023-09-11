@@ -36,6 +36,11 @@ details[open] {
     padding-bottom: 15px;
 }
 
+details summary {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 details[open] summary {
     background-color: rgba(255, 0, 0, .5);
     padding: 10px 0;
@@ -57,7 +62,6 @@ summary {
 }
 
 summary>* {
-    margin: 0;
     padding: 0;
     display: inline;
 }

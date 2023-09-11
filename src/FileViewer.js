@@ -468,6 +468,7 @@ function Workout({activeExercise}) {
 
         {/* Finished workout message */}
         <div id="workout-finished" style={{display:(activeExercise===-1)?"flex":"none"}}>Congrats! Workout Finished.</div>
+        <div className="spacer" style={{height:"65px", width:"100%"}}></div>
         <span id="jump-to-active" onClick={()=>{jumpToActiveWorkout();}}>🎯</span>
       </>
 

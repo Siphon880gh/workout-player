@@ -152,7 +152,7 @@
 }
 
 .youtube .btn-restart-from-clip {
-    background-color: rgba(255, 60, 20, 1);
+    background-color: rgba(110, 26, 9, 0.5);
     cursor: pointer;
     padding: 5px auto;
     transition: all 700ms ease;

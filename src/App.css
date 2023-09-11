@@ -58,9 +58,12 @@ header h1 {
 #global-controls {
     position: fixed;
     left: 0;
-    bottom: 5px;
+    bottom: 0;
     padding-left: 12px;
     font-size: 26px;
+    background-color: black;
+    padding-bottom: 5px;
+    width: 100%;
 }
 
 #global-controls>* {

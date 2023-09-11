@@ -1,31 +1,35 @@
-Arm circles
+Arm Circles
 YOUTUBE https://www.youtube.com/watch?v=J7Om86Avb-k 0:04 0:31
 
-INSTRUCTION Rotate arms in circles
-
-INTERVAL 2s 3s 2s
-# INTERVAL 0 0 1s
+INTERVAL 3s 30s 10s
 
 ---
-Arm circumduction
+Arm Circumduction
 YOUTUBE https://www.youtube.com/watch?v=EENVG0jhNEc 0:25 
 
-INTERVAL 5s 3s 2s
-INTERVAL 2s 3s 2s
+INSTRUCTION Change direction on second round
+
+INTERVAL 3s 30s 10s
+INTERVAL na 30s 10s
 
 ---
 Standing Scapula CARs (Controlled Articular Rotations)
 YOUTUBE https://www.youtube.com/watch?v=s6trEHit83A 0:50 3:13
 
-INTERVAL 2s 3s 2s
-INTERVAL 2s 3s 2s
+INSTRUCTION Change direction on second round
+
+INTERVAL 3s 30s 10s
+INTERVAL na 30s 10s
 
 ---
 Prone Scapula CARs (Controlled Articular Rotations)
 YOUTUBE https://www.youtube.com/watch?v=s6trEHit83A 4:07
 
-INTERVAL 2s 5s 10s
-INTERVAL 2s 5s 10s
+
+INSTRUCTION Change direction on second round
+
+INTERVAL 10s 30s 10s
+INTERVAL na 30s 10s
 
 
 ---
@@ -33,13 +37,17 @@ Horizontal Adduction Self-Assisted Stretch
 YOUTUBE https://www.youtube.com/watch?v=UoJO2B5cAPg 0:16 0:28
 
 
-INTERVAL 2s 7s 10s
-INTERVAL 2s 7s 10s
+INSTRUCTION Change arm on second round
+
+INTERVAL 3s 30s 10s
+INTERVAL na 30s 10s
 
 ---
 Horizontal Abduction Stretch
 YOUTUBE https://www.youtube.com/watch?v=vbuEUZ1Lwt4
 
 
-INTERVAL 2s 10s 10s
-INTERVAL 2s 10s 10s
+INSTRUCTION Change arm on second round
+
+INTERVAL 3s 30s 10s
+INTERVAL na 30s 10s

@@ -1,6 +1,6 @@
 {
     "watch": ["src", "public"], 
-    "ext": "js,jsx,css,scss",
+    "ext": "js,jsx,css,scss,txt",
     "exec": "node update-paths; node ./update-paths; cp ./paths.json ./public/data/paths.json; cp ./paths.json ./src/paths.json; react-scripts start;",
     "ignore": ["dist"]
 }
