@@ -50,4 +50,4 @@ YOUTUBE https://www.youtube.com/watch?v=vbuEUZ1Lwt4
 INSTRUCTION Change arm on second round
 
 INTERVAL 3s 30s 10s
-INTERVAL na 30s 10s
+INTERVAL 4s 30s 10s

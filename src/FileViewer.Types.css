@@ -59,7 +59,7 @@
 }
 
 .set-countdown::before {
-    content: "⏳ REST ";
+    content: "⛔️ REST ";
 }
 
 .interval-countdown:empty {
@@ -67,15 +67,15 @@
 }
 
 .interval-countdown-ready::before {
-    content: "⏳ READY ";
+    content: "🍳 READY ";
 }
 
 .interval-countdown-active::before {
-    content: "⏳ ACTIVE ";
+    content: "🏃‍♀️ ACTIVE ";
 }
 
 .interval-countdown-rest::before {
-    content: "⏳ REST ";
+    content: "⛔️ REST ";
 }
 
 @keyframes textblur {
