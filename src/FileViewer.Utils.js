@@ -34,6 +34,10 @@ function parseWorkoutData(data) {
 
             // Restructuring: Reference model for creating stores
             // Exercise name
+
+            // console.log("Exercise's lines:");
+            // console.log(lines);
+            
             let name = lines.shift(0);
 
             let miscvideos = lines.filter(line=>line.indexOf("MISCVIDEO ")===0).map(removeKeywordSpace)
@@ -56,7 +60,8 @@ function parseWorkoutData(data) {
             let roundType = "";
             if(sets.length && intervals.length) {
                 intervals.length = 0;
-                window.displayError("You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second exercise with all intervals.")
+                var showOnceWarning = window.open("about:blank");
+                showOnceWarning.document.write("<h2>Workout Notebook Error</h2>You can't have sets and intervals in the same exercise. Discarding intervals. If you must, then you should design a second same exercise with all intervals.");
             }
 
             // For conditional rendering. Forgone Enum so code is less bloated.

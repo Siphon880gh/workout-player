@@ -70,7 +70,7 @@ General format is
 WORKOUTDESC This is a workout description and is completely optional
 WORKOUTDESC You can have as many paragraphs as you need
 WORKOUTDESC You can have as many paragraphs as you need
-
+# ANY COMMENT TO YOURSELF
 ---
 
 <exercise1_title>
@@ -171,6 +171,8 @@ When it comes to the video link, certain video platform will require "FBREEL" or
 
 Your SET or INTERVAL is how you perform the exercise. If it's an INTERVAL, it will count down for the duration of your exercise (usually cardio or stretching). If it's a SET, you click the the DONE button after you complete the number of reps it displays. If you have INTERVAL, that exercise must not contain SET. If you have SET, that exercise must not contain INTERVAL. This is for scalability reasons if in the future there will be more complicated logic involving the exercise's activity.
 
+You may add comments by starting a line with `#`
+
 
 To summarize:
 - You have an exercise sections separated by ---
@@ -179,6 +181,7 @@ To summarize:
 - INSTRUCTION is your explanation paragraph. Optional. Can have as many as you want.
 - INTERVAL is if your exercise activity requires a counting down. Briefly, the format is: Getting ready-duration, Active duration, and Rest period after. For formatting, refer to: Activity Duration/Countdown Format
 - SET is if your exercise activity requires reps to be done. Briefly, the format is: number of reps and rest period. For formatting, refer to: Activity Duration/Countdown Format
+- You may add comments by starting a line with `#`
 
 Remember no mixing sets and intervals in the same exercise. The app will warn you and mention which one it will ignore if you mix in different activity types for the same exercise.
 

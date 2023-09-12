@@ -1,7 +1,7 @@
 Arm Circles
 YOUTUBE https://www.youtube.com/watch?v=J7Om86Avb-k 0:04 0:31
 
-INTERVAL 3s 30s 10s
+INTERVAL 10s 30s 10s
 
 ---
 Arm Circumduction

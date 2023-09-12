@@ -122,7 +122,7 @@ function YoutubeShort(props) {
 
         return url;
     })(data);
-    console.log({url})
+    // console.log({url})
 
     return (
         <div className="video youtube">
@@ -284,8 +284,20 @@ function Interval(
 
     // Init countdowns
     useEffect(()=>{
-        // console.log({countdownStart});
+        if(workoutRx?.exercises[activeExercise]?.roundType !== "INTERVALS") return;
+
+        // Workaround: activeExercise is -1 at the start of the page and at the end of the workout, so it's hard to detect when the workout is over
+        window.accumulateExercise = typeof window.accumulateExercise==="undefined"?0:window.accumulateExercise;
+        window.accumulateExercise = activeExercise===-1?window.accumulateExercise:window.accumulateExercise+activeExercise+1;
+
+        // console.log({accumulateExercise:window.accumulateExercise})
+        // console.log({newActiveExercise:activeExercise});
+        if(window.accumulateExercise >= 0 && activeExercise===-1) return;
+        roundDetails = workoutRx.exercises[activeExercise].intervals[0];
+
         var [ready,active,rest] = [-1,-1,-1];
+        console.log({roundDetails, newActiveExerciseGroup:workoutRx.exercises[activeExercise]})
+
         try {
             var arr = roundDetails.split(" ").concat(["", "", ""]);
             ready = arr[0];
@@ -300,16 +312,16 @@ function Interval(
         rest = castToSeconds(rest)
 
         store.dispatch({type: 'interval/countdown/start', payload:{roundNum, roundTotal, exerciseTotal, ready, active, rest, countdownType, workoutRx}})
-    }, []);
+    }, [activeExercise]);
 
     function updateTimer() {   
-        console.log({activeExercise,exerciseNum}) 
+        // console.log({activeExercise,exerciseNum}) 
         if(activeExercise===-1) {
         }
         // else if(activeExercise===exerciseNum && activeRound===roundNum && countdownProgress<countdownStart) {
         else if(activeExercise===exerciseNum && activeRound===roundNum) {
             setTimeout(()=>{
-                console.log("timeout");
+                // console.log("timeout");
                 setCountdownProgress(countdownProgress+1);   
                 if(countdownProgress+1===countdownStart) { // increment to next round
                     store.dispatch({type: 'interval/countdown/next', payload:{roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx}})
@@ -325,7 +337,7 @@ function Interval(
     useEffect(updateTimer, [activeExercise,activeRound,countdownProgress]) // Doesn't run on initial so hence need the one above with [] dependencies
 
     return (
-        <div debugExerciseNum={exerciseNum} className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
+        <div debugexercisenum={exerciseNum} debugrounddetails={roundDetails} className={["interval", activeExercise===exerciseNum && activeRound===roundNum?"active":""].join(" ")} style={{marginBottom:"10px"}}>
             <h4 className="interval-name">Interval {roundNum+1}{(activeExercise===exerciseNum && activeRound===roundNum)?":":""}</h4>
             {(activeExercise===exerciseNum && activeRound===roundNum)?
             (
@@ -407,7 +419,7 @@ function Set(
                 }}
             >DONE {repsRequired} {repsRequired===1?"Rep":"Reps"}</button>
             <span className="set-countdown">
-                { (repsDone && countdownType==="rest")?(countdownStart-countdownProgress)+"s":""}
+                { (repsDone && countdownType==="rest")?countdownStart-countdownProgress+"s":""}
             </span>
         </div>
     )

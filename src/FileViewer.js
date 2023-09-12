@@ -44,6 +44,8 @@ const fetchAndParseWorkout = async () => {
     dataWrangled = parseWorkoutData(text)
   }
 
+  // console.log({dataWrangled})
+
   // console.log({constructedRequestURI})
   // console.log({res})
   // console.log({text})
@@ -58,7 +60,7 @@ function workoutReducer(
 
   switch (action.type) {
     case 'workout/reinit':
-      console.log("workout/reinit");
+      // console.log("workout/reinit");
       return { // f played all exercises already, it won't restart automatically
         ...state,
         activeExercise: 0,
@@ -66,7 +68,7 @@ function workoutReducer(
         repsDone: false
       }
     case 'exercise/incremented':
-      console.log("exercise/incremented");
+      // console.log("exercise/incremented");
       let {exercises} = action.payload;
 
       if(state.activeExercise===-1) {
@@ -93,7 +95,7 @@ function workoutReducer(
         }
       }
     case 'round/reps-done/start-rest': 
-    console.log("round/reps-done/start-rest");
+      // console.log("round/reps-done/start-rest");
       return {
         ...state,
         repsDone: true
@@ -123,6 +125,7 @@ function workoutReducer(
       var {activeRound, activeExercise} = state;
 
       function getNextCountdown__countdownType__countdownStart(roundDetails, countdownType) {
+        console.log({roundDetails})
         var [ready,active,rest] = [-1,-1,-1];
         try {
             var arr = roundDetails.split(" ").concat(["", "", ""]);
@@ -197,15 +200,13 @@ function workoutReducer(
               activeRound++;
           } else {
             if(activeExercise+1!==exerciseTotal) {
-              console.log("FROM activeExercise+1!==exerciseTotal")
+              // console.log("FROM activeExercise+1!==exerciseTotal")
               activeRound = 0;
-              // activeExercise = activeExercise+1;
               ++activeExercise;
-              // exerciseNum = activeExercise;
-              console.log({activeExercise, exerciseTotal});
-              console.log({activeRound, roundTotal, roundNum, exerciseNum});
+              // console.log({activeExercise, exerciseTotal});
+              // console.log({activeRound, roundTotal, roundNum, exerciseNum});
             } else if(activeExercise+1===exerciseTotal) { // End of all exercises and rounds
-              console.log("activeExercise+1===exerciseTotal")
+              // console.log("activeExercise+1===exerciseTotal")
               activeRound = -1;
               activeExercise = -1;
               return {
@@ -247,7 +248,7 @@ function workoutReducer(
 
       break;
     case 'round/incremented':
-      console.log("round/incremented")
+      // console.log("round/incremented")
       // eslint-disable-next-line no-redeclare, no-unused-vars
       var [roundNum, roundTotal, exerciseTotal] = action.payload;
       // console.log(action.payload)
@@ -328,6 +329,7 @@ let ConnectedSet = connect((state, ownProps)=>{
   let countdownType = "rest";
   let enums = { REST_PERIOD:1 } // 0th position is number of reps in a set round
   let countdownStart = roundDetails.split(" ")[enums.REST_PERIOD];
+  if(countdownStart.toLowerCase()==="na") countdownStart = "1s"; // Workaround: na for rest period means 1s rest period at sets.
   const castToSeconds = window.intuitiveDuration__getSeconds_cm;
   countdownStart = castToSeconds(countdownStart); // reforamt
 
@@ -342,8 +344,11 @@ let ConnectedSet = connect((state, ownProps)=>{
 
 let ConnectedInterval = connect((state, ownProps)=>{
 
+  // console.log({exerciseNum:ownProps.exerciseNum, roundNum:ownProps.roundNum})
   let workoutRx = ownProps.workoutRx;
+  // let roundDetails = state.activeExercise!==-1?workoutRx.exercises[ownProps.exerciseNum].intervals[ownProps.roundNum]:"";
   let roundDetails = state.activeExercise!==-1?workoutRx.exercises[ownProps.exerciseNum].intervals[ownProps.roundNum]:"";
+  // console.log({currentExerciseIntervals: workoutRx.exercises[ownProps.exerciseNum].intervals});
 
   // console.log("Exercise Num: " + ownProps.exerciseNum);
 
@@ -398,6 +403,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                 let props = {
                   store,
                   workoutRx,
+                  activeExercise,
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
@@ -406,10 +412,12 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                 return (<ConnectedSet key={["round-set", i, roundNum].join("-")} {...props}/>)
               })
             } else if(exercise.roundType==="INTERVALS") {
+              // console.log({exercise, intervals:exercise.intervals}); // ok
               return exercise.intervals.map((interval,roundNum)=>{
                 let props = {
                   store,
                   workoutRx,
+                  activeExercise,
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
