@@ -1,0 +1,9 @@
+WORKOUTDESC Launchpad:
+WORKOUTDESC YogaBody Flexibility Coach (yb)
+WORKOUTDESC <a target="_blank" href="https://members.yogabody.com/course/stretching-coach-training/module-1/stretching-coach-welcome/">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC YogaBody Flexibility Coach 9 - Vimeo (f..x9)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/flexibility-coach-9/">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC YogaBody Flexibility Coach 8 - Vimeo (y..a)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/flexibility-coach-8/">Go here</a>

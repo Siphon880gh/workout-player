@@ -1,0 +1,6 @@
+WORKOUTDESC Launchpad:
+WORKOUTDESC YogaBody Hip, Shoulder, Trapeze (y..ab..y)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/8194605/">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC Notes
+WORKOUTDESC <a target="_blank" href="https://drive.google.com/file/d/1QSh1qYEayVrs-bxMVbLx6NiBebNHV4ZB/view/">Notes here</a>

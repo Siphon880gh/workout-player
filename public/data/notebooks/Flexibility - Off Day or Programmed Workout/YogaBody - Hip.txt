@@ -1,0 +1,9 @@
+WORKOUTDESC Launchpad:
+WORKOUTDESC YogaBody Back - Hip 14 (y..a)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/hipchallenge14/">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC YogaBody Back - Hip 12 (y..a)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/hipchallenge12/">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC YogaBody Hip, Shoulder, Trapeze (y..ab..y)
+WORKOUTDESC <a target="_blank" href="https://vimeo.com/showcase/8194605/">Go here</a>

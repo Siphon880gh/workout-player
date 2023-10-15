@@ -1,0 +1,4 @@
+WORKOUTDESC Launchpad:
+WORKOUTDESC Fitness Deck
+WORKOUTDESC Whether to experiment a run of stretches or to learn all the stretches
+WORKOUTDESC <a target="_blank" href="https://wengindustry.com/tools/fitness-deck/">Go here</a>

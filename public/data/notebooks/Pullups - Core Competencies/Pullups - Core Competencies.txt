@@ -1,0 +1,27 @@
+WORKOUTDESC <b>Short-Circuited:</b>
+WORKOUTDESC This is really for either you are training to your first pullup OR you keep getting injured from pullups
+WORKOUTDESC &nbsp;
+WORKOUTDESC <b>Pull Up Assistance Band</b>
+WORKOUTDESC Timeframe: may take 3 months to 1st pullup, less intense than negatives
+WORKOUTDESC Track the progression of colored bands
+WORKOUTDESC &nbsp;
+WORKOUTDESC <b>Negatives and static holds</b>
+WORKOUTDESC Timeframe: Could take 1-2 weeks to 1st pullup, but intense
+WORKOUTDESC - Jump up to the top and try to hold it there for 15-30 seconds.
+WORKOUTDESC - Set yourself a time for each rep (how slowly you descend) and work to increase this over time.
+WORKOUTDESC - Dead hang and engage your shoulders (with scapula retraction) and try to hold for 15-30 seconds.
+WORKOUTDESC &nbsp;
+WORKOUTDESC <b>Foundational Misc</b>
+WORKOUTDESC - <a href="https://www.youtube.com/watch?v=XIkPI-_80r4" target="_blank">Scapular pullups</a> (if shoulders keep getting injured / scapula feels unstable)
+WORKOUTDESC - <a href="https://www.youtube.com/results?search_query=Hollow+body+holds" target="_blank">Hollow body holds</a> (if core not strong enough / body completely engaged during pullups)
+WORKOUTDESC &nbsp;
+WORKOUTDESC <b>Foundational Strength</b>
+WORKOUTDESC - Bicep curls, sets of 5-10 (For top half of movement)
+WORKOUTDESC - Face pulls, sets of 5-10 (For top half of the movement).
+WORKOUTDESC - Rows (hammer, inverted, kroc, barbell, etc), sets of 5-10
+WORKOUTDESC - <a href="https://youtu.be/btFgKx_mQro" target="_blank">Explanation</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC <b>Form Checks</b>
+WORKOUTDESC <a href="https://www.youtube.com/shorts/x3ttHYQl5SA" target="_blank">Example Assessment</a>
+WORKOUTDESC <a href="https://www.youtube.com/shorts/Az70yYsWPTc" target="_blank">Quick Guidelines</a>
+WORKOUTDESC <a href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank">Explanation</a>
