@@ -1,0 +1,5 @@
+WORKOUTDESC Launchpad:
+WORKOUTDESC GMB
+WORKOUTDESC - Elements: Flexibility and mobility for laypersons
+WORKOUTDESC - Mobility: Flexibility and mobility for athletes 
+WORKOUTDESC <a target="_blank" href="https://app.gmb.io/">Go here</a>

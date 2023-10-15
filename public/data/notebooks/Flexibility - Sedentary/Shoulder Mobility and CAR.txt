@@ -1,3 +1,7 @@
+WORKOUTDESC Shoulder Mobility including CAR drills.
+
+---
+
 Arm Circles
 YOUTUBE https://www.youtube.com/watch?v=J7Om86Avb-k 0:04 0:31
 
@@ -51,3 +55,14 @@ INSTRUCTION Change arm on second round
 
 INTERVAL 3s 30s 10s
 INTERVAL 4s 30s 10s
+---
+
+Behind Back Stretch with Towel and PNF
+YOUTUBESHORT https://www.youtube.com/shorts/CNnXEQvnF9s
+
+
+INSTRUCTION Pull down isometrically for 3-5 seconds, relax pulling it up higher, repeat at the higher position
+
+INTERVAL 3s 5s 10s
+INTERVAL na 5s 10s
+INTERVAL na 5s 10s

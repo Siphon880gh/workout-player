@@ -70,6 +70,8 @@ General format is
 WORKOUTDESC This is a workout description and is completely optional
 WORKOUTDESC You can have as many paragraphs as you need
 WORKOUTDESC You can have as many paragraphs as you need
+WORKOUTDESC &nbsp;
+WORKOUTDESC And you can <a href="https://www.google.com" target="_blank">link out</a>
 # ANY COMMENT TO YOURSELF
 ---
 
