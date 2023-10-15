@@ -132,3 +132,7 @@ h4 {
     font-size: 16pt;
     z-index: 3;
 }
+
+a, a:visited, a:active {
+    color: skyblue;
+}

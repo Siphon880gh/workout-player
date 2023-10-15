@@ -1,0 +1,3 @@
+WORKOUTDESC This is a workout description and is completely optional
+WORKOUTDESC Weng's Graduated YB Thesis
+WORKOUTDESC <a target="_blank" href="https://wengindustry.com/main/share/me/open/My%20routine%20-%20%20Longer.pdf">Go here</a>

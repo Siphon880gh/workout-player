@@ -463,7 +463,13 @@ function Workout({activeExercise}) {
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
         {
           workoutRx?.workoutDescs?.length?
-          (<div id="workout-desc">{workoutRx?.workoutDescs?.map((workoutdesc,i)=>(<p key={["workoutdesc", i].join("-")}>{workoutdesc}</p>))}</div>):
+          (<div id="workout-desc" dangerouslySetInnerHTML={{ 
+            __html: (() => {
+              var workoutDescHTML = workoutRx?.workoutDescs?.map((workoutdesc,i)=>(`<div style="margin: 5px auto">${workoutdesc}</div>`)).join("");
+              return workoutDescHTML;
+            })()
+          }}
+          ></div>):
           ([])
         }
         
