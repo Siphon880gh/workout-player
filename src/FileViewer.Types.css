@@ -40,7 +40,7 @@
 }
 
 .set:not(.active)::after {
-    content: "(Inactive)";
+    content: "(Not yet)";
     font-style: italic;
     opacity: .6;
     font-weight: 300;
@@ -60,6 +60,14 @@
 
 .set-countdown::before {
     content: "⛔️ REST ";
+}
+
+.interval:not(.active)::after {
+    content: "(Not yet)";
+    font-style: italic;
+    opacity: .6;
+    font-weight: 300;
+    margin-top: 10px;
 }
 
 .interval-countdown:empty {
