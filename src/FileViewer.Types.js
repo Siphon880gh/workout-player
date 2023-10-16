@@ -1,10 +1,11 @@
 import React from "react";
 import { TikTok } from "react-tiktok";
+import { InstagramEmbed } from 'react-social-media-embed';
 import {useState, useEffect} from "react";
 
 import "./FileViewer.Types.css";
 
-function FbReel(props) {
+function FBReel(props) {
     let {data,i,j} = props;
     
     const [video, audio] = data.split(" ");
@@ -32,78 +33,122 @@ function FbReel(props) {
     }
 
 }
+
+function InstagramReel(props) {
+    let {data,i,j} = props;
+
+    return (<div style={{ display: 'flex', justifyContent: 'center' }}>
+        <InstagramEmbed url={data} width={328} height={465} style={{marginBottom:"20px"}} />
+        </div>)
+
+    {
+        // Reference https://www.instagram.com/reel/CluXkCgD2m7
+        // Reference clicked Share -> Embed: <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/CvOFyOgqTZK/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"...</blockquote> <script async src="//www.instagram.com/embed.js"></script>
+        // https://www.instagram.com/reel/CvOFyOgqTZK/?utm_source=ig_embed&amp;utm_campaign=loading
+        // TODO README: Reel post from profile link ...
+
+
+        // Version 1 (Instagram blocked this)
+        // let token = data;
+        // let leftDelimiter = "reel/";
+        // let rightDelimiter = "/?utm_source"
+        // let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
+        // if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+        //     fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
+        // }
+        // let parsed = fromStart;
+        // return (<embed className="video instagram" src={["https://www.instagram.com/reel/", parsed, "/?utm_source=ig_embed&amp;utm_campaign=loading"].join("")} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
+
+        // Version 2 (Instagram blocked this)
+        // function extractId(url) {
+            // This regex will match any string that follows 'instagram.com/reel/' or 'instagram.com/p/'
+        
+            // until it hits a non-word character (e.g., '/', '?', '#').
+        
+            // 'reel' and 'p' are placed in a non-capturing group (?:reel|p) so they're not included in the result.
+        
+        //     const regex = /instagram\.com\/(?:reel|p)\/(\w+)/;
+        //     const match = url.match(regex);
+        
+            // The first group capture (index 1) is the ID part ('____').
+        
+        //     return match ? match[1] : null;
+        // } // extractId
+
+        // let id = extractId(data);
+        // let url = ["https://www.instagram.com/reel/", id, "/?utm_source=ig_embed&amp;utm_campaign=loading"].join("");
+        
+        // return (<embed className="video instagram" src={url} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
+
+    }
+} // InstagramReel
+
+function Tiktok(props) {
+    let {data,i,j} = props;
+
+    // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
+    // Or https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
+    // TODO README: Link of tiktok video page
+    
+    let token = data;
+    let rightDelimiter = "?q=";
+    if(token.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
+        token = token.substr(0, token.indexOf(rightDelimiter));
+    }
+    
+    // Workaround:
+    // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
+    return (
+        <div data-workaround-extension-conflicts className="video tiktok">
+            <TikTok url={token} />
+        </div>
+    )
+}
+
+function FBVideo(props) {
+    let {data,i,j} = props;
+
+    // Link of Facebook video page https://www.facebook.com/reel/1274784783080626
+    // TODO README: Link of Facebook video page
+    let videoId = data.substring(data.indexOf("/videos/")+"/videos/".length).replaceAll("/", "");
+
+    return (
+        <iframe title={["iframe", i, j].join("-")} className="video facebook" src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F${videoId}%2F&show_text=false&width=267&t=0`} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+    )
+}
+function Vimeo(props) {
+    let {data,i,j} = props;
+    
+    // Link of Vimeo video page https://vimeo.com/660530975
+    // TODO README: Link of Vimeo video page
+
+    // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+
+    // Autoplay
+    // autoplay=0 or autoplay=1 in URL for Vimeo
+
+    const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
+    let videoId = data.substring(data.indexOf(".com/")+".com/".length).replaceAll("/", "");
+
+    return (
+        <>
+            <div className="video vimeo">
+                <iframe title={["iframe", i, j].join("-")} src={`https://player.vimeo.com/video/${videoId}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
+                <div className="loading-sprite">Loading Vimeo...</div>
+                <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
+            </div>
+            <br/>
+        </>
+    )
+}
+
 function MiscVideo(props) {
     let {data,i,j} = props;
     // data = data.split(" "); // Clipping disabled for misc videos because could be instagram, tiktok, FB reel, Vimeo, etc
 
-    if(data.includes("instagram.com")) {
-        // Reference https://www.instagram.com/reel/CluXkCgD2m7
-        // Reference clicked Share -> Embed: <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/CnalYzEuo85/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14"...</blockquote> <script async src="//www.instagram.com/embed.js"></script>
-        // TODO README: Reel post from profile link / Embed code from ...
+    return (<iframe title={["iframe", i, j].join("-")} src={data} frameBorder="0" allow="autoplay" style={{width: "328px",
+        height: "465px"}}></iframe>)
 
-        let token = data;
-        let leftDelimiter = "reel/";
-        let rightDelimiter = "/?utm_source"
-        let fromStart = token.substr(token.indexOf(leftDelimiter) + leftDelimiter.length);
-        if(fromStart.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
-            fromStart = fromStart.substr(0, fromStart.indexOf(rightDelimiter));
-        }
-        let parsed = fromStart;
-
-        return (<embed className="video instagram" src={["https://www.instagram.com/reel/", parsed, "/embed/"].join("")} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
-    }
-    if(data.includes("tiktok.com")) {
-        // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
-        // Or https://www.tiktok.com/@squatuniversity/video/7170818647353543982?q=deadlift&t=1677192255304
-        // TODO README: Link of tiktok video page
-        
-        let token = data;
-        let rightDelimiter = "?q=";
-        if(token.includes(rightDelimiter)) { // Could be end of line and no need to delimit right token
-            token = token.substr(0, token.indexOf(rightDelimiter));
-        }
-        
-        // Workaround:
-        // If has conflict with a Chrome extension, will cause the TikTok component to be wrapped in `<div style="display: none;">` and hence disappeared.
-        return (
-            <div data-workaround-extension-conflicts className="video tiktok">
-                <TikTok url={token} />
-            </div>
-        )
-    }
-    if(data.includes("facebook.com") && data.includes("/videos/")) {
-        // Link of Facebook video page https://www.facebook.com/reel/1274784783080626
-        // TODO README: Link of Facebook video page
-        let videoId = data.substring(data.indexOf("/videos/")+"/videos/".length).replaceAll("/", "");
-
-        return (
-            <iframe title={["iframe", i, j].join("-")} className="video facebook" src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Fbloombylily%2Fvideos%2F${videoId}%2F&show_text=false&width=267&t=0`} width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-        )
-    }
-    if(data.includes("vimeo.com")) {
-        // Link of Vimeo video page https://vimeo.com/660530975
-        // TODO README: Link of Vimeo video page
-
-        // <iframe className="video vimeo" src="https://player.vimeo.com/video/660530975" width="267" height="476" style={{border:"none",overflow:"hidden"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-
-        // Autoplay
-        // autoplay=0 or autoplay=1 in URL for Vimeo
-
-        const zoom = (event)=>{ event.target.closest(".video").classList.toggle("zoomed"); }
-        let videoId = data.substring(data.indexOf(".com/")+".com/".length).replaceAll("/", "");
-
-        return (
-            <>
-                <div className="video vimeo">
-                    <iframe title={["iframe", i, j].join("-")} src={`https://player.vimeo.com/video/${videoId}?autoplay=0&loop=1&byline=0&portrait=0`} style={{border:"none",overflow:"hidden", width:"100%", height:"100%"}} scrolling="no" frameBorder="0" allow="autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen={true}></iframe>
-                    <div className="loading-sprite">Loading Vimeo...</div>
-                    <div className="btn-zoom" onClick={(event)=>zoom(event)}></div>
-                </div>
-                <br/>
-            </>
-        )
-    }
-    return (<div>Video format not supported</div>)
 }
 
 function YoutubeShort(props) {
@@ -429,8 +474,12 @@ function Set(
 
 
 export {
-    FbReel,
+    FBReel,
     MiscVideo,
+    InstagramReel,
+    Tiktok,
+    FBVideo,
+    Vimeo,
     YoutubeShort,
     YoutubeVid,
     Picture,

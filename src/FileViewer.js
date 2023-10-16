@@ -2,8 +2,12 @@ import "./FileViewer.css"
 import {useEffect} from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import {
-  FbReel,
+  FBReel,
   MiscVideo,
+  InstagramReel,
+  Tiktok,
+  FBVideo,
+  Vimeo,
   YoutubeShort,
   YoutubeVid,
   Picture,
@@ -369,7 +373,7 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
         
         {/* Facebook Reel's */}
         {exercise.fbreels.map((fbreel,j)=>{
-          return <FbReel key={["info-fb-reel", i, j].join("-")} data={Object.assign(fbreel, {i, j})}/>
+          return <FBReel key={["info-fb-reel", i, j].join("-")} data={Object.assign(fbreel, {i, j})}/>
         })}
         
         {/* Youtube Vid's */}
@@ -383,11 +387,27 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
         })}
 
         {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
+        {exercise.instagramreels.map((miscvideo,j)=>{
+          return <InstagramReel key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
+        })}
+        {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
+        {exercise.tiktoks.map((miscvideo,j)=>{
+          return <Tiktok key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
+        })}
+        {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
+        {exercise.fbvideos.map((miscvideo,j)=>{
+          return <FBVideo key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
+        })}
+        {/* Misc Videos: Instagram, Tiktok, FB reel, Vimeo, etc */}
+        {exercise.vimeos.map((miscvideo,j)=>{
+          return <Vimeo key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
+        })}
+        
+        {/* Misc Videos: If works, etc */}
         {exercise.miscvideos.map((miscvideo,j)=>{
           return <MiscVideo key={["info-misc-video", i, j].join("-")} data={Object.assign(miscvideo, {i, j})}/>
         })}
         
-
         {/* Pictures */}
         {exercise.pictures.map((picture,j)=>{
           return <Picture key={["info-pic", i,  j].join("-")} data={picture}/>

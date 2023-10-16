@@ -35,7 +35,6 @@ The idea is that you may not be familiar with these exercises that you collected
 
 ## Unsupported Videos
 
-
 - Facebook Reel 
 
 - Instagram Multireel
@@ -78,9 +77,15 @@ WORKOUTDESC And you can <a href="https://www.google.com" target="_blank">link ou
 <exercise1_title>
 PICTURE <gif/etc link> <optional_width_px_or_other_unit_or_na> <optional_height_px_or_other_unit_or_na> <optional_for_pictures_across:-->
 PICTURE <gif/etc link>
+
 YOUTUBE <youtube-link> <timemark_or_seconds_or_na> <timemark_or_seconds_or_na>
 YOUTUBESHORT https://www.youtube.com/shorts/oLYM46dWYzM
-MISCVIDEO <fbVideo/insta/tiktok/vimeo>
+FBVIDEO
+INSTAGRAMREEL
+TIKTOK
+VIMEO
+MISCVIDEO <URL of any videos not supported above. Will try to support inside iframe>
+
 INSTRUCTION <your_text>
 INSTRUCTION <your_text>
 INTERVAL <ready_duration_or_na> <duration> <rest_duration_or_na>
@@ -169,7 +174,7 @@ SET 5r 3s
 
 All sections whether they are workout description section or an exercise section, must be separated with a line of `---`. You can have as many dashes as you want but it must have at least three dashes.
 
-When it comes to the video link, certain video platform will require "FBREEL" or "YOUTUBE" or "YOUTUBESHORT" rather than the catch-all "MISCVIDEO". This is because their embed or viewing logic is different than usual and my app needs to know which strategy to use. In the future, the app will look at the URL and determine the type of video playing algorithm to use automatically, however I am short on time right now.
+When it comes to the video link, video platform will require "FBVIDEO" or "YOUTUBE" or "YOUTUBESHORT" etc. This is because their embed or viewing logic is different than usual and my app needs to know which strategy to use. In the future, the app will look at the URL and determine the type of video playing algorithm to use automatically, however I am short on time right now. "MISCVIDEO" will try to fit video in an iframe if it's none of the supported platforms.
 
 Your SET or INTERVAL is how you perform the exercise. If it's an INTERVAL, it will count down for the duration of your exercise (usually cardio or stretching). If it's a SET, you click the the DONE button after you complete the number of reps it displays. If you have INTERVAL, that exercise must not contain SET. If you have SET, that exercise must not contain INTERVAL. This is for scalability reasons if in the future there will be more complicated logic involving the exercise's activity.
 
@@ -212,11 +217,17 @@ Notice you add "--" at the end of the PICTURE line. If you want pictures to be a
 
 ## Video Format:
 
-- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
-- After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Briefly, the TIME can be timemark like MM:SS, or in seconds like 10s. For more details, refer to Video Timemarks Format.
+- YOUTUBE is a Youtube link like `https://wwww.youtube.com/...`. 
+    - For Youtube videos, you can clip the video where the exercise instruction is by providing a start timemark or start and end timemarks. A timemark is like 1:00.
+    - After YOUTUBE separated by spaces, you have a Video Times to set the playing start time and end time. If you don't want an end time and have the video play through from custom start time to end of video: TIME na. To have it start from beginning and end at a specific time: na TIME. Briefly, the TIME can be timemark like MM:SS, or in seconds like 10s. For more details, refer to Video Timemarks Format.
 - YOUTUBESHORT is a Youtube short link like `https://wwww.youtube.com/shorts/...`. Clipping a start/end time is not supported.
-- MISCVIDEO is anything else besides Youtube. No clipping has been implemented because as of 3/1/23, their policies do not allow cors with clipping. MISCVIDEO can be Facebook reel, Instagram video, Tiktok, Vimeo.
-- FBREEL is Facebook Reel, NOT Facebook Video. FBREEL is semi-supported. You have to do additional steps using Chrome DevTools' Inspect to get the proper URLs. Facebook does not support embedding Facebook Reels, and they have separated a reel into both video and audio clips that play synchronously.
+- FBVIDEO <url>
+- INSTAGRAMREEL <url>
+- TIKTOK <url>
+- VIMEO <url>
+- MISCVIDEO <URL of any videos not supported above. Will try to support inside iframe>
+
+FBVIDEO is used to distinguish from the now unsupported FBREEL (Facebook now blocks you).
 
 Remember that the app only supports unlisted or public videos. Even if your private Vimeo video has the hash "h" URL query, it will not be supported.
 
@@ -234,7 +245,7 @@ By seconds:
 YOUTUBE https://www.youtube.com/watch?v=lETF5JRgEN8 436 500
 ```
 
-Note that clipping Youtube shorts are not supported.
+Note that clipping Youtube shorts are not supported. Clipping the other types of media (FBVideo, etc) are also not supported. Will implement if there's interest shown in the app.
 
 ## Activity Duration/Countdown Format:
 - When it comes to the exercise activity's durations/countdowns.
@@ -247,6 +258,8 @@ Note that clipping Youtube shorts are not supported.
 
 Was previously thought to be supported with
 `FBREEL <video_clip_you_extracted> <audio_clip_you_extracted>`
+
+Workout preparer would require additional steps using Chrome DevTools' Inspect to get the proper URLs of both video and audio clips that Facebook played synchronously.
 
 However at a much later time, "URL signature expired" would output from their server.
 

@@ -64,6 +64,14 @@ function parseWorkoutData(data) {
             
             let name = lines.shift(0);
 
+            let instagramreels= lines.filter(line=>line.indexOf("INSTAGRAMREEL ")===0).map(removeKeywordSpace)
+            
+            let tiktoks = lines.filter(line=>line.indexOf("TIKTOK ")===0).map(removeKeywordSpace)
+
+            let fbvideos = lines.filter(line=>line.indexOf("FBVIDEO ")===0).map(removeKeywordSpace)
+
+            let vimeos = lines.filter(line=>line.indexOf("VIMEO ")===0).map(removeKeywordSpace)
+
             let miscvideos = lines.filter(line=>line.indexOf("MISCVIDEO ")===0).map(removeKeywordSpace)
             
             let fbreels = lines.filter(line=>line.indexOf("FBREEL ")===0).map(removeKeywordSpace)
@@ -109,6 +117,10 @@ function parseWorkoutData(data) {
                 roundType,
                 roundTotal,
                 fbreels,
+                instagramreels,
+                tiktoks,
+                fbvideos,
+                vimeos,
                 miscvideos,
                 youtubevids,
                 youtubeshorts,

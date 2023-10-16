@@ -1,7 +1,7 @@
 WORKOUTDESC This is a basics demonstration of the pictures, instructions, intervals, and sets/reps
 WORKOUTDESC This workout description can me more than one paragraph/line.
 ---
-Exercise 1
+Picture Variation 1
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na --
 
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na --
@@ -13,7 +13,7 @@ INTERVAL 3s 3s 3s
 INTERVAL 3s 3s 3s
 
 ---
-Exercise 2
+Picture Variation 2
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg  150px na
 
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na
@@ -25,7 +25,7 @@ SET 5r 3s
 SET 5r 3s
 
 ---
-Exercise 3
+Picture Variation 3
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na
 
 PICTURE https://www.verywellfit.com/thmb/w-hq2ZW1sxMDVJuEdRo8mlBgic8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/About-194-1231474-Chest-Press-Bench02-1560-fe31b6ad47f042c896163a5e1a89e169.jpg 150px na
