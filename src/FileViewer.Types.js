@@ -50,7 +50,7 @@ function MiscVideo(props) {
         }
         let parsed = fromStart;
 
-        return (<embed className="video instagram" src={["https://www.instagram.com/p/", parsed, "/embed/"].join("")} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
+        return (<embed className="video instagram" src={["https://www.instagram.com/reel/", parsed, "/embed/"].join("")} width="500" height="678" frameBorder="0" scrolling="no" allowtransparency="true"></embed>);
     }
     if(data.includes("tiktok.com")) {
         // Link of Tiktok video page https://www.tiktok.com/@squatuniversity/video/7170818647353543982
