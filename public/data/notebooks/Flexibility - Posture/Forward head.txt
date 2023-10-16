@@ -1,0 +1,68 @@
+WORKOUTDESC From <a href="https://backintelligence.com/how-to-fix-forward-head-posture/" target="_blank">Back Intelligence</a>
+
+
+---
+
+Chin Tuck
+PICTURE https://backintelligence.com/wp-content/uploads/2018/01/Chin-tucks-exercise.webp
+INSTRUCTION Hold for 3 seconds each rep
+SET 10r 30s
+SET 10r 30s
+SET 10r 30s
+
+---
+Neck Flexion (Suboccipital Stretch)
+PICTURE https://backintelligence.com/wp-content/uploads/2018/01/Fwd-neck-flexion.webp
+INSTRUCTION Rest your other hand on the back of your head, gently exerting downward pressure as you draw your head down toward your chest.
+INSTRUCTION Once you sense a stretch along the back of your neck, maintain this posture for 20 to 30 seconds.
+INTERVAL 5s 30s 30s
+INTERVAL na 30s 30s
+INTERVAL na 30s 30s
+
+---
+One Arm Pec Stretch
+PICTURE https://backintelligence.com/wp-content/uploads/2019/01/One-Arm-Stretch.webp
+INSTRUCTION Switch sides at the middle 30 seconds
+INTERVAL 5s 60s 30s
+INTERVAL na 60s 30s
+INTERVAL na 60s 30s
+
+---
+Upper Trapezius Stretch
+PICTURE https://backintelligence.com/wp-content/uploads/2018/02/Upper-traps-stretch.webp
+INSTRUCTION Place one hand on the opposite side of your head, and tuck your other hand behind your back.
+INSTRUCTION Gently guide your head down towards your shoulder.
+INSTRUCTION Use the hand that's on your head to apply a gentle pressure downwards to deepen the stretch, being careful not to exert too much force.
+INSTRUCTION Hold this position for 20-30 seconds.
+INSTRUCTION Repeat the stretch on the other side. Switch on the new interval.
+INTERVAL 5s 30s 5s
+INTERVAL na 30s na
+
+---
+The W - Shoulder blade squeeze with arms up W position 
+YOUTUBE https://youtu.be/6C-wfV27bzI 6:17 7:15 
+INSTRUCTION 5 seconds hold, relax, then repeat 5 times
+INTERVAL 5s 5s 5s
+INTERVAL na 5s 5s
+INTERVAL na 5s 5s
+INTERVAL na 5s 5s
+INTERVAL na 5s 5s
+
+---
+YWLT Exercise (Mnemonic: You will live taller)
+https://youtu.be/6C-wfV27bzI 7:22 9:23
+INSTRUCTION Y extend back for 2 breaths.
+INSTRUCTION Drop to W. W for 2 breaths.
+INSTRUCTION L for 2 breaths (strong squeeze betwen shoulder blades).
+INSTRUCTION Spread up and extend back to T position for 2 breaths.
+SET 1r na
+
+---
+Double Fist Chin Tuck Facing Wall
+PICTURE https://cdn.education.com/files/555001_556000/555537/superhero-strength-slide.jpg
+INSTRUCTION Stand straight, facing a wall, feet together in a military stance.
+INSTRUCTION Form fists on both hands, stack them on the chin, and the other end of the fists against the wall.
+INSTRUCTION Without leaning forward, align your chin over your fists, keeping body straight.
+INSTRUCTION A fist and your toes touch the wall
+INSTRUCTION Hold for 30 seconds, preferably with someone pushing your traps towards the wall
+INTERVAL 5s 30s na
