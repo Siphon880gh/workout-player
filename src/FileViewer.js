@@ -21,6 +21,7 @@ import {useLocation} from "react-router-dom";
 const queryClient = new QueryClient()
 
 const fetchAndParseWorkout = async () => {
+
   const uriBeforeViewPath = window.location.href.substring(0,window.location.href.indexOf("/view")+1);
   const constructedRequestURI = uriBeforeViewPath + "data/notebooks/" + window.location.href.substring(window.location.href.indexOf("/view/")+"/view/".length);
 
@@ -44,7 +45,7 @@ const fetchAndParseWorkout = async () => {
     dataWrangled = parseWorkoutData(text)
   }
 
-  // console.log({dataWrangled})
+  console.log({dataWrangled})
 
   // console.log({constructedRequestURI})
   // console.log({res})
@@ -461,6 +462,18 @@ function Workout({activeExercise}) {
       <>
         {/* Title */}
         <h2 id="workout-title">Workout: {decodeURI(workoutRx.workoutName.toTitleCase())}</h2>
+
+        {
+          workoutRx?.workoutDescs?.length?
+          (<div id="time-tallied" dangerouslySetInnerHTML={{ 
+            __html: (() => {
+              return `<i>Total: <span>${workoutRx?.totalDuration}</span></i>`
+            })()
+          }}
+          ></div>):
+          ([])
+        }
+        
         {
           workoutRx?.workoutDescs?.length?
           (<div id="workout-desc" dangerouslySetInnerHTML={{ 

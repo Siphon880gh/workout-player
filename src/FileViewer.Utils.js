@@ -1,3 +1,27 @@
+function formatSecondsToHumanReadable(totalSeconds) {
+    // Calculate hours, minutes, and seconds
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    // Create an array to hold the result
+    const timeComponents = [];
+
+    // Check hours, minutes, and seconds, and push non-zero values to the result array
+    if (hours > 0) {
+        timeComponents.push(hours + ' hour' + (hours > 1 ? 's' : ''));
+    }
+    if (minutes > 0) {
+        timeComponents.push(minutes + ' minute' + (minutes > 1 ? 's' : ''));
+    }
+    if (seconds > 0) {
+        timeComponents.push(seconds + ' second' + (seconds > 1 ? 's' : ''));
+    }
+
+    // Join the components
+    return timeComponents.join(' ');
+} // formatSecondsToHumanReadable
+
 function parseWorkoutData(data) {
 
         const removeKeywordSpace = line=>line.substring(line.indexOf(" ")+1);
@@ -96,10 +120,42 @@ function parseWorkoutData(data) {
 
         }); // group aka exercise each
 
+    let totalDurationSecs = (()=>{
+        let total = 0;
+        let tokens = "";
+        exercises.forEach(exercise=>{
+            if(exercise?.intervals) {
+                tokens += (" " + exercise.intervals);
+            }
+            if(exercise?.sets) {
+                tokens += (" " + exercise.sets);
+            }
+        })
+        tokens = tokens.replaceAll("undefined", " ");
+        tokens = tokens.replaceAll(/\s+/g, " ");
+        tokens = tokens.trim(); // normalize for splitting around the delim space
+        tokens.split(" ").forEach(term=>{
+            if(term.includes("s")) {
+                let numeric = parseInt(term); // "5s" => 5
+                total += (2.5 * numeric)
+            } else if(term.includes("r")) {
+                // Set the standard of 2.5 seconds a rep
+                let numeric = parseInt(term); // "5s" => 5
+                total += (2.5 * numeric)
+            }
+        })
+        // console.log({tokens})
+        
+        return total;
+    })(); // totalDurationSecs
+
+    let totalDuration = formatSecondsToHumanReadable(totalDurationSecs);
+
     let workout = {
         workoutName: decodeURI(window.location.href.substring(window.location.href.lastIndexOf("/")+1).replaceAll(".txt", "")),
         workoutDescs, 
-        exercises
+        exercises,
+        totalDuration
     }
 
     // console.log({workout})
