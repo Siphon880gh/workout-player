@@ -12,7 +12,7 @@ WORKOUTDESC - Set yourself a time for each rep (how slowly you descend) and work
 WORKOUTDESC - Dead hang and engage your shoulders (with scapula retraction) and try to hold for 15-30 seconds.
 WORKOUTDESC &nbsp;
 WORKOUTDESC <b>Foundational Misc</b>
-WORKOUTDESC - <a href="https://www.youtube.com/watch?v=XIkPI-_80r4" target="_blank">Scapular pullups</a> (if shoulders keep getting injured / scapula feels unstable)
+WORKOUTDESC - <a href="https://www.youtube.com/watch?v=XIkPI-_80r4" target="_blank">Scapular pullups (8 reps, 3 sets)</a> (if shoulders keep getting injured / scapula feels unstable)
 WORKOUTDESC - <a href="https://www.youtube.com/results?search_query=Hollow+body+holds" target="_blank">Hollow body holds</a> (if core not strong enough / body completely engaged during pullups)
 WORKOUTDESC &nbsp;
 WORKOUTDESC <b>Foundational Strength</b>

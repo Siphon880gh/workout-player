@@ -256,7 +256,9 @@ function Picture({data}) {
 */
 function Instruction({data}) {
     return (
-        <p className="detail">{data}</p>
+        <div className="detail" dangerouslySetInnerHTML={{
+            __html: data
+        }} style={{marginBottom:"5px"}}></div>
     )
 }
 

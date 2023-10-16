@@ -1,0 +1,34 @@
+WORKOUTDESC Short-circuited
+WORKOUTDESC For pushups/pullups, or when your shoulders keep getting injured from exercise, or scapular feels unstable from exercise.
+WORKOUTDESC Will fully flesh out exercises at a later time
+WORKOUTDESC &nbsp;
+---
+
+Activation
+INSTRUCTION <a href="https://www.youtube.com/watch?v=7SRW1cS9n0A" target="_blank">Pull up Scalpular Activation</a>
+INSTRUCTION <a href="https://www.youtube.com/watch?v=HyQw68TSMoA" target="_blank">Pushup up Scalpular Activation</a>
+INSTRUCTION &nbsp;
+
+---
+
+Stability: Lower Traps, Rhomboids, Rotator Cuff, Rear Delts
+YOUTUBESHORT https://www.youtube.com/shorts/8RJLYUH0akM
+
+
+INSTRUCTION Prone Y-Raises
+INSTRUCTION Prone W-Raises
+INSTRUCTION Prone End Range Cuban Rotations
+INSTRUCTION Prone T-Raises
+
+---
+
+Strength
+INSTRUCTION - <a href="https://www.youtube.com/watch?v=XIkPI-_80r4" target="_blank">Scapular pullups (8 reps, 3 sets)</a>
+INSTRUCTION - <a href="https://www.youtube.com/watch?v=A_EJocgkX0U" target="_blank">Scapular strength 5 Exercises - Group A</a>
+INSTRUCTION - <a href="https://youtu.be/-WnFr7dQrtE?si=-_NIBsBX1aQWdgxY" target="_blank">Scapular strength 5 Exercises - Group B</a>
+INSTRUCTION - <a href="https://youtu.be/Wbvukga8-_8" target="_blank">Rotator Cuffs Principles & Exercises</a>
+
+---
+
+Mobility
+INSTRUCTION <a href="https://www.youtube.com/watch?v=TVCuUV3o7NA" target="_blank">Scapular Mobility - Principles and Exercises</a>
