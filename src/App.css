@@ -59,13 +59,29 @@ header h1 {
     position: fixed;
     left: 0;
     bottom: 0;
+    padding-top: 12px;
     padding-left: 12px;
-    font-size: 26px;
+    /* font-size: 26px; */
     background-color: black;
     padding-bottom: 5px;
     width: 100%;
 }
 
+
 #global-controls>* {
-    margin-right: 15px;
+    font-size: 24px;
+    margin: 12px;
+    cursor: pointer;
+}
+
+#audio {
+    float: right;
+    transform: translate(-12px, -12px);
+    margin-bottom: 0;
+}
+#audio:not(.active)::before {
+    content: "🔕";
+}
+#audio.active::before {
+    content: "🔔";
 }

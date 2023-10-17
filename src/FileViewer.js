@@ -366,7 +366,7 @@ let ConnectedInterval = connect((state, ownProps)=>{
   }
 })(Interval);
 
-function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
+function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx, beep, beepFinal}) {
   return (
       <details id={["exercise", i].join("-")} className="exercise" open={activeExercise===i}>
         <summary><h3>{exercise.name}</h3></summary>
@@ -428,7 +428,9 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
-                  roundTotal: exercise.sets.length
+                  roundTotal: exercise.sets.length,
+                  beep,
+                  beepFinal
                 }
                 return (<ConnectedSet key={["round-set", i, roundNum].join("-")} {...props}/>)
               })
@@ -442,7 +444,9 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
                   exerciseNum: i,
                   exerciseTotal,
                   roundNum,
-                  roundTotal: exercise.intervals.length
+                  roundTotal: exercise.intervals.length,
+                  beep,
+                  beepFinal
                 }
                 return (<ConnectedInterval key={["round-interval", i, roundNum].join("-")} {...props}/>)
               })
@@ -453,7 +457,14 @@ function Exercise({exercise, exerciseTotal, i, activeExercise, workoutRx}) {
     )
 }
 
-function Workout({activeExercise}) {
+function Workout({activeExercise, beep, beepFinal}) {
+
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //     beep();
+  //   }, 1000)
+
+  // })
 
   function jumpToActiveWorkout() {
     if(!document.querySelector(".interval.active")) {
@@ -509,7 +520,7 @@ function Workout({activeExercise}) {
         {/* Exercise Components */}
         {workoutRx.exercises.map((exercise,i, exercises)=>{
           return (
-            <ConnectedExercise key={["exercise", i].join("-")} {...{workoutRx, exercise, exerciseTotal:exercises.length || 0, i}}></ConnectedExercise>
+            <ConnectedExercise key={["exercise", i].join("-")} {...{workoutRx, exercise, exerciseTotal:exercises.length || 0, i, beep, beepFinal}}></ConnectedExercise>
           )
         })}
 
@@ -525,14 +536,14 @@ function Workout({activeExercise}) {
   </div>)
 } // Workout
 
-function FileViewer(props) {
+function FileViewer({beep, beepFinal}) {;
 
     return (
       <div className="file-viewer">
         <div className="file-viewer-contents">
           <QueryClientProvider client={queryClient}>
             <Provider store={store}>
-                <ConnectedWorkout/>    
+                <ConnectedWorkout beep={beep} beepFinal={beepFinal} />    
             </Provider>
           </QueryClientProvider>
         </div>

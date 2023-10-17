@@ -322,7 +322,10 @@ function Interval(
 
         roundDetails, // all three countdowns of the interval round, eg. 5s 30s 15s for ready, active, and rest periods
         countdownType,
-        countdownStart
+        countdownStart,
+
+        beep,
+        beepFinal
     }) {
 
     let [countdownProgress, setCountdownProgress] = useState(-1)
@@ -371,6 +374,7 @@ function Interval(
                 // console.log("timeout");
                 setCountdownProgress(countdownProgress+1);   
                 if(countdownProgress+1===countdownStart) { // increment to next round
+                    beep();
                     store.dispatch({type: 'interval/countdown/next', payload:{roundNum, roundTotal, exerciseNum, exerciseTotal, roundDetails, countdownType, workoutRx}})
                     setCountdownProgress(0);    
                 } 
@@ -432,7 +436,10 @@ function Set(
         repsDone,
 
         countdownType,
-        countdownStart
+        countdownStart,
+
+        beep,
+        beepFinal
     }) {
 
     let [countdownProgress, setCountdownProgress] = useState(0)

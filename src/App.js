@@ -8,11 +8,13 @@ import {useState} from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
+import { initAfterHasUnlocked, beep, beepFinal } from "./Audio.utils.js";
 
 const Router = BrowserRouter;
 
 function Header() {
   let [shownCreds, setShownCreds] = useState(false);
+
   return (
     <header className="App-header" style={{display:"flex", justifyContent:"space-between", flexWrap:"wrap", padding:"0 10px"}}>
       <h1>Workout Notebook</h1>
@@ -37,6 +39,7 @@ function Header() {
 
 function App() {
   let [showMisc, setShowMisc] = useState(true);
+  let [audioActive, setAudioActive] = useState(false);
 
   return (
     <div className="App">
@@ -46,7 +49,7 @@ function App() {
           {showMisc?<FileNavigator/>:""}
           
           <Routes>
-            <Route path="/view/*" element={<FileViewer/>}></Route>
+            <Route path="/view/*" element={<FileViewer beep={beep} beepFinal={beepFinal}/>}></Route>
           </Routes>
         </main>
       </Router>
@@ -54,10 +57,16 @@ function App() {
       <div id="global-controls">
         <span id="open-file" onClick={()=>{
           const hasTextFile = window.location.href.includes(".txt") || window.location.href.includes(".md")
-          if(!hasTextFile) alert("You haven't opened a workout yet to be able to see it's full text format")
-          window.open(window.location.href.replace("view/", "data/notebooks/"));
+          if(!hasTextFile) { 
+            alert("You haven't opened a workout yet to be able to see it's full text format") 
+          } else {
+            window.open(window.location.href.replace("view/", "data/notebooks/"))
+          }
         }}>📑</span>
         <span id="toggle-sidebar" onClick={()=>setShowMisc(!showMisc)}>👁</span>
+        <span id="password" onClick={()=>{}}>🔑</span>
+        <span id="audio" className={audioActive?"active":""} onClick={(event)=>{ event.stopPropagation(); setAudioActive(true); initAfterHasUnlocked(); }}></span>
+        <span style={{clear:"both"}}></span>
       </div>
       
     </div>
