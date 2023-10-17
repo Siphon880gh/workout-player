@@ -2,6 +2,7 @@ import "./FileNavigator.css"
 import importedLis from "./paths.json";
 import {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom"
+import {passwordValid, premiumTokensRegEx} from "./Password.utils.js"
 
 function FileNavigator({password}) {
   let [lis, setLis] = useState([]);
@@ -52,7 +53,7 @@ function FileNavigator({password}) {
   // This check runs whenever the `password` state changes
   const [hiderAttributes, SetHiderAttributes] = useState({});
   useEffect(() => {
-    if (password === "go") {
+    if (password === passwordValid) {
       SetHiderAttributes({ 'data-hidden': 'false' });
     } else {
       SetHiderAttributes({ 'data-hidden': 'true' });
@@ -91,7 +92,7 @@ function FileNavigator({password}) {
                 }
 
                 // Hide folders/files that have (wip), etc in their name, if correct password not entered
-                let regex = /wip|pdf|upnote|evernote|yogabody|omnibody|gmb|fitness\-deck/i;
+                let regex = premiumTokensRegEx;
                 let hider = {}
                 
                 if (regex.test(textContent)) {

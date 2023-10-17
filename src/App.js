@@ -8,7 +8,9 @@ import {useState, useEffect} from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
+
 import { initAfterHasUnlocked, beep, beepFinal } from "./Audio.utils.js";
+import {passwordValid} from "./Password.utils.js"
 
 const Router = BrowserRouter;
 
@@ -44,13 +46,13 @@ function App() {
 
   function getPassword() {
     var password = prompt("Enter password to unlock premium workouts", "");
-    if(password!=="go") {
+    if(password!==passwordValid) {
       localStorage.removeItem("workout_player__password")
       setPassword("");
       alert("Incorrect password. Continue with basic workouts.");
     } else {
-      localStorage.setItem("workout_player__password", "go");
-      setPassword("go");
+      localStorage.setItem("workout_player__password", passwordValid);
+      setPassword(passwordValid);
     }
   }
 
