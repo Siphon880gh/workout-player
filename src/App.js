@@ -3,7 +3,7 @@ import FileNavigator from "./FileNavigator"
 import FileViewer from "./FileViewer"
 import {useLocation} from "react-router-dom";
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -40,13 +40,32 @@ function Header() {
 function App() {
   let [showMisc, setShowMisc] = useState(true);
   let [audioActive, setAudioActive] = useState(false);
+  let [password, setPassword] = useState("");
+
+  function getPassword() {
+    var password = prompt("Enter password to unlock premium workouts", "");
+    if(password!=="go") {
+      localStorage.removeItem("workout_player__password")
+      setPassword("");
+      alert("Incorrect password. Continue with basic workouts.");
+    } else {
+      localStorage.setItem("workout_player__password", "go");
+      setPassword("go");
+    }
+  }
+
+  useEffect(()=>{
+    if(localStorage.getItem("workout_player__password")) {
+      setPassword(localStorage.getItem("workout_player__password"))
+    }
+  })
 
   return (
     <div className="App">
       {showMisc?<Header/>:""}
       <Router>
         <main className="flex-row">
-          {showMisc?<FileNavigator/>:""}
+          {showMisc?<FileNavigator password={password} setPassword={setPassword}/>:""}
           
           <Routes>
             <Route path="/view/*" element={<FileViewer beep={beep} beepFinal={beepFinal}/>}></Route>
@@ -64,7 +83,7 @@ function App() {
           }
         }}>📑</span>
         <span id="toggle-sidebar" onClick={()=>setShowMisc(!showMisc)}>👁</span>
-        <span id="password" onClick={()=>{}}>🔑</span>
+        <span id="password" onClick={()=>{ getPassword() }}>🔑</span>
         <span id="audio" className={audioActive?"active":""} onClick={(event)=>{ event.stopPropagation(); setAudioActive(true); initAfterHasUnlocked(); }}></span>
         <span style={{clear:"both"}}></span>
       </div>

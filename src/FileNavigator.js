@@ -3,7 +3,7 @@ import importedLis from "./paths.json";
 import {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom"
 
-function FileNavigator() {
+function FileNavigator({password}) {
   let [lis, setLis] = useState([]);
   let [rerenderCode, setReeenderCode] = useState(Date.now());
 
@@ -48,6 +48,17 @@ function FileNavigator() {
     // console.log(lis);
   }
 
+  // Hide / show premium workouts based on if correct password is entered
+  // This check runs whenever the `password` state changes
+  const [hiderAttributes, SetHiderAttributes] = useState({});
+  useEffect(() => {
+    if (password === "go") {
+      SetHiderAttributes({ 'data-hidden': 'false' });
+    } else {
+      SetHiderAttributes({ 'data-hidden': 'true' });
+    }
+  }, [password]);
+  
 
     return (
       <nav className="file-navigator">
@@ -65,6 +76,8 @@ function FileNavigator() {
                 descendants,
                 textContent} = li;
 
+                // console.log({textContent})
+
               // Open first level. Remember is a flattened array and file-type li is either none or displayed by expanded property
               // console.log({className})
               // if(className==="file" && level===1) {
@@ -77,6 +90,15 @@ function FileNavigator() {
                   window.history.pushState({}, "", path);
                 }
 
+                // Hide folders/files that have (wip), etc in their name, if correct password not entered
+                let regex = /wip|pdf|upnote|evernote|yogabody|omnibody|gmb|fitness\-deck/i;
+                let hider = {}
+                
+                if (regex.test(textContent)) {
+                    hider = hiderAttributes
+                }
+                
+
               return (
                 (className==="file")?
                   // (<a key={i} href="#" old-href={"/view/"+path} onClick={(event)=> { mockRoute("/view/"+path, event) }}>
@@ -86,6 +108,7 @@ function FileNavigator() {
                       className={[className, lis[i].expanded?"expanded":""].join(" ")} 
                       parent={parent} level={level} path={path} descendants={descendants} 
                       onClick={(event)=>{ changeFolderStatus(i, event.target) }}
+                      {...hider}
                     >
                     <span className="icon" 
                       onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}></span>
@@ -100,6 +123,7 @@ function FileNavigator() {
                         className={[className, lis[i].expanded?"expanded":""].join(" ")} 
                         parent={parent} level={level} path={path} descendants={descendants} 
                         onClick={(event)=>{ changeFolderStatus(i, event.target) }}
+                        {...hider}
                       >
                       <span className="icon" 
                         onClick={(event)=>{ changeFolderStatus(i, event.target.parentElement) }}></span>
