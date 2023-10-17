@@ -473,7 +473,7 @@ function Workout({activeExercise, beep, beepFinal}) {
         window.location.reload();
       }
     }
-    document.querySelector(".interval.active")?.closest("details")?.scrollIntoView()
+    document.querySelector(".interval.active")?.closest("details")?.scrollIntoView({ behavior: 'smooth'})
   }
 
   let location = useLocation();

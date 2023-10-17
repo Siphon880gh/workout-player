@@ -59,6 +59,10 @@ function FileNavigator({password}) {
       SetHiderAttributes({ 'data-hidden': 'true' });
     }
   }, [password]);
+
+  function jumpToViewer() {
+    document.querySelector(".file-viewer")?.scrollIntoView({behavior: 'smooth'})
+  }
   
 
     return (
@@ -108,7 +112,7 @@ function FileNavigator({password}) {
                       rerendercode={rerenderCode} 
                       className={[className, lis[i].expanded?"expanded":""].join(" ")} 
                       parent={parent} level={level} path={path} descendants={descendants} 
-                      onClick={(event)=>{ changeFolderStatus(i, event.target) }}
+                      onClick={(event)=>{ changeFolderStatus(i, event.target); jumpToViewer(); }}
                       {...hider}
                     >
                     <span className="icon" 
