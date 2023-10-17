@@ -1,0 +1,9 @@
+#welcome {
+    margin: 0 60px;
+}
+
+@media screen AND (max-width:768px) {
+    #welcome {
+        margin: 0 5px;
+    }   
+}

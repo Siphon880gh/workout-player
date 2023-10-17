@@ -1,6 +1,7 @@
 import './App.css';
 import FileNavigator from "./FileNavigator"
 import FileViewer from "./FileViewer"
+import Welcome from "./Welcome"
 import {useLocation} from "react-router-dom";
 
 import {useState, useEffect} from "react";
@@ -71,6 +72,7 @@ function App() {
           
           <Routes>
             <Route path="/view/*" element={<FileViewer beep={beep} beepFinal={beepFinal}/>}></Route>
+            <Route path="/" element={<Welcome/>}></Route>
           </Routes>
         </main>
       </Router>
