@@ -46,6 +46,11 @@
     color: transparent;
 }
 
+#tree-main li[level="0"] {
+    /* font-weight: bold !important; */
+    text-decoration:underline;
+}
+
 #tree-main li[level] {
     padding-left: 7ch;
 }
@@ -118,7 +123,8 @@
 /* NavLink switches active class */
 
 #tree-main a.active {
-    color: #FF6B6B;
+    /* color: #FF6B6B; */
+    color: #88FF88;
 }
 
 /* [data-hidden="false"] {

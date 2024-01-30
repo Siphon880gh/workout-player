@@ -100,10 +100,22 @@ function FileNavigator({password}) {
                 let hider = {}
                 
                 if (regex.test(textContent)) {
-                    hider = hiderAttributes
+                  if(password!==passwordValid) {
+                    return (<></>);
+                  }
+                  hider = hiderAttributes
                 }
                 
 
+                console.log(`hider["data-hidden"]`)
+                console.log(typeof hider["data-hidden"])
+              // if(hider["data-hidden"]) {
+              //   return (<></>)
+              // }
+              
+              // if(password===validPassword) {
+              //   return (<></>)
+              // }
               return (
                 (className==="file")?
                   // (<a key={i} href="#" old-href={"/view/"+path} onClick={(event)=> { mockRoute("/view/"+path, event) }}>
