@@ -134,3 +134,10 @@ h4 {
 a, a:visited, a:active {
     color: skyblue;
 }
+
+.workout-desc-line {
+    margin: 5px auto;
+}
+.workout-desc-line:empty {
+    height: 1.2rem;
+}

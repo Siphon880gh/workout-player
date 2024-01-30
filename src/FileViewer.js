@@ -509,7 +509,7 @@ function Workout({activeExercise, beep, beepFinal}) {
           workoutRx?.workoutDescs?.length?
           (<div id="workout-desc" dangerouslySetInnerHTML={{ 
             __html: (() => {
-              var workoutDescHTML = workoutRx?.workoutDescs?.map((workoutdesc,i)=>(`<div style="margin: 5px auto">${workoutdesc}</div>`)).join("");
+              var workoutDescHTML = workoutRx?.workoutDescs?.map((workoutdesc,i)=>(`<div class="workout-desc-line">${workoutdesc}</div>`)).join("");
               return workoutDescHTML;
             })()
           }}

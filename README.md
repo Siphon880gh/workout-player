@@ -194,6 +194,16 @@ Remember no mixing sets and intervals in the same exercise. The app will warn yo
 
 Any line that doesn't make sense will just not show up in the app. Most lines should have a keyword at the start, or is a separator ---, and if there's no keyword then it's the first line of the exercise - the exercise title.
 
+## Workout Description
+
+You can have two paragraphs in the workout description:
+
+```
+WORKOUTDESC Paragraph
+WORKOUTDESC 
+WORKOUTDESC Paragraph
+```
+
 ## Picture Format
 
 Basic format is:
