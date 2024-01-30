@@ -121,9 +121,9 @@
     color: #FF6B6B;
 }
 
-[data-hidden="false"] {
+/* [data-hidden="false"] {
     display: block !important;
-}
+} */
 
 [data-hidden="true"] {
     display: none !important;
