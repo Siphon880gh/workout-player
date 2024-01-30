@@ -13,3 +13,4 @@ INSTRUCTION Make sure leg is extended on a platform behind you. Knee below hip.
 INTERVAL 3s 5s 10s
 INTERVAL 3s 5s 10s
 INTERVAL 3s 5s 10s
+---
