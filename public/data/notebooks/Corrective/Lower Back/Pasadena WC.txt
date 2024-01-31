@@ -9,7 +9,7 @@ WORKOUTDESC Elliptical (cooldown) - 10mins
 
 WORKOUTDESC Hamstring Stretch with Strap 3x30secs
 WORKOUTDESC Piriformis Stretch 3x30secs
-WORKOUTDESC Lying Single Knee to Chest 3x30secs
+WORKOUTDESC Lying Single Knee to Chest (SKTC) 3x30secs
 
 WORKOUTDESC Ab Brace - 3x10x10seconds
 WORKOUTDESC Chair-Supported 90/90 Ab Brace - 3x10x10seconds
@@ -19,6 +19,6 @@ WORKOUTDESC Palloff Press with band - 3x10
 WORKOUTDESC Bridges with band - 3x10x3secs
 WORKOUTDESC Clams with hold - 2x10x5secs
 WORKOUTDESC Side-lying hip abduction - 3x10
-WORKOUTDESC Sneaky lunges - 15x10
+WORKOUTDESC Sneaky lunges - 15 reps x10 w/ secs holds
 WORKOUTDESC Dowel Hip Hinge to Squat - 15x
 WORKOUTDESC Side Steps with Monster Walk - 3x
