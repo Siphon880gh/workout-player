@@ -1,3 +1,4 @@
 WORKOUTDESC Short-Circuited:
 WORKOUTDESC Will incorporate full exercises here at a later time
 WORKOUTDESC <a target="_blank" href="https://www.youtube.com/results?search_query=running+cadence+drills&sp=EgIQAw%253D%253D/">Go here</a>
+WORKOUTDESC <a target="_blank" href="https://www.youtube.com/shorts/uPbjewV6d6c">Go here too</a>
