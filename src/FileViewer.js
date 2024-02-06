@@ -19,6 +19,7 @@ import {parseWorkoutData} from "./FileViewer.Utils.js";
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
+import { runPerPage } from './Plugin.PerPage.js';
 
 import {useLocation} from "react-router-dom";
 
@@ -482,8 +483,12 @@ function Workout({activeExercise, beep, beepFinal}) {
   // console.log({workoutRx})
 
   useEffect(()=>{
-    store.dispatch({type: 'workout/reinit'})
+    store.dispatch({type: 'workout/reinit'});
   }, [location])
+
+  useEffect(()=>{
+    runPerPage();
+  })
 
   return (<div>
     {status && (status!=="success")}

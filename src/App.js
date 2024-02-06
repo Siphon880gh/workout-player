@@ -61,7 +61,7 @@ function App() {
     if(localStorage.getItem("workout_player__password")) {
       setPassword(localStorage.getItem("workout_player__password"))
     }
-  })
+  }) // useEffect
 
   return (
     <div className="App">
