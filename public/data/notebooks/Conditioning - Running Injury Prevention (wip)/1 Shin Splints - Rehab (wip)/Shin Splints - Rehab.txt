@@ -9,3 +9,6 @@ WORKOUTDESC <a target="_blank" href="https://www.youtube.com/results?search_quer
 WORKOUTDESC &nbsp;
 WORKOUTDESC Bob & Brad's Shin Splint PT
 WORKOUTDESC <a target="_blank" href="https://www.youtube.com/watch?v=j-qMgIMOt-I&list=PLxlmZJqufNuaR2eZ5FPZ6MCAIfafWB_O1">Go here</a>
+WORKOUTDESC &nbsp;
+WORKOUTDESC Tone and Tighten's Shin Relief
+WORKOUTDESC <a target="_blank" href="https://youtu.be/olpUrL-w2qg">Go here</a>
