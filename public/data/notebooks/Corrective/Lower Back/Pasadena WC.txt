@@ -1,24 +1,24 @@
 WORKOUTDESC Short-Circuited:
-WORKOUTDESC Hamstring Scoops - 3 Laps
-WORKOUTDESC High Knees - 3 Laps
-WORKOUTDESC Abductor Side-Steps - 3 Laps
-
-WORKOUTDESC Threadmill - 10mins
-WORKOUTDESC Bike - 10mins
-WORKOUTDESC Elliptical (cooldown) - 10mins
-
-WORKOUTDESC Hamstring Stretch with Strap 3x30secs
-WORKOUTDESC Piriformis Stretch 3x30secs
-WORKOUTDESC Lying Single Knee to Chest (SKTC) 3x30secs
-
-WORKOUTDESC Ab Brace - 3x10x10seconds
-WORKOUTDESC Chair-Supported 90/90 Ab Brace - 3x10x10seconds
-WORKOUTDESC Bird Dog - 3x10
-WORKOUTDESC Palloff Press with band - 3x10
-
-WORKOUTDESC Bridges with band - 3x10x3secs
-WORKOUTDESC Clams with hold - 2x10x5secs
-WORKOUTDESC Side-lying hip abduction - 3x10
-WORKOUTDESC Sneaky lunges - 15 reps x10 w/ secs holds
-WORKOUTDESC Dowel Hip Hinge to Squat - 15x
-WORKOUTDESC Side Steps with Monster Walk - 3x
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Hamstring Scoops">Hamstring Scoops</a> - 3 Laps
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=High Knees">High Knees</a> - 3 Laps
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Abductor Side-Steps">Abductor Side-Steps</a> - 3 Laps
+WORKOUTDESC 
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Treadmill">Treadmill</a> - 10mins
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Bike">Bike</a> - 10mins
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Elliptical (cooldown)">Elliptical (cooldown)</a> - 10mins
+WORKOUTDESC 
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Hamstring Stretch with Strap">Hamstring Stretch with Strap</a> - 3x30secs
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Piriformis Stretch">Piriformis Stretch</a> - 3x30secs
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Lying Single Knee to Chest (SKTC)">Lying Single Knee to Chest (SKTC)</a> - 3x30secs
+WORKOUTDESC 
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Ab Brace">Ab Brace</a> - 3x10x10seconds
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Chair-Supported 90/90 Ab Brace">Chair-Supported 90/90 Ab Brace</a> - 3x10x10seconds
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Bird Dog">Bird Dog</a> - 3x10
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Palloff Press with band">Palloff Press with band</a> - 3x10
+WORKOUTDESC 
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Bridges with band">Bridges with band</a> - 3x10x3secs
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Clams with hold">Clams with hold</a> - 2x10x5secs
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Side-lying hip abduction">Side-lying hip abduction</a> - 3x10
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Sneaky lunges">Sneaky lunges</a> - 15 reps x10 w/ secs holds
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Dowel Hip Hinge to Squat">Dowel Hip Hinge to Squat</a> - 15x
+WORKOUTDESC <a target="_blank" href="https://www.google.com/search?q=Side Steps with Monster Walk">Side Steps with Monster Walk</a> - 3x
