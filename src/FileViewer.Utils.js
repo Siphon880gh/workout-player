@@ -33,7 +33,10 @@ function parseWorkoutData(data) {
         if(groups.length) {
             if(groups[0].indexOf("WORKOUTDESC ")>=0) {
                 console.log("WORKOUTDESC detected")
-                workoutDescs = groups[0].replaceAll("WORKOUTDESC ", "").split("\n");
+                // workoutDescs = groups[0].replaceAll("WORKOUTDESC ", "").split("\n");
+                workoutDescs = groups[0].split("\n").filter(line=>line.indexOf("WORKOUTDESC ")===0);
+                workoutDescs = workoutDescs.map(removeKeywordSpace);
+                console.log(workoutDescs)
                 groups.shift(0);
             }
         } // groups.length
