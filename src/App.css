@@ -30,7 +30,14 @@ header h1 {
     margin: 0;
     padding: 10px;
 }
-
+#creds {
+    margin-bottom:20px;
+}
+@media screen AND (min-width:687px) {
+    #creds {
+        margin-top:20px;
+    }
+}
 .flex-row {
     display: flex;
     justify-content: flex-start;
