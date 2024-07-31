@@ -41,7 +41,7 @@ function Header() {
                   <img class="my-badge" src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" alt="Youtube" data-canonical-src="https://img.shields.io/badge/Youtube-red?style=flat&amp;logo=youtube&amp;labelColor=red" style={{display:"inline"}}/>
               </a>
 
-              <a href="https://www.linkedin.com/in/weng-fung/" rel="nofollow" target="_blank">
+              <a href="https://www.wengindustries.com/" rel="nofollow" target="_blank">
                   <img class="my-badge" src="https://img.shields.io/badge/WengIndustry.com-black?style=flat&amp;logo=googlehome&amp;labelColor=black&amp;logoColor=white" alt="Website" data-canonical-src="https://img.shields.io/badge/WengIndustry.com-black?style=flat&amp;logo=googlehome&amp;labelColor=black&amp;logoColor=black" style={{display:"inline"}}/>
               </a>
 
