@@ -2,6 +2,7 @@
     "name": "workout-notebook",
     "version": "0.1.0",
     "private": true,
+    "homepage": "/app/workout-player/build",
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.2",
         "babel-preset-es2015": "^6.24.1",

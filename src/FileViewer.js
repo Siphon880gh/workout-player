@@ -469,6 +469,7 @@ function Workout({activeExercise, beep, beepFinal}) {
 
   function jumpToActiveWorkout() {
     if(!document.querySelector(".interval.active")) {
+      // eslint-disable-next-line no-restricted-globals
       let wantRestart = confirm("All exercises finished already. Restart workout?");
       if(wantRestart) {
         window.location.reload();

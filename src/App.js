@@ -82,7 +82,7 @@ function App() {
   return (
     <div className="App">
       {showMisc?<Header/>:""}
-      <Router>
+      <Router basename="/app/workout-player/build">
         <main className="flex-row">
           {showMisc?<FileNavigator password={password} setPassword={setPassword}/>:""}
           

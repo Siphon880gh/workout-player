@@ -10,8 +10,9 @@ function FileNavigator({password}) {
 
   useEffect(()=>{
     // Model will track expanded/collapsed
-    importedLis = importedLis.map(li=>{ li.expanded=false; return li; });
-    setLis(importedLis);
+    let importedLisClosed = [];
+    importedLisClosed = importedLis.map(li=>{ li.expanded=false; return li; });
+    setLis(importedLisClosed);
   }, [])
 
   function changeFolderStatus(i, fromElement) {
@@ -112,7 +113,7 @@ function FileNavigator({password}) {
               return (
                 (className==="file")?
                   // (<a key={i} href="#" old-href={"/view/"+path} onClick={(event)=> { mockRoute("/view/"+path, event) }}>
-                  (<NavLink key={i} to={"/view/"+path}>
+                  (<NavLink key={i} to={"./view/"+path}>
                     <li id={id} 
                       rerendercode={rerenderCode} 
                       className={[className, lis[i].expanded?"expanded":""].join(" ")} 
